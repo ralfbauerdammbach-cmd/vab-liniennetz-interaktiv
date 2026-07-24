@@ -1,0 +1,924 @@
+{
+  "generated_at": "2026-07-22T13:41:17+00:00",
+  "source": "https://www.vab-info.de/downloads",
+  "lines": {
+    "1": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 1 0.29 MB Aschaffenburg ROB - Obernau - Sulzbach Stand 20.07.26 Bus Linie 1 0.29 MB PDF Aschaffenburg ROB - Obernau - Sulzbach Stand 20.07.26",
+        "valid_from": "2026-07-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_01_ab_2026_07_21_Umleitung_1490ace621.pdf"
+      },
+      {
+        "type": "AST-Fahrplan",
+        "title": "Linie 1 0.21 MB AST Aschaffenburg ROB - Gewerbegebiet Obernau Bollenwald Stand 10.05.26 Bedarfsverkehr Linie 1 0.21 MB PDF AST Aschaffenburg ROB - Gewerbegebiet Obernau Bollenwald Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/AST_Linie_01_ab_2026_05_11_f76187e595.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 1 0.30 MB Aschaffenburg ROB - Obernau - Sulzbach Stand 10.05.26 Bus Linie 1 0.30 MB PDF Aschaffenburg ROB - Obernau - Sulzbach Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_01_ab_2026_05_11_7afe0ac922.pdf"
+      }
+    ],
+    "2": [
+      {
+        "type": "AST-Fahrplan",
+        "title": "Linie 2 0.20 MB AST Aschaffenburg ROB - Strietwald Nordfriedhof Stand 10.05.26 Bedarfsverkehr Linie 2 0.20 MB PDF AST Aschaffenburg ROB - Strietwald Nordfriedhof Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/AST_Linie_02_ab_2026_05_11_bd76ebcef2.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 2 0.26 MB Aschaffenburg ROB - Strietwald Stand 10.05.26 Bus Linie 2 0.26 MB PDF Aschaffenburg ROB - Strietwald Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_02_ab_2026_05_11_61ac6796ab.pdf"
+      }
+    ],
+    "3": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 3 0.36 MB Aschaffenburg ROB - Leider - Stockstadt Stand 20.07.26 Bus Linie 3 0.36 MB PDF Aschaffenburg ROB - Leider - Stockstadt Stand 20.07.26",
+        "valid_from": "2026-07-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_03_ab_2026_07_21_Umleitung_ccca5cf615.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 3 0.36 MB Aschaffenburg ROB - Leider - Stockstadt Stand 10.05.26 Bus Linie 3 0.36 MB PDF Aschaffenburg ROB - Leider - Stockstadt Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_03_ab_2026_05_11_e191201f78.pdf"
+      }
+    ],
+    "4": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 4 0.28 MB Aschaffenburg ROB - Schweinheim Stand 20.07.26 Bus Linie 4 0.28 MB PDF Aschaffenburg ROB - Schweinheim Stand 20.07.26",
+        "valid_from": "2026-07-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_07_21_Umleitung_e9e98560a6.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 4 0.29 MB Aschaffenburg ROB - Schweinheim Stand 10.05.26 Bus Linie 4 0.29 MB PDF Aschaffenburg ROB - Schweinheim Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_05_11_7698248316.pdf"
+      }
+    ],
+    "5": [
+      {
+        "type": "AST-Fahrplan",
+        "title": "Linie 5 0.23 MB AST Aschaffenburg ROB - Dörrmorsbach Stand 10.05.26 Bedarfsverkehr Linie 5 0.23 MB PDF AST Aschaffenburg ROB - Dörrmorsbach Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/AST_Linie_05_ab_2026_05_11_8495559b06.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 5 0.31 MB Aschaffenburg ROB - Gailbach - Dörrmorsbach Stand 10.05.26 Bus Linie 5 0.31 MB PDF Aschaffenburg ROB - Gailbach - Dörrmorsbach Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_05_ab_2026_05_11_6db62abe86.pdf"
+      }
+    ],
+    "6": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 6 0.31 MB Aschaffenburg ROB - Nilkheim Stand 20.07.26 Bus Linie 6 0.31 MB PDF Aschaffenburg ROB - Nilkheim Stand 20.07.26",
+        "valid_from": "2026-07-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_06_ab_2026_07_21_Umleitung_0a69336155.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 6 0.32 MB Aschaffenburg ROB - Nilkheim Stand 10.05.26 Bus Linie 6 0.32 MB PDF Aschaffenburg ROB - Nilkheim Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_06_ab_2026_05_11_2f2178d801.pdf"
+      }
+    ],
+    "7": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 7 0.25 MB Aschaffenburg ROB - Österreicher Kolonie - Goldbach - Unterafferbach Stand 20.07.26 Bus Linie 7 0.25 MB PDF Aschaffenburg ROB - Österreicher Kolonie - Goldbach - Unterafferbach Stand 20.07.26",
+        "valid_from": "2026-07-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_07_ab_2026_07_21_Umleitung_4f2865163c.pdf"
+      },
+      {
+        "type": "AST-Fahrplan",
+        "title": "Linie 7 0.19 MB AST Aschaffenburg ROB - Goldbach Autobahnbrücke Stand 10.05.26 Bedarfsverkehr Linie 7 0.19 MB PDF AST Aschaffenburg ROB - Goldbach Autobahnbrücke Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/AST_Linie_07_ab_2026_05_11_bb170410fe.pdf"
+      }
+    ],
+    "8": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 8 0.23 MB Aschaffenburg ROB - Damm Stand 11.05.26 Bus Linie 8 0.23 MB PDF Aschaffenburg ROB - Damm Stand 11.05.26",
+        "valid_from": "2026-05-11",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_08_ab_2026_05_11_f4c3334443.pdf"
+      }
+    ],
+    "9": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 9 0.35 MB Aschaffenburg ROB - Damm - Glattbach Stand 28.06.26 Bus Linie 9 0.35 MB PDF Aschaffenburg ROB - Damm - Glattbach Stand 28.06.26",
+        "valid_from": "2026-06-28",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_09_ab_2026_06_29_Umleitung_8e639d14e5.pdf"
+      }
+    ],
+    "10": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 10 0.30 MB Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Stand 10.05.26 Bus Linie 10 0.30 MB PDF Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_10_ab_2026_05_11_Umleitung_363bd163b3.pdf"
+      },
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 10 0.30 MB Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Stand 20.07.26 Bus Linie 10 0.30 MB PDF Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Stand 20.07.26",
+        "valid_from": "2026-07-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_10_ab_2026_07_21_Umleitung_fb71b5a4cd.pdf"
+      }
+    ],
+    "11": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 11 0.25 MB Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Stand 10.05.26 Bus Linie 11 0.25 MB PDF Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_11_ab_2026_05_11_366a36b4ec.pdf"
+      }
+    ],
+    "12": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 12 0.23 MB Aschaffenburg ROB - Klinikum Stand 20.07.26 Bus Linie 12 0.23 MB PDF Aschaffenburg ROB - Klinikum Stand 20.07.26",
+        "valid_from": "2026-07-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_ab_2026_07_21_Umleitung_93a0d637e1.pdf"
+      },
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 12 0.37 MB Linie 12 / 16: Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Stand 20.07.26 Bus Linie 12 0.37 MB PDF Linie 12 / 16: Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Stand 20.07.26",
+        "valid_from": "2026-07-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_16_ab_2026_07_21_Umleitung_8952db6529.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 12 0.23 MB Aschaffenburg ROB - Klinikum Stand 10.05.26 Bus Linie 12 0.23 MB PDF Aschaffenburg ROB - Klinikum Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_ab_2026_05_11_e8fad12e93.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 12 0.37 MB Linie 12 / 16: Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Stand 10.05.26 Bus Linie 12 0.37 MB PDF Linie 12 / 16: Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_16_ab_2026_05_11_89db3cc859.pdf"
+      }
+    ],
+    "14": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 14 0.32 MB Aschaffenburg ROB - Mainaschaff Stand 28.06.26 Bus Linie 14 0.32 MB PDF Aschaffenburg ROB - Mainaschaff Stand 28.06.26",
+        "valid_from": "2026-06-28",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_14_ab_2026_06_29_Umleitung_69d6c5329e.pdf"
+      }
+    ],
+    "15": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 15 0.27 MB Aschaffenburg ROB - Schweinheim Steubenstr. Stand 10.05.26 Bus Linie 15 0.27 MB PDF Aschaffenburg ROB - Schweinheim Steubenstr. Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_15_ab_2026_05_11_64e9427e28.pdf"
+      }
+    ],
+    "16": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 16 0.29 MB Aschaffenburg ROB - Klinikum - Haibach - Grünmorsbach Stand 10.05.26 Bus Linie 16 0.29 MB PDF Aschaffenburg ROB - Klinikum - Haibach - Grünmorsbach Stand 10.05.26",
+        "valid_from": "2026-05-10",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_16_ab_2026_05_11_85a17e5335.pdf"
+      }
+    ],
+    "20": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach -Feldkahl - Sommerkahl - Schöllkrippen und zurück Stand 13.12.25 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach -Feldkahl - Sommerkahl - Schöllkrippen und zurück Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_3375e5ce1d.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 20 0.26 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 03.05.26 Bus Linie 20 0.26 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 03.05.26",
+        "valid_from": "2026-05-03",
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_ab_260504_52ec11fbdc.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 26.06.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 26.06.26",
+        "valid_from": "2026-06-26",
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_ab_260627_8a0c3a01ad.pdf"
+      }
+    ],
+    "20RMV": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach -Feldkahl - Sommerkahl - Schöllkrippen und zurück Stand 13.12.25 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach -Feldkahl - Sommerkahl - Schöllkrippen und zurück Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_3375e5ce1d.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 20 0.26 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 03.05.26 Bus Linie 20 0.26 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 03.05.26",
+        "valid_from": "2026-05-03",
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_ab_260504_52ec11fbdc.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 26.06.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 26.06.26",
+        "valid_from": "2026-06-26",
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_ab_260627_8a0c3a01ad.pdf"
+      }
+    ],
+    "21": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 21 0.03 MB Aschaffenburg ROB - Hösbach Sand - Wenighösbach - Unterafferbach Stand 28.06.26 Bus Linie 21 0.03 MB PDF Aschaffenburg ROB - Hösbach Sand - Wenighösbach - Unterafferbach Stand 28.06.26",
+        "valid_from": "2026-06-28",
+        "url": "https://vab-cms-prod.japi.dev/uploads/21_beide_2026_ab_260629_5866f8c788.pdf"
+      }
+    ],
+    "23": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 23 0.04 MB Brücken-Mömbris-Feldkahl-Hösbach-Aschaffenburg Stand 26.06.26 Bus Linie 23 0.04 MB PDF Brücken-Mömbris-Feldkahl-Hösbach-Aschaffenburg Stand 26.06.26",
+        "valid_from": "2026-06-26",
+        "url": "https://vab-cms-prod.japi.dev/uploads/23_beide_2026_ab_260627_f5a9bbb981.pdf"
+      }
+    ],
+    "24": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 24 0.04 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Stand 13.12.25 Bus Linie 24 0.04 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_7cda31e016.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 24 0.26 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Stand 12.04.26 Bus Linie 24 0.26 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Stand 12.04.26",
+        "valid_from": "2026-04-12",
+        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_ab_260413_f1923888dd.pdf"
+      }
+    ],
+    "25": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 25 0.40 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Stand 17.05.26 Bus Linie 25 0.40 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Stand 17.05.26",
+        "valid_from": "2026-05-17",
+        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_BY_nach_HE_457c32a972.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Stand 13.12.25 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_9729bbbb3f.pdf"
+      }
+    ],
+    "26": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 26 0.03 MB Hemsbach - Mömbris - Rappach/Klinger - Hohl - Gunzenbach - Oberafferbach Stand 02.08.26 Bus Linie 26 0.03 MB PDF Hemsbach - Mömbris - Rappach/Klinger - Hohl - Gunzenbach - Oberafferbach Stand 02.08.26",
+        "valid_from": "2026-08-02",
+        "url": "https://vab-cms-prod.japi.dev/uploads/26_beide_2026_Bau_AB_13_c5b8d5b93e.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 26 0.04 MB Hemsbach - Mömbris - Rappach/ Klinger - Hohl - Rückersbach - Oberafferbach Stand 13.12.25 Bus Linie 26 0.04 MB PDF Hemsbach - Mömbris - Rappach/ Klinger - Hohl - Rückersbach - Oberafferbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/26_beide_2026_0ec7d573d8.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 26 0.26 MB Hemsbach - Mömbris - Rappach/Klinger - Hohl - Gunzenbach - Oberafferbach Stand 06.04.26 Bus Linie 26 0.26 MB PDF Hemsbach - Mömbris - Rappach/Klinger - Hohl - Gunzenbach - Oberafferbach Stand 06.04.26",
+        "valid_from": "2026-04-06",
+        "url": "https://vab-cms-prod.japi.dev/uploads/26_beide_2026_ab_260407_19af54798c.pdf"
+      }
+    ],
+    "27": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 27 0.03 MB Schöllkrippen-Edelbach-Wiesen Stand 02.08.26 Bus Linie 27 0.03 MB PDF Schöllkrippen-Edelbach-Wiesen Stand 02.08.26",
+        "valid_from": "2026-08-02",
+        "url": "https://vab-cms-prod.japi.dev/uploads/27_beide_2026_Bau_ST_2305_502e6157ba.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 27 0.04 MB Schöllkrippen - Edelbach - Wiesen Stand 13.12.25 Bus Linie 27 0.04 MB PDF Schöllkrippen - Edelbach - Wiesen Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/27_beide_2026_e0f008917a.pdf"
+      }
+    ],
+    "28": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 28 0.25 MB Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Stand 07.06.26 Bus Linie 28 0.25 MB PDF Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Stand 07.06.26",
+        "valid_from": "2026-06-07",
+        "url": "https://vab-cms-prod.japi.dev/uploads/28_beide_2026_Bau_AB_19_9f4c2fddac.pdf"
+      },
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 28 0.03 MB Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Stand 31.07.26 Bus Linie 28 0.03 MB PDF Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Stand 31.07.26",
+        "valid_from": "2026-07-31",
+        "url": "https://vab-cms-prod.japi.dev/uploads/28_beide_2026_Bau_ST_2305_215b1bc9c3.pdf"
+      }
+    ],
+    "29": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 29 0.03 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 13.12.25 Bus Linie 29 0.03 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_bb9d3562f6.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 29 0.03 MB Schöllkrippen - Krombach und zurück Stand 13.12.25 Bus Linie 29 0.03 MB PDF Schöllkrippen - Krombach und zurück Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/29_beide_2026_c7f8911c43.pdf"
+      }
+    ],
+    "29 S": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 29S 0.25 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 07.06.26 Bus Linie 29S 0.25 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 07.06.26",
+        "valid_from": "2026-06-07",
+        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_AB_19_759f5f3698.pdf"
+      }
+    ],
+    "29S": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 29S 0.25 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 07.06.26 Bus Linie 29S 0.25 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 07.06.26",
+        "valid_from": "2026-06-07",
+        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_AB_19_759f5f3698.pdf"
+      }
+    ],
+    "30": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 30 0.34 MB Schöllkrippen - Westerngrund - Gelnhausen - Bernbach - Somborn Stand 17.05.26 Bus Linie 30 0.34 MB PDF Schöllkrippen - Westerngrund - Gelnhausen - Bernbach - Somborn Stand 17.05.26",
+        "valid_from": "2026-05-17",
+        "url": "https://vab-cms-prod.japi.dev/uploads/30_beide_2026_ab_Mai_Bau_BY_nach_HE_49e83612ec.pdf"
+      }
+    ],
+    "31": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 31 0.06 MB Aschaffenburg - Mainaschaff - Kleinostheim Waldstadt - Dettingen - Alzenau - Albstadt - Somborn Stand 13.12.25 Bus Linie 31 0.06 MB PDF Aschaffenburg - Mainaschaff - Kleinostheim Waldstadt - Dettingen - Alzenau - Albstadt - Somborn Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/31_beide_2026_f456fb9734.pdf"
+      }
+    ],
+    "32": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 32 0.05 MB Kahl - Karlstein - Alzenau Stand 13.12.25 Bus Linie 32 0.05 MB PDF Kahl - Karlstein - Alzenau Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/32_beide_2026_cd8a290d80.pdf"
+      }
+    ],
+    "33": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 33 0.03 MB Kahlgrundexpress Schöllkrippen - Aschaffenburg und zurück Stand 13.12.25 Bus Linie 33 0.03 MB PDF Kahlgrundexpress Schöllkrippen - Aschaffenburg und zurück Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/33_beide_2026_ce2490adb6.pdf"
+      }
+    ],
+    "40": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 40 0.05 MB Aschaffenburg -Haibach - Mespelbrunn -Dammbach Stand 13.12.25 Bus Linie 40 0.05 MB PDF Aschaffenburg -Haibach - Mespelbrunn -Dammbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/40_141225_319ca8d4e0.pdf"
+      }
+    ],
+    "41": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 41 0.03 MB Aschaffenburg - Bessenbach - Hösbach-Bhf Stand 13.12.25 Bus Linie 41 0.03 MB PDF Aschaffenburg - Bessenbach - Hösbach-Bhf Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/41_141225_899620f402.pdf"
+      }
+    ],
+    "42": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 42 0.53 MB Aschaffenburg - Hösbach - Hösbach Bhf - Waldaschaff - Rothenbuch Stand 21.07.26 Bus Linie 42 0.53 MB PDF Aschaffenburg - Hösbach - Hösbach Bhf - Waldaschaff - Rothenbuch Stand 21.07.26",
+        "valid_from": "2026-07-21",
+        "url": "https://vab-cms-prod.japi.dev/uploads/42_Baustelle_030826_050926_cd266d9f7b.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 42 0.61 MB Aschaffenburg - Hösbach - Hösbach Bhf - Waldaschaff - Rothenbuch Stand 26.06.26 Bus Linie 42 0.61 MB PDF Aschaffenburg - Hösbach - Hösbach Bhf - Waldaschaff - Rothenbuch Stand 26.06.26",
+        "valid_from": "2026-06-26",
+        "url": "https://vab-cms-prod.japi.dev/uploads/42_270626_b1a20536a3.pdf"
+      }
+    ],
+    "43": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 43 0.51 MB Aschaffenburg - Goldbach - Hösbach/Haibach - Hösbach Bhf Stand 26.06.26 Bus Linie 43 0.51 MB PDF Aschaffenburg - Goldbach - Hösbach/Haibach - Hösbach Bhf Stand 26.06.26",
+        "valid_from": "2026-06-26",
+        "url": "https://vab-cms-prod.japi.dev/uploads/43_270626_59b828272b.pdf"
+      }
+    ],
+    "44": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 44 0.59 MB Aschaffenburg - Goldbach - Hösbach - Laufach - Hain Stand 26.06.26 Bus Linie 44 0.59 MB PDF Aschaffenburg - Goldbach - Hösbach - Laufach - Hain Stand 26.06.26",
+        "valid_from": "2026-06-26",
+        "url": "https://vab-cms-prod.japi.dev/uploads/44_270626_596c82f50e.pdf"
+      }
+    ],
+    "45": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 45 0.70 MB Aschaffenburg - Hösbach - Sailauf - Eichenberg Stand 26.06.26 Bus Linie 45 0.70 MB PDF Aschaffenburg - Hösbach - Sailauf - Eichenberg Stand 26.06.26",
+        "valid_from": "2026-06-26",
+        "url": "https://vab-cms-prod.japi.dev/uploads/45_270626_c1483b92a6.pdf"
+      }
+    ],
+    "47": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 47 0.27 MB Wochenendverkehr Hochspessart Stand 21.07.26 Bus Linie 47 0.27 MB PDF Wochenendverkehr Hochspessart Stand 21.07.26",
+        "valid_from": "2026-07-21",
+        "url": "https://vab-cms-prod.japi.dev/uploads/47_Baustelle_100826_210826_c1ea92edfb.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 47 0.03 MB Wochenendverkehr Hochspessart Stand 13.12.25 Bus Linie 47 0.03 MB PDF Wochenendverkehr Hochspessart Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/47_141225_1ff7b5dd86.pdf"
+      }
+    ],
+    "50": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 50 0.05 MB Aschaffenburg - Mainaschaff - Kleinostheim - Karlstein - Kahl Stand 13.12.25 Bus Linie 50 0.05 MB PDF Aschaffenburg - Mainaschaff - Kleinostheim - Karlstein - Kahl Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/50_141225_56f9c370f5.pdf"
+      }
+    ],
+    "52": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 52 0.02 MB Schulverband Großostheim Stand 13.12.25 Bus Linie 52 0.02 MB PDF Schulverband Großostheim Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/52_141225_98c1ba2729.pdf"
+      }
+    ],
+    "53": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 53 0.75 MB Schaafheim-Ringheim-Großostheim-Aschaffenburg Stand 13.12.25 Bus Linie 53 0.75 MB PDF Schaafheim-Ringheim-Großostheim-Aschaffenburg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/53_141225_3c2b0da89f.pdf"
+      }
+    ],
+    "54": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 54 0.83 MB Schaafheim-Pflaumheim-Großostheim-Aschaffenburg Stand 21.07.26 Bus Linie 54 0.83 MB PDF Schaafheim-Pflaumheim-Großostheim-Aschaffenburg Stand 21.07.26",
+        "valid_from": "2026-07-21",
+        "url": "https://vab-cms-prod.japi.dev/uploads/54_Baustelle_130826_260826_15d082ad39.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 54 1.03 MB Schaafheim-Pflaumheim-Großostheim-Aschaffenburg Stand 13.12.25 Bus Linie 54 1.03 MB PDF Schaafheim-Pflaumheim-Großostheim-Aschaffenburg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/54_141225_1d38096ec2.pdf"
+      }
+    ],
+    "55": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 55 0.18 MB Aschaffenburg - Mömlingen - Obb-Elsenfeld Stand 21.07.26 Bus Linie 55 0.18 MB PDF Aschaffenburg - Mömlingen - Obb-Elsenfeld Stand 21.07.26",
+        "valid_from": "2026-07-21",
+        "url": "https://vab-cms-prod.japi.dev/uploads/55_Baustelle_030826_040926_d321b23bec.pdf"
+      },
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 55 0.04 MB Aschaffenburg - Mömlingen - Obb-Elsenfeld Stand 02.08.26 Bus Linie 55 0.04 MB PDF Aschaffenburg - Mömlingen - Obb-Elsenfeld Stand 02.08.26",
+        "valid_from": "2026-08-02",
+        "url": "https://vab-cms-prod.japi.dev/uploads/55_beide_Bau_Moem_705dcf6259.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 55 0.12 MB Aschaffenburg - Mömlingen - Obb-Elsenfeld Stand 17.03.26 Bus Linie 55 0.12 MB PDF Aschaffenburg - Mömlingen - Obb-Elsenfeld Stand 17.03.26",
+        "valid_from": "2026-03-17",
+        "url": "https://vab-cms-prod.japi.dev/uploads/55_beide_ab_260318_30fe1f918c.pdf"
+      }
+    ],
+    "56": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 56 0.03 MB Sulzbach - Niedernberg - Großostheim Stand 13.12.25 Bus Linie 56 0.03 MB PDF Sulzbach - Niedernberg - Großostheim Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/56_beide_2026_0219d1fa89.pdf"
+      }
+    ],
+    "60": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 60 0.11 MB Aschaffenburg - Niedernberg - Großwallstadt - Obernburg-Elsenfeld Stand 17.05.26 Bus Linie 60 0.11 MB PDF Aschaffenburg - Niedernberg - Großwallstadt - Obernburg-Elsenfeld Stand 17.05.26",
+        "valid_from": "2026-05-17",
+        "url": "https://vab-cms-prod.japi.dev/uploads/60_beide_Bau_OBB_GW_6551d2a4cf.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 60 0.05 MB Aschaffenburg - Niedernberg - Großwallstadt - Obernburg-Elsenfeld Stand 13.12.25 Bus Linie 60 0.05 MB PDF Aschaffenburg - Niedernberg - Großwallstadt - Obernburg-Elsenfeld Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/60_beide_2026_963209aea8.pdf"
+      }
+    ],
+    "61": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 61 0.04 MB Aschaffenburg - Kleinwallstadt - Obb-Elsenfeld - Mönchberg Stand 13.12.25 Bus Linie 61 0.04 MB PDF Aschaffenburg - Kleinwallstadt - Obb-Elsenfeld - Mönchberg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/61_141225_ba858b365e.pdf"
+      }
+    ],
+    "62": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 62 1.14 MB Aschaffenburg - Sulzbach - Leidersbach - Hausen - Obernburg-Elsenfeld Bhf Stand 22.03.26 Bus Linie 62 1.14 MB PDF Aschaffenburg - Sulzbach - Leidersbach - Hausen - Obernburg-Elsenfeld Bhf Stand 22.03.26",
+        "valid_from": "2026-03-22",
+        "url": "https://vab-cms-prod.japi.dev/uploads/62_baustelle_230326_7857fe10e3.pdf"
+      }
+    ],
+    "62A": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 62A 0.02 MB Roßbach-Volkersbrunn-Heimbuchenthal Stand 13.12.25 Bus Linie 62A 0.02 MB PDF Roßbach-Volkersbrunn-Heimbuchenthal Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/62_A_141225_1b2f9cac52.pdf"
+      }
+    ],
+    "63": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 63 0.40 MB Aschaffenburg - Gailbach - Soden - Sulzbach - Dornau - Kleinwallstadt Stand 22.03.26 Bus Linie 63 0.40 MB PDF Aschaffenburg - Gailbach - Soden - Sulzbach - Dornau - Kleinwallstadt Stand 22.03.26",
+        "valid_from": "2026-03-22",
+        "url": "https://vab-cms-prod.japi.dev/uploads/63_baustelle_230326_aeddf0d2f6.pdf"
+      }
+    ],
+    "64": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 64 0.23 MB Hessenthal-Krausenbach-Neuhammer-Eschau-Elsenfeld Stand 13.12.25 Bus Linie 64 0.23 MB PDF Hessenthal-Krausenbach-Neuhammer-Eschau-Elsenfeld Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/64_364d07a5e5.pdf"
+      }
+    ],
+    "65": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 65 0.21 MB Streit-Mechenhard-Erlenbach Stand 13.12.25 Bus Linie 65 0.21 MB PDF Streit-Mechenhard-Erlenbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/65_209032bfba.pdf"
+      }
+    ],
+    "67": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 67 0.03 MB Haingrund - Wörth - Klingenberg Stand 13.12.25 Bus Linie 67 0.03 MB PDF Haingrund - Wörth - Klingenberg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/67_141225_18bb0754a2.pdf"
+      }
+    ],
+    "68": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 68 0.45 MB Obernburg Bhf-Obernburg-Eisenbach-Mömlingen Stand 17.05.26 Bus Linie 68 0.45 MB PDF Obernburg Bhf-Obernburg-Eisenbach-Mömlingen Stand 17.05.26",
+        "valid_from": "2026-05-17",
+        "url": "https://vab-cms-prod.japi.dev/uploads/68_baustelle_180526_191026_2_f419b39ebc.pdf"
+      },
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 68 0.04 MB Obernburg Bhf-Obernburg-Eisenbach-Mömlingen Stand 02.08.26 Bus Linie 68 0.04 MB PDF Obernburg Bhf-Obernburg-Eisenbach-Mömlingen Stand 02.08.26",
+        "valid_from": "2026-08-02",
+        "url": "https://vab-cms-prod.japi.dev/uploads/68_beide_Bau_Moem_d1e43dbd73.pdf"
+      }
+    ],
+    "69": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 69 0.21 MB Elsenfeld - Rück - Streit - Eschau - Eichelsbach - Elsenfeld Stand 13.12.25 Bus Linie 69 0.21 MB PDF Elsenfeld - Rück - Streit - Eschau - Eichelsbach - Elsenfeld Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/69_ff32125680.pdf"
+      }
+    ],
+    "71": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 71 0.02 MB Schulverband Kleinwallstadt Stand 13.12.25 Bus Linie 71 0.02 MB PDF Schulverband Kleinwallstadt Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/71_141225_ea5bf0f6ff.pdf"
+      }
+    ],
+    "73": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 73 0.02 MB Roßbach - Volkersbrunn Stand 13.12.25 Bus Linie 73 0.02 MB PDF Roßbach - Volkersbrunn Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/73_141225_b88faf280c.pdf"
+      }
+    ],
+    "74": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 74 0.02 MB Schulverband Mönchberg-Eschau Stand 13.12.25 Bus Linie 74 0.02 MB PDF Schulverband Mönchberg-Eschau Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/74_141225_1ef800c8b3.pdf"
+      }
+    ],
+    "76": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 76 0.02 MB Schulverband Klingenberg Stand 13.12.25 Bus Linie 76 0.02 MB PDF Schulverband Klingenberg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/76_141225_ad05c9893a.pdf"
+      }
+    ],
+    "78": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 78 0.02 MB Schulverband Obernburg Stand 13.12.25 Bus Linie 78 0.02 MB PDF Schulverband Obernburg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/78_beide_2026_3d6e1bd1c2.pdf"
+      }
+    ],
+    "80": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 80 0.07 MB Miltenberg - Großheubach / Bürgstadt - Miltenberg Stand 13.12.25 Bus Linie 80 0.07 MB PDF Miltenberg - Großheubach / Bürgstadt - Miltenberg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/80_141225_1fde254cca.pdf"
+      }
+    ],
+    "81": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 81 0.22 MB Miltenberg-Großheubach-Röllfeld-Klingenberg-Erlenbach Stand 13.12.25 Bus Linie 81 0.22 MB PDF Miltenberg-Großheubach-Röllfeld-Klingenberg-Erlenbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/81_37a406f141.pdf"
+      }
+    ],
+    "82": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 82 0.08 MB Miltenberg - Eichenbühl - Höhenorte und zurück Stand 13.12.25 Bus Linie 82 0.08 MB PDF Miltenberg - Eichenbühl - Höhenorte und zurück Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/82_141225_0041b0eb3c.pdf"
+      }
+    ],
+    "83": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 83 0.26 MB Miltenberg - Mönchberg - Eschau - Wildensee - Stadtprozelten - Wertheim Stand 13.12.25 Bus Linie 83 0.26 MB PDF Miltenberg - Mönchberg - Eschau - Wildensee - Stadtprozelten - Wertheim Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/83_3ca2472925.pdf"
+      }
+    ],
+    "84": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 84 0.06 MB Miltenberg - Breitendiel - Mainbullau - Weibach - Amorbach Stand 13.12.25 Bus Linie 84 0.06 MB PDF Miltenberg - Breitendiel - Mainbullau - Weibach - Amorbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/84_141225_d56a6a9c9b.pdf"
+      }
+    ],
+    "85": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 85 0.21 MB Miltenberg-Bürgstadt-Freudenberg-Stadtprozelten-Wertheim Stand 13.12.25 Bus Linie 85 0.21 MB PDF Miltenberg-Bürgstadt-Freudenberg-Stadtprozelten-Wertheim Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/85_e5b5565f1b.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "OF-85 0.14 MB Aschaffenburg-Mainaschaff-Zellhausen-Seligenstadt-Froschhausen-Weiskirchen S1 Stand 13.12.25 Bus OF-85 0.14 MB PDF Aschaffenburg-Mainaschaff-Zellhausen-Seligenstadt-Froschhausen-Weiskirchen S1 Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/85_kvgof_linienfahrplan_of_85_ab_18_08_2025_1_2228f970c7.pdf"
+      }
+    ],
+    "86": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 86 0.07 MB Miltenberg - Rüdenau - Kleinheubach - Laudenbach u. zurück Stand 13.12.25 Bus Linie 86 0.07 MB PDF Miltenberg - Rüdenau - Kleinheubach - Laudenbach u. zurück Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/86_141225_41fec2e889.pdf"
+      }
+    ],
+    "87": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 87 0.23 MB Miltenberg-Wenschdorf-Monbrunn-Schippach-Berndiel Stand 13.12.25 Bus Linie 87 0.23 MB PDF Miltenberg-Wenschdorf-Monbrunn-Schippach-Berndiel Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/87_57f30e07c6.pdf"
+      }
+    ],
+    "88": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 88 0.06 MB Breitendiel - Stadtverkehr Miltenberg u. zurück Stand 13.12.25 Bus Linie 88 0.06 MB PDF Breitendiel - Stadtverkehr Miltenberg u. zurück Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/88_141225_98c18e12ca.pdf"
+      }
+    ],
+    "92": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 92 0.06 MB Stadtverkehr Amorbach Stand 13.12.25 Bus Linie 92 0.06 MB PDF Stadtverkehr Amorbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/92_141225_d2346636f5.pdf"
+      }
+    ],
+    "93": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 93 0.06 MB Schneeberg/ Amorbach - Kleinheubach -WIKA - Wörth - Glanzstoffwerke Stand 13.12.25 Bus Linie 93 0.06 MB PDF Schneeberg/ Amorbach - Kleinheubach -WIKA - Wörth - Glanzstoffwerke Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/93_141225_b8b52bb2a5.pdf"
+      }
+    ],
+    "94": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 94 0.06 MB Amorbach - Weilbach - Weckbach - Gönz Stand 13.12.25 Bus Linie 94 0.06 MB PDF Amorbach - Weilbach - Weckbach - Gönz Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/94_141225_087f420c61.pdf"
+      }
+    ],
+    "95": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 95 0.06 MB Amorbach - Kirchzell - Watterbach - Breitenbuch/Ottorfszel Stand 13.12.25 Bus Linie 95 0.06 MB PDF Amorbach - Kirchzell - Watterbach - Breitenbuch/Ottorfszel Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/95_141225_455a42dee0.pdf"
+      }
+    ],
+    "96": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 96 0.06 MB Amorbach - Buch - Preunschen - Mörschenhardt - Mudau Stand 13.12.25 Bus Linie 96 0.06 MB PDF Amorbach - Buch - Preunschen - Mörschenhardt - Mudau Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/96_141225_0df6bd0a2f.pdf"
+      }
+    ],
+    "97": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 97 0.05 MB Amorbach - Schneeberg - Gottersdorf - Reichartshausen - Neudorf - Amorbach Stand 13.12.25 Bus Linie 97 0.05 MB PDF Amorbach - Schneeberg - Gottersdorf - Reichartshausen - Neudorf - Amorbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/97_141225_f064bd626f.pdf"
+      }
+    ],
+    "98": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 98 0.06 MB Amorbach - Beuchen / Boxbrunn - Eulbach Stand 13.12.25 Bus Linie 98 0.06 MB PDF Amorbach - Beuchen / Boxbrunn - Eulbach Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/98_141225_eff1c79a55.pdf"
+      }
+    ],
+    "99": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 99 0.06 MB Amorbach - Schneeberg - Hambrunn - Zittenfelden Stand 13.12.25 Bus Linie 99 0.06 MB PDF Amorbach - Schneeberg - Hambrunn - Zittenfelden Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/99_141225_0ebbd0c3c2.pdf"
+      }
+    ],
+    "640": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 640 0.12 MB Rüsselsheim - Frankfurt - Frankfurt Ost - Hanau - Aschaffenburg - Laufach Stand 20.11.25 Bus Linie 640 0.12 MB PDF Rüsselsheim - Frankfurt - Frankfurt Ost - Hanau - Aschaffenburg - Laufach Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_640_H_Taeglich_F_Bayern_G21112025_3484d19cb0.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 640 0.13 MB Laufach - Aschaffenburg - Hanau - Frankfurt Ost - Frankfurt - Rüsselsheim Stand 20.11.25 Bus Linie 640 0.13 MB PDF Laufach - Aschaffenburg - Hanau - Frankfurt Ost - Frankfurt - Rüsselsheim Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_640_R_Taeglich_F_Bayern_G21112025_e0681d979a.pdf"
+      }
+    ],
+    "642": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 642 0.08 MB Hanau - Kahl (Main) - Schöllkrippen Stand 20.11.25 Bus Linie 642 0.08 MB PDF Hanau - Kahl (Main) - Schöllkrippen Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_642_R_Taeglich_G21112025_acad851a3e.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 642 0.08 MB Schöllkrippen - Kahl (Main) - Hanau Stand 20.11.25 Bus Linie 642 0.08 MB PDF Schöllkrippen - Kahl (Main) - Hanau Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_642_H_Taeglich_G21112025_4b31356d08.pdf"
+      }
+    ],
+    "651": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 651 0.10 MB Aschaffenburg - Darmstadt - Mainz - Wiesbaden Stand 13.12.25 Bus Linie 651 0.10 MB PDF Aschaffenburg - Darmstadt - Mainz - Wiesbaden Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_651_R_Taeglich_G21112025_2952878fc0.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 651 0.10 MB Wiesbaden-Mainz-Darmstadt-Aschaffenburg Stand 13.12.25 Bus Linie 651 0.10 MB PDF Wiesbaden-Mainz-Darmstadt-Aschaffenburg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_651_H_Taeglich_G21112025_f33aa5e653.pdf"
+      }
+    ],
+    "781": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 781 0.09 MB Aschaffenburg - Miltenberg - Wertheim Stand 20.11.25 Bus Linie 781 0.09 MB PDF Aschaffenburg - Miltenberg - Wertheim Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_781_H_Taeglich_G21112025_43e967dc05.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 781 0.09 MB Wertheim - Miltenberg - Aschaffenburg Stand 20.11.25 Bus Linie 781 0.09 MB PDF Wertheim - Miltenberg - Aschaffenburg Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_781_R_Taeglich_G21112025_d08163be19.pdf"
+      }
+    ],
+    "784": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 784 0.08 MB Miltenberg - Amorbach - Walldürn - Seckach Stand 20.11.25 Bus Linie 784 0.08 MB PDF Miltenberg - Amorbach - Walldürn - Seckach Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_784_H_Taeglich_G21112025_3504f38eec.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 784 0.08 MB Seckach - Walldürn - Amorbach - Miltenberg Stand 20.11.25 Bus Linie 784 0.08 MB PDF Seckach - Walldürn - Amorbach - Miltenberg Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_784_R_Taeglich_G21112025_c6217614c8.pdf"
+      }
+    ],
+    "800": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 800 0.10 MB Würzburg - Gemünden - Aschaffenburg Stand 20.11.25 Bahn Linie 800 0.10 MB PDF Würzburg - Gemünden - Aschaffenburg Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_800_R_Taeglich_F_Bayern_nur_14122025_12122026_G14102025_fb37d5f41e.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 800 0.10 MB Würzburg - Gemünden - Aschaffenburg Stand 20.11.25 Bahn Linie 800 0.10 MB PDF Würzburg - Gemünden - Aschaffenburg Stand 20.11.25",
+        "valid_from": "2025-11-20",
+        "url": "https://vab-cms-prod.japi.dev/uploads/KB_800_H_Taeglich_F_Bayern_nur_14122025_12122026_G14102025_605d5eaa6e.pdf"
+      }
+    ],
+    "972": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 972 0.11 MB Wertheim - Freudenberg (Main) Stand 13.12.25 Bus Linie 972 0.11 MB PDF Wertheim - Freudenberg (Main) Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/972_141225_685ee6fe1d.pdf"
+      }
+    ],
+    "977": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 977 0.12 MB Würzburg - Wertheim - Miltenberg Stand 13.12.25 Bus Linie 977 0.12 MB PDF Würzburg - Wertheim - Miltenberg Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/977_141225_e958019cc9.pdf"
+      }
+    ],
+    "BG1": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "BG 0.50 MB Linie BG 1: Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 13.12.25 Bus BG 0.50 MB PDF Linie BG 1: Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_65910f67ca.pdf"
+      }
+    ],
+    "BG2": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "BG 0.50 MB Linie BG 1: Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 13.12.25 Bus BG 0.50 MB PDF Linie BG 1: Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_65910f67ca.pdf"
+      }
+    ],
+    "BG3": [
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "BG 0.50 MB Linie BG 1: Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 13.12.25 Bus BG 0.50 MB PDF Linie BG 1: Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 13.12.25",
+        "valid_from": "2025-12-13",
+        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_65910f67ca.pdf"
+      }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "line": "12",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "12-auto-01",
+      "label": "Aschaffenburg ↔ Grünmorsbach",
+      "description": "über Haibach, Klinikum",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "1f909ed5b61151122f4d",
+        "39789da6432ae92605dc"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "12-auto-02",
+      "label": "Aschaffenburg ↔ Klinikum",
+      "description": "",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "57716df258809c90ca61",
+        "c54b588bae53ca9759a1"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

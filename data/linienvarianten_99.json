@@ -1,0 +1,44 @@
+{
+  "line": "99",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "99-auto-01",
+      "label": "Ringlinie ab Amorbach über Schneeberg – Hambrunn – Zittenfelden",
+      "description": "über Schneeberg, Hambrunn, Zittenfelden",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "70554d5dbd3ab0e51a79",
+        "aec126fdea736771280e",
+        "cedd1804e1eb0052ec1b",
+        "d075ce0b42ce9c1a7f3f"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "99-auto-02",
+      "label": "Ringlinie ab Amorbach über Schneeberg",
+      "description": "über Schneeberg",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "4ee42595b24e13298632",
+        "8f2cd6a3ff428f96fa66"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "99-auto-03",
+      "label": "Amorbach ↔ Schneeberg",
+      "description": "",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "59f019bb5ecbbab0b7b2"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

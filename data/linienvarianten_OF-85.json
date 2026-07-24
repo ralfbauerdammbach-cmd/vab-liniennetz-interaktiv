@@ -1,0 +1,58 @@
+{
+  "line": "OF-85",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "of-85-auto-01",
+      "label": "Aschaffenburg ↔ Obertshausen",
+      "description": "über Obertshausen Schulzentrum, Obertshausen Erlebnisbad, Rodgau-Weiskirchen, Rodgau-Weiskirchen Bürgerhaus, Rodgau-Weiskirchen Anhalter Straße, Seligenstadt-Froschhausen Am Reitpfad",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "2fe2a3a084550205a4a1",
+        "6105ac8a47967697811f",
+        "73054065582fd3241dd9",
+        "84224657a2f3014a0222"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "of-85-auto-02",
+      "label": "Mainhausen-Zellhausen Wiesenstraße ↔ Obertshausen",
+      "description": "über Seligenstadt Schwimmbad, Seligenstadt Würzburger Straße (Kleingärten), Seligenstadt, Seligenstadt Kreiskrankenhaus, Seligenstadt Westring, Seligenstadt Kortenbacher Weg",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "0dfeaaf51eb4d5439909",
+        "7e4de64723fc788d0f80",
+        "85e0e4d6d61efaeb2fb3",
+        "b16128e7aa68957e4dfa"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "of-85-auto-03",
+      "label": "Obertshausen ↔ Seligenstadt Würzburger Straße (Kleingärten)",
+      "description": "über Seligenstadt, Seligenstadt Kreiskrankenhaus, Seligenstadt Westring, Seligenstadt Kortenbacher Weg, Seligenstadt In den Spitzäckern, Seligenstadt-Froschhausen An der Lache",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "cd11382a91525829b27a"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "of-85-auto-04",
+      "label": "Mainhausen-Zellhausen Keilmannplatz ↔ Seligenstadt",
+      "description": "über Seligenstadt Würzburger Straße (Kleingärten), Seligenstadt Schwimmbad, Mainhausen-Zellhausen Wiesenstraße",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "1e99638f0992962ed0c0",
+        "86014260b6bacfda7531"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

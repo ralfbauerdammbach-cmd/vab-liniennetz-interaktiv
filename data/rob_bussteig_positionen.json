@@ -1,0 +1,119 @@
+{
+  "name": "ROB-Aschaffenburg",
+  "beschreibung": "Positionen der Bussteige 1 bis 14. Bussteige 1 bis 10, 13 und 14 stammen aus GTFS. Die Pausenplätze 11 und 12 wurden anhand der ROB-Übersicht schematisch positioniert.",
+  "anzeige_ab_zoom": 17,
+  "positionen": [
+    {
+      "bussteig": "1",
+      "lat": 49.9800414,
+      "lon": 9.1407995,
+      "stop_id": "de:09661:5100:0:1",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "2",
+      "lat": 49.9800535,
+      "lon": 9.1403113,
+      "stop_id": "de:09661:5100:0:2",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "3",
+      "lat": 49.9801208,
+      "lon": 9.1402121,
+      "stop_id": "de:09661:5100:0:3",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "4",
+      "lat": 49.980107,
+      "lon": 9.1406332,
+      "stop_id": "de:09661:5100:0:4",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "5",
+      "lat": 49.9800811,
+      "lon": 9.1415531,
+      "stop_id": "de:09661:5100:0:5",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "6",
+      "lat": 49.9800725,
+      "lon": 9.141824,
+      "stop_id": "de:09661:5100:0:6",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "7",
+      "lat": 49.9802277,
+      "lon": 9.1419125,
+      "stop_id": "de:09661:5100:0:7",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "8",
+      "lat": 49.9802363,
+      "lon": 9.1416335,
+      "stop_id": "de:09661:5100:0:8",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "9",
+      "lat": 49.980257,
+      "lon": 9.1410595,
+      "stop_id": "de:09661:5100:0:9",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "10",
+      "lat": 49.9802743,
+      "lon": 9.1405929,
+      "stop_id": "de:09661:5100:0:10",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    },
+    {
+      "bussteig": "11",
+      "lat": 49.9804002,
+      "lon": 9.1405929,
+      "stop_id": "",
+      "positionstyp": "schematisch",
+      "nutzung": "Pausenplatz Gelenkbus"
+    },
+    {
+      "bussteig": "12",
+      "lat": 49.9803864,
+      "lon": 9.1409362,
+      "stop_id": "",
+      "positionstyp": "schematisch",
+      "nutzung": "Pausenplatz Gelenkbus"
+    },
+    {
+      "bussteig": "13",
+      "lat": 49.9803622,
+      "lon": 9.1415692,
+      "stop_id": "de:09661:5100:0:13",
+      "positionstyp": "gtfs",
+      "nutzung": "Schulbus Schulzentrum"
+    },
+    {
+      "bussteig": "14",
+      "lat": 49.9803502,
+      "lon": 9.1419607,
+      "stop_id": "de:09661:5100:0:14",
+      "positionstyp": "gtfs",
+      "nutzung": "Abfahrt"
+    }
+  ]
+}

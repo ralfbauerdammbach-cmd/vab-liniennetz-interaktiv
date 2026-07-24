@@ -1,0 +1,63 @@
+{
+  "line": "67",
+  "groups": [
+    {
+      "id": "67-woerth-haingrund",
+      "label": "Wörth ↔ Haingrund",
+      "description": "über Seckmauern",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "205098ed5e7f68f465e1",
+        "267ba66081c01dfa1111",
+        "50cb6341c33062f3b48f"
+      ]
+    },
+    {
+      "id": "67-klingenberg-haingrund",
+      "label": "Klingenberg ↔ Haingrund",
+      "description": "über Wörth und Seckmauern",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "2dcc3e1f91e8356160f0",
+        "390ec7941235da614275",
+        "aff0f3aff2c04a897e92",
+        "bb739b18dc23e9ccbcb8",
+        "db1d3ce2a101ed991743"
+      ]
+    },
+    {
+      "id": "67-schule-elsenfeld-haingrund",
+      "label": "Schulverkehr Elsenfeld ↔ Haingrund/Trennfurt",
+      "description": "über Erlenbach, Klingenberg und Wörth",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "0f4866a05ec10d25c80d",
+        "179393ca35451798a5c3",
+        "d1b44a26a857a2891255",
+        "dbc7aed9ea4d089c2f15"
+      ]
+    },
+    {
+      "id": "67-schule-obernburg",
+      "label": "Schulverkehr Wörth/Klingenberg ↔ Obernburg",
+      "description": "Schulzentrum und Berufsschule",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "3fa98467adfe057b1f50",
+        "446b6b45fb9dc813d8a3",
+        "94a1d6bd7b344d83c158",
+        "c7e799f4b79d8c5482ad",
+        "ed01591a6fafbecbbb79"
+      ]
+    },
+    {
+      "id": "67-berufsschule-haingrund-obernburg",
+      "label": "Berufsschulverkehr Haingrund ↔ Obernburg",
+      "description": "über Seckmauern, Wörth, Klingenberg, Erlenbach und Elsenfeld",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "ac4283ddf6e8d78cc2bf"
+      ]
+    }
+  ]
+}

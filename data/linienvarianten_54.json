@@ -1,0 +1,57 @@
+{
+  "line": "54",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "54-auto-01",
+      "label": "Aschaffenburg ↔ Schaafheim Sporthalle",
+      "description": "über Schaafheim Langstädter Straße, Schaafheim Gasthaus Schützenhof, Schaafheim Wartturm, Schaafheim-Radheim Alte Schule, Schaafheim-Radheim Ost, Schaafheim-Mosbach Raiffeisenbank",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "0ffb6f871e419941981c",
+        "626ac74fb230c020f066",
+        "ad225ddeb82dd83f59ab",
+        "c2f218d6fbebd2e17fac"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "54-auto-02",
+      "label": "Aschaffenburg ↔ Schaafheim Gasthaus Schützenhof",
+      "description": "über Schaafheim Wartturm, Schaafheim-Radheim Alte Schule, Schaafheim-Radheim Ost, Schaafheim-Mosbach Raiffeisenbank, Schaafheim-Mosbach Evangelische Kirche, Wenigumstadt",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "530eb09605a692cc354f",
+        "f165312122542955c49d"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "54-auto-03",
+      "label": "Aschaffenburg ↔ Schaafheim-Radheim Alte Schule",
+      "description": "über Schaafheim-Radheim Ost, Schaafheim-Mosbach Raiffeisenbank, Schaafheim-Mosbach Evangelische Kirche, Wenigumstadt, Pflaumheim, Großostheim",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "6237f3272ecb4584ec11",
+        "f5e365b77989bbc72bd4",
+        "f8bbad4e1194d3e9e241"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "54-auto-04",
+      "label": "Aschaffenburg ↔ Pflaumheim",
+      "description": "über Großostheim, AB-Nilkheim",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "d8a7f341c8b680443411"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

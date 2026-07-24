@@ -1,0 +1,43 @@
+{
+  "line": "10",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "10-auto-01",
+      "label": "Ringlinie ab Aschaffenburg über Steubenstr. – AB-Schweinheim – Aschaffenburg",
+      "description": "über Steubenstr., AB-Schweinheim, Aschaffenburg, Aschaffenburg Süd",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "03124124ff2606a8ee65",
+        "c4708ff7b4a7683a83c2",
+        "d987feaf3b913b7159bf"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "10-auto-02",
+      "label": "Ringlinie ab Aschaffenburg über Aschaffenburg Süd – Aschaffenburg – AB-Schweinheim",
+      "description": "über Aschaffenburg Süd, Aschaffenburg, AB-Schweinheim",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "43c42ee4cca889e65f64",
+        "d4175ae06a3f464c9d2a"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "10-auto-03",
+      "label": "Ringlinie ab Aschaffenburg über AB-Schweinheim",
+      "description": "über AB-Schweinheim",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "fe9baff29af4f99ea2f5"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

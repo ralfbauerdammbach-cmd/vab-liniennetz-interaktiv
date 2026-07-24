@@ -1,0 +1,131 @@
+{
+  "name": "Regionaler Omnibusbahnhof – Aschaffenburg",
+  "kurzname": "ROB-Aschaffenburg",
+  "quelle": "Bussteigübersicht ROB, Stand 01.06.2025",
+  "bussteige": [
+    {
+      "bussteig": "1",
+      "linien": [
+        "6",
+        "53",
+        "54",
+        "55",
+        "60"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "2",
+      "linien": [
+        "14",
+        "31",
+        "50",
+        "OF-85"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "3",
+      "linien": [
+        "1",
+        "61",
+        "62"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "4",
+      "linien": [
+        "4",
+        "10"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "5",
+      "linien": [
+        "2",
+        "11"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "6",
+      "linien": [
+        "8",
+        "9",
+        "24",
+        "25"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "7",
+      "linien": [
+        "3"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "8",
+      "linien": [
+        "7",
+        "21"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "9",
+      "linien": [
+        "12",
+        "16"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "10",
+      "linien": [
+        "5",
+        "15",
+        "40",
+        "47",
+        "63"
+      ],
+      "hinweise": []
+    },
+    {
+      "bussteig": "11",
+      "linien": [],
+      "hinweise": [
+        "Pausenplatz Gelenkbus"
+      ]
+    },
+    {
+      "bussteig": "12",
+      "linien": [],
+      "hinweise": [
+        "Pausenplatz Gelenkbus"
+      ]
+    },
+    {
+      "bussteig": "13",
+      "linien": [],
+      "hinweise": [
+        "Schulbus Schulzentrum"
+      ]
+    },
+    {
+      "bussteig": "14",
+      "linien": [
+        "20",
+        "23",
+        "33",
+        "42",
+        "43",
+        "44",
+        "45"
+      ],
+      "hinweise": []
+    }
+  ]
+}

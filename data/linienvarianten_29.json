@@ -1,0 +1,27 @@
+{
+  "line": "29",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "29-auto-01",
+      "label": "Schöllkrippen ↔ Unterschur",
+      "description": "über Krombach (Ufr), Krombach, Oberschur, Reisebüro Nees",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "41f441894586ed498246",
+        "44515af3f43e68eab2ac",
+        "6333722208133345eb5f",
+        "82bbb6ffae3bafe5bab9",
+        "8dbcdbebfea3ab15e79d",
+        "b75894f765271c0b23b4",
+        "bbea0e38ae9cd8a8d10d",
+        "c4111b4ea12f76b04afd",
+        "e1530fcc8d8616a35c25",
+        "e780524f1245819ad385"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

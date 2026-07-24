@@ -1,0 +1,78 @@
+{
+  "line": "68",
+  "groups": [
+    {
+      "id": "68-elsenfeld-moemlingen",
+      "label": "Elsenfeld ↔ Mömlingen",
+      "description": "über Obernburg und Eisenbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "02a2a411af2d29e8ee01",
+        "43cd628c66cfd32b892a",
+        "6c6702ac5f123fe0b84c",
+        "7d5a3f2ad8e58b94a850",
+        "a4ce071a054b1730a107",
+        "afa53b31791a041abd5f",
+        "d074e5f0eafe807d77b5",
+        "d24e48cd60f8091b4cb4"
+      ]
+    },
+    {
+      "id": "68-glanzstoffwerke-moemlingen",
+      "label": "Glanzstoffwerke ↔ Mömlingen",
+      "description": "über Elsenfeld, Obernburg und Eisenbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "6e0fe2b5a4d9437146f4",
+        "93eea3793b2c7f9f96d4",
+        "e88de46f02212d2dedd8"
+      ]
+    },
+    {
+      "id": "68-schule-elsenfeld-obernburg",
+      "label": "Schulverkehr Elsenfeld/Erlenbach – Obernburg",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "12d8c459dee37665f10a",
+        "407d7a6fddcaa983745f",
+        "5c6c7decb5b8ef62a2ae",
+        "7bfa9a9458bd754b8a3c",
+        "f7a8be0b0e01205fb4ae",
+        "fefca3645d136251429d",
+        "ff487e9565ccd311822b"
+      ]
+    },
+    {
+      "id": "68-schule-obernburg-moemlingen",
+      "label": "Schulverkehr Obernburg/Eisenbach – Mömlingen",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "2b63a76cd2e791c339a4",
+        "420b6b93425610641827",
+        "4c676fe46abd39490ea7",
+        "8b461be42f763819ac03",
+        "9229bcf240a40cc49bcb",
+        "be2ff02c93fc54349f6c",
+        "d4f34e1d493b341521ec"
+      ]
+    },
+    {
+      "id": "68-schule-erlenbach-moemlingen",
+      "label": "Schulverkehr Erlenbach – Mömlingen",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "7cc297ee8dc9db647121",
+        "a7836058df26453c4810"
+      ]
+    },
+    {
+      "id": "68-kurzfahrten",
+      "label": "Weitere Schul- und Zubringerfahrten",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "a19c0ff1e692c8f41946",
+        "f6fd3ffc36fd919f872b"
+      ]
+    }
+  ]
+}

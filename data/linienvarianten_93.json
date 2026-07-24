@@ -1,0 +1,29 @@
+{
+  "line": "93",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "93-auto-01",
+      "label": "Glanzstoffwerke Tor 1 ↔ Kirchzell",
+      "description": "über Wörth, Trennfurt, Laudenbach, Kleinheubach, Breitendiel, Weilbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "8df417d305a78a499e81"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "93-auto-02",
+      "label": "Glanzstoffwerke Tor 1 ↔ Schneeberg",
+      "description": "über Amorbach, Kirchzell, Weilbach, Breitendiel, Kleinheubach, Laudenbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "b54e21aed2c16cc6cd67"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

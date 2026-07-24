@@ -1,0 +1,57 @@
+{
+  "line": "65",
+  "groups": [
+    {
+      "id": "65-erlenbach-streit",
+      "label": "Erlenbach ↔ Streit",
+      "description": "über Mechenhard",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "21ec0566b12403c818a9",
+        "2882afe5c19ce9707a7d",
+        "42757bc21911dc54dbba",
+        "53224771c92edd628487",
+        "560de78d7ebb249eec6e",
+        "60ebde6327b4efd2ea60",
+        "9531e23e05ad508a54c9",
+        "de8476b9810307f1a461"
+      ]
+    },
+    {
+      "id": "65-schule-erlenbach-elsenfeld-streit",
+      "label": "Schulverkehr Erlenbach/Elsenfeld ↔ Streit",
+      "description": "Dr.-Vits-Schule, Schulzentrum und Barbarossaschule",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "1ef21f8e5f6747845ccc",
+        "244eb7d8752e343567c0",
+        "81875aff86d8addfc827",
+        "e36d31e1ee12ef108278",
+        "ec4ee8fb976e2e0b04a1",
+        "efeadd07e5d74088f96a",
+        "fd54130bb22e29307aa1"
+      ]
+    },
+    {
+      "id": "65-elsenfeld-erlenbach",
+      "label": "Elsenfeld ↔ Erlenbach",
+      "description": "Bahnhof, Schulzentrum, Krankenhaus und Barbarossaschule",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "4372e46e02c33a9df349",
+        "90d1a04b3bddcff6c860",
+        "dafd9af56b60986ffbe1"
+      ]
+    },
+    {
+      "id": "65-lokal-erlenbach",
+      "label": "Lokale Schulfahrten in Erlenbach",
+      "description": "Dr.-Vits-Schule, Dr.-Jordan-Straße und Glanzstoffwerke",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "b4d17b0b1a6dedd91fb7",
+        "f665e51204131d0b9c85"
+      ]
+    }
+  ]
+}

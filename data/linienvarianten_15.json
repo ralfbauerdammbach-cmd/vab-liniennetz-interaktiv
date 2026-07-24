@@ -1,0 +1,52 @@
+{
+  "line": "15",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "15-auto-01",
+      "label": "Ringlinie ab Aschaffenburg über Steubenstr. – AB-Schweinheim",
+      "description": "über Steubenstr., AB-Schweinheim",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "d9d872fbec3e7ff44865"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "15-auto-02",
+      "label": "AB-Schweinheim ↔ Aschaffenburg",
+      "description": "über Steubenstr.",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "b6f745a61b5d69ac74f4"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "15-auto-03",
+      "label": "Aschaffenburg ↔ Österreicher Denkmal",
+      "description": "",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "186866248c9fa8b10541"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "15-auto-04",
+      "label": "Aschaffenburg ↔ Aschaffenburg",
+      "description": "",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "213d695944e3818f8e3c",
+        "c361352256fb9f0eb665"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Interaktives VAB-Liniennetz</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/style.css?v=20260722-1900"
+  >
+</head>
+
+<body>
+  <header class="kopfbereich">
+    <div>
+      <h1>Interaktives VAB-Liniennetz</h1>
+      <p>Prototyp – geroutete Linienverläufe</p>
+    </div>
+
+
+    <!-- BEGIN VAB-SUCHE -->
+    <div class="vab-suche">
+      <form
+        id="vab-suche-formular"
+        class="vab-suche-formular"
+        role="search"
+        autocomplete="off"
+      >
+        <label
+          for="vab-suche-eingabe"
+          class="vab-suche-label"
+        >
+          Haltestelle oder Ort
+        </label>
+
+        <div class="vab-suche-eingabezeile">
+          <input
+            id="vab-suche-eingabe"
+            class="vab-suche-eingabe"
+            type="search"
+            placeholder="z. B. Sulzbach oder Hauptbahnhof"
+            aria-label="Haltestelle oder Ort suchen"
+            aria-controls="vab-suche-vorschlaege"
+            aria-expanded="false"
+            disabled
+          >
+
+          <button
+            class="vab-suche-button"
+            type="submit"
+            aria-label="Suche starten"
+            disabled
+          >
+            Suchen
+          </button>
+        </div>
+
+        <div
+          id="vab-suche-vorschlaege"
+          class="vab-suche-vorschlaege"
+          role="listbox"
+          hidden
+        ></div>
+      </form>
+    </div>
+    <!-- END VAB-SUCHE -->
+
+
+    <div
+      id="status"
+      class="status"
+      aria-live="polite"
+    >
+      Karte wird geladen …
+    </div>
+  </header>
+
+  <main class="kartenlayout">
+    <aside
+      id="info-panel"
+      class="info-panel"
+      aria-live="polite"
+      aria-hidden="true"
+    >
+      <button
+        id="info-panel-schliessen"
+        class="info-panel-schliessen"
+        type="button"
+        aria-label="Information schließen"
+      >
+        ×
+      </button>
+
+      <div id="info-panel-inhalt">
+        <div class="info-panel-leer">
+          Wählen Sie einen gemeinsamen Linienabschnitt aus.
+        </div>
+      </div>
+    </aside>
+
+    <div
+      id="karte"
+      role="application"
+      aria-label="Interaktive Karte des VAB-Liniennetzes"
+    ></div>
+  </main>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ></script>
+
+  <script src="js/app.js?v=20260723-1615"></script>
+</body>
+</html>

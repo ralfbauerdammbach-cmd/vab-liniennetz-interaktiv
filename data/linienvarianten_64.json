@@ -1,0 +1,71 @@
+{
+  "line": "64",
+  "groups": [
+    {
+      "id": "64-elsenfeld-neuhammer",
+      "label": "Elsenfeld ↔ Neuhammer",
+      "description": "über Rück, Eschau, Sommerau und Hobbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "0c7e56a03fd82959bfcb",
+        "0d3e70296317435aea58",
+        "751935c18a2b6fca2e25",
+        "f0a77ddec87cfa96d2c4",
+        "f47dfae9bc134f8fd8bc"
+      ]
+    },
+    {
+      "id": "64-glanzstoff-spessart",
+      "label": "Glanzstoffwerke ↔ Neuhammer/Heimbuchenthal",
+      "description": "über Elsenfeld, Rück, Eschau, Sommerau und Hobbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "acdff868d6e6b9930a0b",
+        "c29a8f8ca67bed0ec1a6"
+      ]
+    },
+    {
+      "id": "64-schule-spessart",
+      "label": "Schulverkehr Elsenfeld ↔ Spessart",
+      "description": "nach Krausenbach, Wildensee, Hessenthal und Mespelbrunn",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "40eb3c7e2bce1bf428c2",
+        "609063b950b72bf89473",
+        "a5f1ffbd8ae4424809f2",
+        "a6f1b0ec2ac0143e823d",
+        "c2056aad382b647931b7",
+        "cacd5109e0a0b8f5c96e"
+      ]
+    },
+    {
+      "id": "64-rueck-eichelsbach",
+      "label": "Schul- und Zubringerverkehr Rück/Eichelsbach",
+      "description": "einschließlich Schippach und Obernburg Berufsschule",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "01aa74b3c0ace430331a",
+        "234735e75253f1b77ef3",
+        "4594ff63e92ad8786a0a",
+        "48697cb09eaace7bfaf5",
+        "77d9a948fb0770995e38",
+        "7a8497f11ebbe3b57a15",
+        "7ee72ec67537e364827e"
+      ]
+    },
+    {
+      "id": "64-lokal-elsenfeld-erlenbach",
+      "label": "Lokale Fahrten Elsenfeld/Erlenbach",
+      "description": "Schulzentrum, Bahnhof, Neue Kirche und Glanzstoffwerke",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "099bf499940b2b9c67c8",
+        "15cea3eaed2d1b970809",
+        "21a16111adf769338650",
+        "d9c1597fb3f8ea1a40a4",
+        "e19dc7cc077c7923d12b",
+        "ee9babfe94294274ae3f"
+      ]
+    }
+  ]
+}

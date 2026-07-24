@@ -1,0 +1,34 @@
+{
+  "line": "69",
+  "groups": [
+    {
+      "id": "69-ring-rueck-schippach",
+      "label": "Ringlinie über Rück und Schippach",
+      "description": "Elsenfeld → Rück → Schippach → Streit → Eschau → Sommerau → Eichelsbach → Elsenfeld",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "45707d2f13fc5ae03e92"
+      ]
+    },
+    {
+      "id": "69-ring-eichelsbach-sommerau",
+      "label": "Ringlinie über Eichelsbach und Sommerau",
+      "description": "Elsenfeld → Eichelsbach → Sommerau → Eschau → Streit → Schippach → Rück → Elsenfeld",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "8082005254e3fe7b14e5",
+        "964d086b69c4393cb7aa"
+      ]
+    },
+    {
+      "id": "69-zubringer-elsenfeld",
+      "label": "Zubringer nach Elsenfeld",
+      "description": "ab Streit oder Eichelsbach zum Bahnhof Elsenfeld",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "00ca123bb10cd66dbdce",
+        "1d8590e79ba0114e4c69"
+      ]
+    }
+  ]
+}

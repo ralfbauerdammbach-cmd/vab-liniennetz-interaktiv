@@ -1,0 +1,54 @@
+{
+  "line": "BG1",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "bg1-auto-01",
+      "label": "Kleinwallstadt ↔ Rodgau-Dudenhofen",
+      "description": "über Rodgau-Dudenhofen Mainzer Straße, Rodgau-Dudenhofen Ludwig-Erhard-Platz, Rodgau-Dudenhofen Opelstraße, Rodgau-Dudenhofen Merianstraße, Babenhausen Continental, Babenhausen Bürgermeister-Willand-Straße",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "01b1e97cff7342bab621",
+        "4023f343ec21cda22294"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "bg1-auto-02",
+      "label": "Großostheim ↔ Rodgau-Dudenhofen",
+      "description": "über Ringheim, Schaafheim Aueweg, Schaafheim Herrngartenweg, Schaafheim Ärztehaus, Schaafheim Heimatring, Schaafheim Industriering",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "46c2a33dfe8de0b2d59b"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "bg1-auto-03",
+      "label": "Babenhausen ↔ Kleinwallstadt",
+      "description": "über Babenhausen Im Riemen, Schaafheim Industriering, Schaafheim Heimatring, Schaafheim Ärztehaus, Schaafheim Herrngartenweg, Schaafheim Aueweg",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "465395265193f0b668d4",
+        "a38ed52a83837ca80e92"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "bg1-auto-04",
+      "label": "Babenhausen ↔ Rodgau-Dudenhofen",
+      "description": "über Rodgau-Dudenhofen Mainzer Straße, Rodgau-Dudenhofen Ludwig-Erhard-Platz, Rodgau-Dudenhofen Opelstraße, Rodgau-Dudenhofen Merianstraße, Babenhausen Continental, Babenhausen Bürgermeister-Willand-Straße",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "6b4896c77571c5a0f758",
+        "9fc39eb21d591b2f4b10"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

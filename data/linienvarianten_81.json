@@ -1,0 +1,42 @@
+{
+  "line": "81",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "81-auto-01",
+      "label": "Glanzstoffwerke ↔ Miltenberg",
+      "description": "über Großheubach, Röllfeld, Klingenberg",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "4aff20d1a53b0ec3357a"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "81-auto-02",
+      "label": "Erlenbach ↔ Miltenberg",
+      "description": "über Großheubach, Röllfeld, Klingenberg",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "7ed2e0c4cc79facf7cd3",
+        "905c3c1620d77654cb1c",
+        "da3e03a0f93e9da83184"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "81-auto-03",
+      "label": "Klingenberg ↔ Miltenberg",
+      "description": "über Röllfeld, Großheubach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "22edbcb977a4621e2d16"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

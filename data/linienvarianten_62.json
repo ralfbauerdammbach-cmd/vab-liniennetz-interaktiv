@@ -1,0 +1,78 @@
+{
+  "line": "62",
+  "groups": [
+    {
+      "id": "62-aschaffenburg-elsenfeld",
+      "label": "Aschaffenburg ↔ Elsenfeld",
+      "description": "über Sulzbach, Ebersbach, Leidersbach, Roßbach, Hausen und Kleinwallstadt",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "1729d73d05e93f1f5ae2",
+        "2348427b650a33ca5c61",
+        "4473df9459b9346fdb53",
+        "461734d93ad00376cebb",
+        "474e3211e321bcc55df7",
+        "92628e66433847286699",
+        "b57b7367d50ba710574f"
+      ]
+    },
+    {
+      "id": "62-teilfahrten-leidersbach-ebersbach",
+      "label": "Leidersbach/Ebersbach ↔ Elsenfeld/Aschaffenburg",
+      "description": "Teilfahrten auf dem Hauptkorridor",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "59c503f3967f19f00ef7",
+        "c4b0b213a9bd8445daf5"
+      ]
+    },
+    {
+      "id": "62-schule-aschaffenburg-spessart",
+      "label": "Schulverkehr Aschaffenburg ↔ Spessart",
+      "description": "nach Roßbach, Soden und Elsenfeld",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "412f7aa5b9a52f83c782",
+        "88928c28501a08ac3fa3",
+        "e1658ea3ed0813227577"
+      ]
+    },
+    {
+      "id": "62-schule-elsenfeld-obernburg",
+      "label": "Schulverkehr Elsenfeld/Obernburg ↔ Leidersbach/Ebersbach",
+      "description": "einschließlich Hausen, Hofstetten, Volkersbrunn und Heimbuchenthal",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "1be06390ac15abc34177",
+        "2d8737c90719e6d46b40",
+        "5847ec6f2a29ba75b674",
+        "7c227a20c95539c7e709",
+        "7f5bef4712199b2eb54d",
+        "8eccb1db3e5f981874ba",
+        "b83eb042259020626805",
+        "c5ff9038952675d90834",
+        "ec8ac89d96ad447512b9"
+      ]
+    },
+    {
+      "id": "62-schule-sulzbach-erlenbach",
+      "label": "Schulverkehr Sulzbach/Erlenbach ↔ Roßbach/Soden",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "69f7331e0e1487feb9aa",
+        "6aa33eaf5504d764e653",
+        "9787c8ad0199ef8cbcc3"
+      ]
+    },
+    {
+      "id": "62-lokale-zubringer",
+      "label": "Lokale Zubringerfahrten",
+      "description": "Hofstetten – Kleinwallstadt und Volkersbrunn – Roßbach",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "5738054532a33fbe1117",
+        "b7c9e674cd88c5e19a79"
+      ]
+    }
+  ]
+}

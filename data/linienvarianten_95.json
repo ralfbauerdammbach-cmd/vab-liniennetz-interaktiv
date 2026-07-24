@@ -1,0 +1,35 @@
+{
+  "line": "95",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "95-auto-01",
+      "label": "Ringlinie ab Amorbach über Kirchzell – Watterbach – Breitenbuch",
+      "description": "über Kirchzell, Watterbach, Breitenbuch, Ottorfszell",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "42390dc1e64ea4632675",
+        "4696343b283762d2785d",
+        "613f6a771918392ac14e",
+        "7993b1cbc0e5eff392a2"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "95-auto-02",
+      "label": "Amorbach ↔ Kirchzell",
+      "description": "",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "14c512f9814c597e705a",
+        "420f3f7e353127b3e1f1",
+        "a6219f28f5a5e50ee38c",
+        "d76998135e3e48aae2ca"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

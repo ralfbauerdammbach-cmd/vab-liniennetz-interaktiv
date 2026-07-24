@@ -1,0 +1,41 @@
+{
+  "line": "98",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "98-auto-01",
+      "label": "Ringlinie ab Amorbach über Weilbach – Boxbrunn – Michelstadt-Würzberg Eulbach Schloß",
+      "description": "über Weilbach, Boxbrunn, Michelstadt-Würzberg Eulbach Schloß",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "9ca7c00fcc20f76434b8",
+        "cd8baabd3a604cb07d60"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "98-auto-02",
+      "label": "Amorbach ↔ Beuchen",
+      "description": "",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "ac5e6ae6e3dcd182aac9"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "98-auto-03",
+      "label": "Ringlinie ab Amorbach über Beuchen",
+      "description": "über Beuchen",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "c99f43a6d08dd49709b5"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

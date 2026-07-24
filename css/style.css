@@ -1,0 +1,1901 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #17212b;
+  background: #f3f5f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.kopfbereich {
+  min-height: 82px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #d7dde3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+.kopfbereich h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.kopfbereich p {
+  margin: 5px 0 0;
+  color: #5d6873;
+  font-size: 0.9rem;
+}
+
+.status {
+  max-width: 420px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #eef2f5;
+  color: #34414d;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.status.erfolg {
+  background: #e8f5ec;
+  color: #176530;
+}
+
+.status.fehler {
+  background: #fdecec;
+  color: #9b1c1c;
+}
+
+main {
+  flex: 1;
+  min-height: 0;
+}
+
+#karte {
+  width: 100%;
+  height: 100%;
+  background: #dfe5e8;
+}
+
+.leaflet-container {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 700px) {
+  .kopfbereich {
+    min-height: 96px;
+    padding: 10px 12px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .kopfbereich h1 {
+    font-size: 1.1rem;
+  }
+
+  .kopfbereich p {
+    font-size: 0.8rem;
+  }
+
+  .status {
+    max-width: none;
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    text-align: left;
+  }
+}
+
+
+/* BEGIN GEMEINSAMER ABSCHNITT */
+
+.leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+}
+
+.leaflet-popup-content {
+  width: 310px !important;
+  margin: 18px 20px;
+}
+
+.abschnitt-popup {
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #17212b;
+}
+
+.abschnitt-popup h2 {
+  margin: 0 0 16px;
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.richtung {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 8px 10px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.richtung strong {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 0.82rem;
+}
+
+.richtung strong:first-child {
+  background: #18864b;
+}
+
+.richtung strong:nth-of-type(2) {
+  background: #c92a2a;
+}
+
+.richtung span {
+  display: none;
+}
+
+.popup-bezeichnung {
+  margin-bottom: 7px;
+  color: #68727c;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.linien-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.linien-badge {
+  display: inline-flex;
+  min-width: 38px;
+  height: 30px;
+  padding: 0 9px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background: #000F47;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.popup-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.popup-details div {
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: #eef2f5;
+}
+
+.popup-details span {
+  display: block;
+  margin-bottom: 3px;
+  color: #68727c;
+  font-size: 0.72rem;
+}
+
+.popup-details strong {
+  display: block;
+  font-size: 0.82rem;
+}
+
+.abschnitt-id {
+  margin-top: 12px;
+  color: #89929b;
+  font-size: 0.7rem;
+}
+
+.leaflet-popup-close-button {
+  top: 7px !important;
+  right: 7px !important;
+  width: 28px !important;
+  height: 28px !important;
+  font-size: 24px !important;
+}
+
+/* END GEMEINSAMER ABSCHNITT */
+
+
+/* BEGIN FESTE INFOSPALTE */
+
+.kartenlayout {
+  position: relative;
+  display: flex;
+  min-height: 0;
+}
+
+.info-panel {
+  position: relative;
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+  background: #ffffff;
+  border-right: 1px solid #d7dde3;
+  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+  transition:
+    width 0.22s ease,
+    min-width 0.22s ease;
+  z-index: 900;
+}
+
+.info-panel.sichtbar {
+  width: 360px;
+  min-width: 360px;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+#info-panel-inhalt {
+  width: 360px;
+  height: 100%;
+  padding: 30px 24px 24px;
+  overflow-y: auto;
+}
+
+.info-panel-schliessen {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #5d6873;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.info-panel-schliessen:hover,
+.info-panel-schliessen:focus-visible {
+  background: #eef2f5;
+  color: #17212b;
+}
+
+.seitenleisten-inhalt h2 {
+  margin: 0 44px 24px 0;
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.seitenleisten-richtung {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px 14px;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+.seitenleisten-punkt {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.seitenleisten-punkt.start {
+  background: #18864b;
+}
+
+.seitenleisten-punkt.ziel {
+  background: #c92a2a;
+}
+
+.seitenleisten-haltestelle {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.info-panel-leer {
+  color: #68727c;
+  line-height: 1.5;
+}
+
+#karte {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  .kartenlayout {
+    display: block;
+  }
+
+  .info-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    min-width: 0;
+    max-height: 0;
+    border-right: 0;
+    border-top: 1px solid #d7dde3;
+    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.18);
+    transition: max-height 0.22s ease;
+  }
+
+  .info-panel.sichtbar {
+    width: 100%;
+    min-width: 0;
+    max-height: 52%;
+  }
+
+  #info-panel-inhalt {
+    width: 100%;
+    max-height: 52vh;
+    padding: 24px 18px 18px;
+  }
+}
+
+/* END FESTE INFOSPALTE */
+
+
+/* BEGIN LINIENINFORMATION */
+
+.linien-information {
+  padding-top: 4px;
+}
+
+.liniennummer-gross {
+  display: inline-flex;
+  min-width: 64px;
+  height: 48px;
+  margin-bottom: 14px;
+  padding: 0 14px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #FF009B;
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.linien-information h2 {
+  margin-bottom: 24px;
+}
+
+.linien-info-bereich {
+  margin-bottom: 24px;
+}
+
+.linien-info-bereich h3 {
+  margin: 0 0 9px;
+  color: #68727c;
+  font-size: 0.76rem;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.linien-info-bereich ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linien-info-bereich li {
+  position: relative;
+  margin-bottom: 7px;
+  padding-left: 16px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.linien-info-bereich li::before {
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF009B;
+  content: "";
+}
+
+.linien-info-fuss {
+  margin-top: 28px;
+  padding-top: 13px;
+  border-top: 1px solid #d7dde3;
+  color: #7a838c;
+  font-size: 0.78rem;
+}
+
+/* END LINIENINFORMATION */
+
+
+/* BEGIN LINIENVARIANTEN */
+
+.varianten-hinweis {
+  margin: -10px 0 18px;
+  color: #68727c;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.varianten-liste {
+  display: grid;
+  gap: 10px;
+}
+
+.varianten-button {
+  display: grid;
+  width: 100%;
+  gap: 5px;
+  padding: 13px 14px;
+  border: 1px solid #d7dde3;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #17212b;
+  text-align: left;
+  cursor: pointer;
+}
+
+.varianten-button:hover {
+  border-color: #FF009B;
+  background: #f7f2fb;
+}
+
+.varianten-button.aktiv {
+  border-color: #FF009B;
+  background: #f1e7f8;
+  box-shadow: inset 4px 0 0 #FF009B;
+}
+
+.varianten-titel {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.varianten-beschreibung {
+  color: #68727c;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.varianten-typ {
+  width: fit-content;
+  margin-top: 2px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #e8edf1;
+  color: #53606b;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* END LINIENVARIANTEN */
+
+
+/* BEGIN KLICKBARE LINIEN-BADGES */
+
+.linien-badge-button {
+  appearance: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.linien-badge-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.linien-badge-button:focus-visible {
+  outline: 3px solid rgba(20, 95, 140, 0.3);
+  outline-offset: 2px;
+}
+
+/* END KLICKBARE LINIEN-BADGES */
+
+
+/* BEGIN EINDEUTIGE LINIENAUSWAHL */
+
+.gemeinsame-auswahl h2 {
+  margin-bottom: 8px;
+}
+
+.gemeinsame-auswahl-hinweis {
+  margin: 0 0 18px;
+  color: #4f5c67;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.linien-auswahl-liste {
+  display: grid;
+  gap: 10px;
+}
+
+.linien-auswahl-button {
+  display: grid;
+  grid-template-columns: 52px 1fr 24px;
+  align-items: center;
+  width: 100%;
+  min-height: 62px;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  border: 1px solid #ccd6df;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #17212b;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.linien-auswahl-button:hover {
+  border-color: #000F47;
+  background: #f2f8fb;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(20, 95, 140, 0.12);
+}
+
+.linien-auswahl-button:focus-visible {
+  outline: 3px solid rgba(20, 95, 140, 0.28);
+  outline-offset: 2px;
+}
+
+.linien-auswahl-nummer {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 52px;
+  height: 46px;
+  padding: 0 7px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #000F47;
+  color: #FFFFFF;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.linien-auswahl-nummer::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #FFBE00 0%,
+    #FF7040 50%,
+    #FF009B 100%
+  );
+  content: "";
+}
+
+.linien-auswahl-text {
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.linien-auswahl-pfeil {
+  color: #000F47;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  text-align: right;
+}
+
+.gemeinsame-auswahl-strecke {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e5e9;
+}
+
+.gemeinsame-auswahl-strecke-titel {
+  margin-bottom: 14px;
+  color: #66727d;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* END EINDEUTIGE LINIENAUSWAHL */
+
+
+/* BEGIN ROB-AUSWAHL */
+
+.rob-marker-container {
+  background: transparent;
+  border: 0;
+}
+
+.rob-marker {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 178px;
+  height: 38px;
+  padding: 0 14px;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  border-radius: 14px;
+  background: #000F47;
+  color: #ffffff;
+  box-shadow:
+    0 5px 15px rgba(0, 15, 71, 0.30),
+    0 0 0 2px #000F47;
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.rob-marker::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    #FFBE00 0%,
+    #FF7040 50%,
+    #FF009B 100%
+  );
+  content: "";
+}
+
+.rob-marker:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 8px 20px rgba(0, 15, 71, 0.38),
+    0 0 0 3px #000F47;
+}
+
+.rob-marker-titel {
+  margin: -2px 0 3px;
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.rob-panel-kennung {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: #000F47;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.rob-bussteige-liste {
+  display: grid;
+  gap: 16px;
+}
+
+.rob-bussteig-gruppe {
+  padding: 13px;
+  border: 1px solid #d7dde3;
+  border-radius: 11px;
+  background: #f8fafb;
+}
+
+.rob-bussteig-kopf {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.rob-bussteig-kopf h3 {
+  margin: 0;
+  color: #17212b;
+  font-size: 1rem;
+}
+
+.rob-bussteig-nummer {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: #17212b;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.rob-bussteig-hinweis,
+.rob-keine-linien {
+  padding: 9px 10px;
+  border-radius: 7px;
+  background: #e8edf1;
+  color: #53606b;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.rob-bussteig-hinweis {
+  margin-top: 9px;
+}
+
+/* END ROB-AUSWAHL */
+
+/* BEGIN VAB-CI OVERRIDES */
+:root {
+  --vab-urban-blue: #000F47;
+  --vab-neon-drive: #FF009B;
+  --vab-dynamic-yellow: #FFBE00;
+  --vab-impulse-orange: #FF7040;
+  --vab-horizont-blue: #BBDEF0;
+  --vab-white: #FFFFFF;
+}
+
+/* Variantenauswahl / Dropdown / Linienbuttons */
+.varianten-button,
+.linien-auswahl-button,
+.linien-badge-button {
+  border-color: var(--vab-urban-blue) !important;
+  color: var(--vab-urban-blue) !important;
+  background: var(--vab-white) !important;
+}
+
+.varianten-button:hover,
+.linien-auswahl-button:hover,
+.linien-badge-button:hover,
+.varianten-button:focus-visible,
+.linien-auswahl-button:focus-visible,
+.linien-badge-button:focus-visible {
+  background: var(--vab-horizont-blue) !important;
+  color: var(--vab-urban-blue) !important;
+  border-color: var(--vab-urban-blue) !important;
+  box-shadow: 0 0 0 3px rgba(187, 222, 240, 0.45) !important;
+}
+
+.varianten-button.aktiv,
+.linien-auswahl-button.aktiv,
+.linien-badge-button.aktiv {
+  background: var(--vab-urban-blue) !important;
+  color: var(--vab-white) !important;
+  border-color: var(--vab-urban-blue) !important;
+  box-shadow:
+    inset 0 -4px 0 0 var(--vab-dynamic-yellow),
+    inset 0 -8px 0 0 var(--vab-neon-drive) !important;
+}
+
+/* Linien-Label / Badge links im Panel */
+.rob-panel-kennung {
+  background: var(--vab-urban-blue) !important;
+  color: var(--vab-white) !important;
+  box-shadow:
+    inset 0 -4px 0 0 var(--vab-dynamic-yellow),
+    inset 0 -8px 0 0 var(--vab-neon-drive) !important;
+}
+
+/* Aktive Variante etwas klarer */
+.varianten-titel {
+  color: var(--vab-urban-blue);
+}
+
+.varianten-typ {
+  color: var(--vab-urban-blue);
+}
+/* END VAB-CI OVERRIDES */
+
+/* BEGIN VAB-LINIENFARBEN */
+
+.varianten-button.aktiv {
+  border-color: #FF009B !important;
+  background: #000F47 !important;
+  color: #FFFFFF !important;
+  box-shadow:
+    inset 5px 0 0 #FF009B,
+    inset 0 -4px 0 #FFBE00 !important;
+}
+
+.varianten-button.aktiv .varianten-titel,
+.varianten-button.aktiv .varianten-beschreibung,
+.varianten-button.aktiv .varianten-typ {
+  color: #FFFFFF !important;
+}
+
+.varianten-button:hover,
+.linien-auswahl-button:hover {
+  border-color: #FF7040 !important;
+  background: #BBDEF0 !important;
+}
+
+.linien-auswahl-pfeil {
+  color: #000F47 !important;
+}
+
+/* END VAB-LINIENFARBEN */
+
+/* BEGIN ROB-BUSSTEIGMARKER */
+
+.rob-bussteig-marker-container {
+  background: transparent;
+  border: 0;
+}
+
+.rob-bussteig-marker {
+  position: relative;
+  display: grid;
+  grid-template-rows: 11px 1fr;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 2px;
+  overflow: hidden;
+  border: 1.5px solid #000F47;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #000F47;
+  box-shadow:
+    0 2px 5px rgba(0, 15, 71, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.9);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    border-color 140ms ease;
+}
+
+.rob-bussteig-marker-label {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 11px;
+  border-radius: 4px 4px 1px 1px;
+  background: #BBDEF0;
+  color: #000F47;
+  font-size: 0.30rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.rob-bussteig-marker-nummer {
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 3px 1px;
+  border-radius: 5px;
+  background: #000F47;
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rob-bussteig-marker::after {
+  position: absolute;
+  right: 2px;
+  bottom: 1px;
+  left: 2px;
+  height: 2px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(
+    90deg,
+    #FFBE00 0%,
+    #FF009B 100%
+  );
+  content: "";
+}
+
+.rob-bussteig-marker:hover,
+.rob-bussteig-marker:focus-visible {
+  z-index: 2;
+  transform: scale(1.08);
+  border-color: #FF009B;
+  box-shadow:
+    0 3px 8px rgba(0, 15, 71, 0.32),
+    0 0 0 2px rgba(255, 190, 0, 0.42);
+  outline: 0;
+}
+
+/* END ROB-BUSSTEIGMARKER */
+
+/* BEGIN ROB-BUSSTEIG-BEARBEITUNG */
+
+.rob-edit-control {
+  display: grid;
+  gap: 6px;
+  width: 184px;
+  padding: 9px;
+  border: 2px solid #000F47;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 5px 16px rgba(0, 15, 71, 0.24);
+}
+
+.rob-edit-control.aktiv {
+  border-color: #FF009B;
+  box-shadow:
+    0 5px 18px rgba(0, 15, 71, 0.28),
+    inset 0 4px 0 #FFBE00;
+}
+
+.rob-edit-button {
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid #000F47;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #000F47;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 850;
+  line-height: 1.15;
+  cursor: pointer;
+}
+
+.rob-edit-button:hover:not(:disabled),
+.rob-edit-button:focus-visible:not(:disabled) {
+  border-color: #FF7040;
+  background: #BBDEF0;
+  outline: 0;
+}
+
+.rob-edit-button:disabled {
+  border-color: #C8D0D8;
+  background: #EEF2F5;
+  color: #84909B;
+  cursor: default;
+}
+
+.rob-edit-control.aktiv .rob-edit-start {
+  border-color: #FF009B;
+  background: #000F47;
+  color: #FFFFFF;
+}
+
+.rob-edit-export:not(:disabled) {
+  border-color: #000F47;
+  background: #000F47;
+  color: #FFFFFF;
+}
+
+.rob-edit-cancel:not(:disabled) {
+  color: #C92A2A;
+}
+
+.rob-bussteig-editierbar {
+  cursor: grab !important;
+}
+
+.rob-bussteig-editierbar .rob-bussteig-marker {
+  animation:
+    rob-bussteig-edit-pulse
+    1.5s
+    ease-in-out
+    infinite;
+}
+
+.rob-bussteig-wird-verschoben {
+  z-index: 1000 !important;
+  cursor: grabbing !important;
+}
+
+.rob-bussteig-wird-verschoben
+.rob-bussteig-marker {
+  transform: scale(1.25);
+  background: #FF009B;
+  box-shadow:
+    0 5px 15px rgba(0, 15, 71, 0.52),
+    0 0 0 4px rgba(255, 190, 0, 0.62);
+}
+
+@keyframes rob-bussteig-edit-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 2px 7px rgba(0, 15, 71, 0.42),
+      0 0 0 1px #000F47;
+  }
+
+  50% {
+    box-shadow:
+      0 4px 11px rgba(0, 15, 71, 0.48),
+      0 0 0 4px rgba(255, 190, 0, 0.48);
+  }
+}
+
+/* END ROB-BUSSTEIG-BEARBEITUNG */
+
+/* BEGIN VAB-SUCHE */
+
+.vab-suche {
+  position: relative;
+  flex: 1;
+  max-width: 560px;
+  margin: 0 10px;
+}
+
+.vab-suche-formular {
+  position: relative;
+}
+
+.vab-suche-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000F47;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.vab-suche-eingabezeile {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  gap: 7px;
+}
+
+.vab-suche-eingabe {
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 13px;
+  border: 2px solid #000F47;
+  border-radius: 10px;
+  background: #FFFFFF;
+  color: #121212;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.vab-suche-eingabe:focus {
+  border-color: #FF009B;
+  box-shadow:
+    0 0 0 3px rgba(255, 190, 0, 0.35);
+  outline: 0;
+}
+
+.vab-suche-eingabe:disabled {
+  border-color: #C8D0D8;
+  background: #EEF2F5;
+}
+
+.vab-suche-button {
+  min-height: 40px;
+  padding: 8px 17px;
+  border: 0;
+  border-radius: 10px;
+  background: #000F47;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.vab-suche-button:hover:not(:disabled),
+.vab-suche-button:focus-visible:not(:disabled) {
+  background: #FF009B;
+  outline: 0;
+}
+
+.vab-suche-button:disabled {
+  background: #AAB4BE;
+  cursor: default;
+}
+
+.vab-suche-vorschlaege {
+  position: absolute;
+  top: calc(100% + 7px);
+  right: 0;
+  left: 0;
+  max-height: 420px;
+  overflow-y: auto;
+  border: 1px solid #CDD5DC;
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow:
+    0 10px 28px rgba(0, 15, 71, 0.22);
+  z-index: 2000;
+}
+
+.vab-suche-treffer {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 1px solid #E4E9ED;
+  background: #FFFFFF;
+  color: #121212;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.vab-suche-treffer:last-child {
+  border-bottom: 0;
+}
+
+.vab-suche-treffer:hover,
+.vab-suche-treffer:focus-visible {
+  background: #EEF7FB;
+  outline: 0;
+}
+
+.vab-suche-treffer-typ {
+  display: inline-grid;
+  place-items: center;
+  min-height: 26px;
+  padding: 4px 7px;
+  border-radius: 7px;
+  background: #BBDEF0;
+  color: #000F47;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.vab-suche-treffer-inhalt {
+  display: grid;
+  gap: 3px;
+}
+
+.vab-suche-treffer-inhalt strong {
+  font-size: 0.88rem;
+}
+
+.vab-suche-treffer-inhalt small {
+  color: #65717C;
+  font-size: 0.72rem;
+}
+
+.vab-suche-panel-kennung {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 42px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  background: #000F47;
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.vab-suche-panel-bereich {
+  margin-top: 24px;
+}
+
+.vab-suche-panel-bereich h3,
+.vab-fahrplan-richtung h3 {
+  margin: 0 0 12px;
+  color: #000F47;
+  font-size: 0.9rem;
+}
+
+.vab-ort-haltestellen {
+  display: grid;
+  gap: 8px;
+}
+
+.vab-ort-haltestelle {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #CDD5DC;
+  border-radius: 9px;
+  background: #FFFFFF;
+  color: #121212;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.vab-ort-haltestelle:hover,
+.vab-ort-haltestelle:focus-visible {
+  border-color: #FF7040;
+  background: #EEF7FB;
+  outline: 0;
+}
+
+.vab-ort-haltestelle span {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.vab-ort-haltestelle small {
+  color: #687580;
+  font-size: 0.7rem;
+}
+
+.vab-fahrplan-tage {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin: 20px 0;
+}
+
+.vab-fahrplan-tag {
+  min-height: 34px;
+  padding: 5px 2px;
+  border: 1px solid #000F47;
+  border-radius: 7px;
+  background: #FFFFFF;
+  color: #000F47;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.vab-fahrplan-tag:hover,
+.vab-fahrplan-tag:focus-visible {
+  border-color: #FF7040;
+  background: #BBDEF0;
+  outline: 0;
+}
+
+.vab-fahrplan-tag.aktiv {
+  border-color: #000F47;
+  background: #000F47;
+  color: #FFFFFF;
+  box-shadow:
+    inset 0 -3px 0 #FFBE00;
+}
+
+.vab-fahrplan-richtung {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #E0E5E9;
+}
+
+.vab-fahrplan-zeiten {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.vab-fahrplan-zeit {
+  display: inline-grid;
+  place-items: center;
+  min-width: 55px;
+  min-height: 31px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: #EEF2F5;
+  color: #000F47;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.vab-fahrplan-leer {
+  padding: 14px;
+  border-radius: 9px;
+  background: #EEF2F5;
+  color: #53606B;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.vab-fahrplan-gueltigkeit {
+  margin-top: 22px;
+  color: #687580;
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+.vab-zurueck-haltestelle {
+  width: 100%;
+  min-height: 39px;
+  margin-top: 14px;
+  border: 1px solid #000F47;
+  border-radius: 9px;
+  background: #FFFFFF;
+  color: #000F47;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.vab-zurueck-haltestelle:hover,
+.vab-zurueck-haltestelle:focus-visible {
+  background: #BBDEF0;
+  outline: 0;
+}
+
+@media (max-width: 900px) {
+  .kopfbereich {
+    flex-wrap: wrap;
+  }
+
+  .vab-suche {
+    order: 3;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .status {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .vab-suche-eingabezeile {
+    grid-template-columns: 1fr;
+  }
+
+  .vab-suche-button {
+    display: none;
+  }
+
+  .vab-suche-treffer {
+    grid-template-columns: 64px 1fr;
+  }
+}
+
+/* END VAB-SUCHE */
+
+/* BEGIN VAB-SUCHTREFFER-OPTIMIERUNG */
+
+/*
+ * Der Kopfbereich bildet einen eigenen hohen
+ * Stapelkontext. Dadurch liegen Suchtreffer sicher
+ * vor Karte und Leaflet-Bedienelementen.
+ */
+.kopfbereich {
+  position: relative;
+  overflow: visible;
+  z-index: 3000;
+}
+
+.vab-suche,
+.vab-suche-formular {
+  position: relative;
+  z-index: 3100;
+}
+
+.vab-suche-vorschlaege {
+  z-index: 3200;
+}
+
+.vab-suche-treffer {
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  min-height: 72px;
+  padding: 12px 14px;
+}
+
+.vab-suche-treffer-typ {
+  width: 100%;
+  min-width: 0;
+  min-height: 25px;
+  padding: 5px 4px;
+  overflow: hidden;
+  font-size: 0.56rem;
+  line-height: 1;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+}
+
+.vab-suche-treffer-inhalt {
+  min-width: 0;
+  gap: 7px;
+}
+
+.vab-suche-treffer-inhalt strong {
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.vab-suche-verbindungen {
+  display: grid;
+  gap: 5px;
+}
+
+.vab-suche-verbindung {
+  display: grid;
+  grid-template-columns: minmax(34px, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.vab-suche-linie {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  min-height: 24px;
+  padding: 3px 7px;
+  border-radius: 7px;
+  background: #000F47;
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 750;
+  line-height: 1;
+  box-shadow:
+    inset 0 -3px 0 #FFBE00;
+}
+
+.vab-suche-richtung {
+  min-width: 0;
+  color: #46535F;
+  font-size: 0.72rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.vab-suche-weitere {
+  margin-left: 42px;
+  color: #687580;
+  font-size: 0.66rem;
+}
+
+@media (max-width: 520px) {
+  .vab-suche-treffer {
+    grid-template-columns: 76px minmax(0, 1fr);
+  }
+
+  .vab-suche-treffer-typ {
+    font-size: 0.49rem;
+  }
+}
+
+/* END VAB-SUCHTREFFER-OPTIMIERUNG */
+
+
+/* BEGIN VAB PDF-FAHRPLAENE */
+
+.vab-fahrplan-pdf-bereich {
+  margin: 1.5rem 0;
+}
+
+.vab-fahrplan-pdf-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #000F47;
+  border-radius: 14px;
+  color: #000F47;
+  background: #FFFFFF;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.vab-fahrplan-pdf-link:hover,
+.vab-fahrplan-pdf-link:focus-visible {
+  background: #BBDEF0;
+  box-shadow: 0 5px 16px rgba(0, 15, 71, 0.14);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.vab-fahrplan-pdf-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 58px;
+  height: 48px;
+  border-radius: 10px;
+  color: #FFFFFF;
+  background: #000F47;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.vab-fahrplan-pdf-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.vab-fahrplan-pdf-text strong {
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.vab-fahrplan-pdf-text span {
+  color: #454D61;
+  font-size: 0.9rem;
+}
+
+.vab-fahrplan-pdf-pfeil {
+  flex: 0 0 auto;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.vab-fahrplan-pdf-fehlt {
+  padding: 1rem;
+  border: 1px solid #BBDEF0;
+  border-radius: 12px;
+  background: #F4F8FB;
+  color: #454D61;
+  line-height: 1.5;
+}
+
+/* END VAB PDF-FAHRPLAENE */
+
+
+/* BEGIN VAB ORTSTREFFER-LINIEN */
+
+.vab-suche-ort-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.vab-suche-ort-linien {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* END VAB ORTSTREFFER-LINIEN */
+
+
+.vab-fahrplan-pdf-bereich > * + * {
+  margin-top: 0.75rem;
+}
+
+/*
+ * Kompakte Haltestellenbeschriftung ab hoher Zoomstufe.
+ */
+.vab-haltestellenname {
+  padding: 4px 7px;
+  border: 1px solid rgba(0, 27, 105, 0.22);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #001B69;
+  box-shadow: 0 1px 4px rgba(0, 15, 71, 0.18);
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.vab-haltestellenname::before {
+  display: none;
+}
+
+
+/* BEGIN KOMPAKTE ROB-SEITENLEISTE */
+
+/* ROB-Kennung kleiner und zurückhaltender */
+.rob-panel-kennung {
+  width: 54px !important;
+  height: 54px !important;
+  margin-bottom: 10px !important;
+  font-size: 1rem !important;
+}
+
+/* Überschrift direkt nach der ROB-Kennung */
+.rob-panel-kennung + h2 {
+  margin: 0 40px 14px 0 !important;
+  font-size: 1.18rem !important;
+  line-height: 1.2 !important;
+}
+
+/* Einleitungstext der ROB-Auswahl */
+.rob-panel-kennung + h2 + .gemeinsame-auswahl-hinweis {
+  margin-bottom: 14px !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Weniger Abstand zwischen den Bussteig-Gruppen */
+.rob-panel-kennung ~ .rob-bussteige-liste {
+  gap: 10px !important;
+}
+
+/* Bussteig-Karte kompakter */
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-gruppe {
+  padding: 10px !important;
+  border-radius: 9px !important;
+}
+
+/* Kopfzeile eines Bussteigs */
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-kopf {
+  grid-template-columns: 36px 1fr !important;
+  gap: 9px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Bussteignummer verkleinern */
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-nummer {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 7px !important;
+  font-size: 0.94rem !important;
+}
+
+/* Bussteig-Überschrift verkleinern */
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-kopf h3 {
+  font-size: 0.92rem !important;
+}
+
+/* Linienbuttons innerhalb der ROB-Seitenleiste */
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-liste {
+  gap: 7px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-button {
+  grid-template-columns: 44px 1fr 18px !important;
+  min-height: 52px !important;
+  gap: 9px !important;
+  padding: 6px 9px 6px 6px !important;
+  border-radius: 9px !important;
+}
+
+/* Liniennummer im Button */
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-nummer {
+  min-width: 44px !important;
+  height: 40px !important;
+  padding: 0 5px !important;
+  border-radius: 8px !important;
+  font-size: 0.92rem !important;
+}
+
+/* Text „Linie … anzeigen“ */
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-text {
+  font-size: 0.88rem !important;
+  line-height: 1.2 !important;
+}
+
+/* Pfeil rechts */
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-pfeil {
+  font-size: 1.55rem !important;
+}
+
+/* END KOMPAKTE ROB-SEITENLEISTE */
+
+
+/* BEGIN ROB-SEITENLEISTE NOCH KOMPAKTER */
+
+.rob-panel-kennung {
+  width: 46px !important;
+  height: 46px !important;
+  margin-bottom: 8px !important;
+  font-size: 0.88rem !important;
+}
+
+.rob-panel-kennung + h2 {
+  margin-bottom: 10px !important;
+  font-size: 1.05rem !important;
+}
+
+.rob-panel-kennung + h2 + .gemeinsame-auswahl-hinweis {
+  margin-bottom: 10px !important;
+  font-size: 0.82rem !important;
+  line-height: 1.35 !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste {
+  gap: 8px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-gruppe {
+  padding: 8px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-kopf {
+  grid-template-columns: 32px 1fr !important;
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-nummer {
+  width: 32px !important;
+  height: 32px !important;
+  font-size: 0.82rem !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-kopf h3 {
+  font-size: 0.84rem !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-liste {
+  gap: 6px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-button {
+  grid-template-columns: 38px 1fr 16px !important;
+  min-height: 46px !important;
+  gap: 8px !important;
+  padding: 5px 8px 5px 5px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-nummer {
+  min-width: 38px !important;
+  height: 34px !important;
+  font-size: 0.82rem !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-text {
+  font-size: 0.8rem !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-pfeil {
+  font-size: 1.35rem !important;
+}
+
+/* END ROB-SEITENLEISTE NOCH KOMPAKTER */
+
+
+/* BEGIN ROB-SEITENLEISTE EXTREM KOMPAKT */
+
+.rob-panel-kennung {
+  width: 40px !important;
+  height: 40px !important;
+  margin-bottom: 6px !important;
+  font-size: 0.78rem !important;
+}
+
+.rob-panel-kennung + h2 {
+  margin: 0 32px 8px 0 !important;
+  font-size: 0.98rem !important;
+  line-height: 1.15 !important;
+}
+
+.rob-panel-kennung + h2 + .gemeinsame-auswahl-hinweis {
+  margin-bottom: 8px !important;
+  font-size: 0.76rem !important;
+  line-height: 1.28 !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste {
+  gap: 6px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-gruppe {
+  padding: 6px 7px !important;
+  border-radius: 8px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-kopf {
+  grid-template-columns: 28px 1fr !important;
+  gap: 7px !important;
+  margin-bottom: 5px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-nummer {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 6px !important;
+  font-size: 0.74rem !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.rob-bussteig-kopf h3 {
+  font-size: 0.8rem !important;
+  line-height: 1.15 !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-liste {
+  gap: 5px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-button {
+  grid-template-columns: 34px 1fr 14px !important;
+  min-height: 40px !important;
+  gap: 7px !important;
+  padding: 4px 7px 4px 4px !important;
+  border-radius: 8px !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-nummer {
+  min-width: 34px !important;
+  height: 30px !important;
+  padding: 0 4px !important;
+  border-radius: 7px !important;
+  font-size: 0.76rem !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-text {
+  font-size: 0.74rem !important;
+  line-height: 1.15 !important;
+}
+
+.rob-panel-kennung ~ .rob-bussteige-liste
+.linien-auswahl-pfeil {
+  font-size: 1.15rem !important;
+}
+
+/* END ROB-SEITENLEISTE EXTREM KOMPAKT */

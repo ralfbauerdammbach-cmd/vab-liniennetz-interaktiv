@@ -1,0 +1,25 @@
+{
+  "line": "6",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "6-auto-01",
+      "label": "AB-Nilkheim ↔ Aschaffenburg",
+      "description": "über Aschaffenburg, AB-Nilkheim",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "35ac0710c84e560d425b",
+        "7af0f1e8645340eb29a7",
+        "85759334cd1ac82d1dd3",
+        "87bfd44b4ae4878c78e9",
+        "8dc16dd0df4f4ba20a30",
+        "975ce072c52dd8b4f36e",
+        "aee0369a0510d7c02b53",
+        "d7bbf98545dc91509a8c"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

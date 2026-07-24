@@ -1,0 +1,69 @@
+{
+  "line": "61",
+  "groups": [
+    {
+      "id": "61-aschaffenburg-elsenfeld",
+      "label": "Aschaffenburg ↔ Elsenfeld",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "179c592f9e0478924163",
+        "2f4c2aff51779c97a377",
+        "4aa3f706455cfa9d1f39",
+        "dea80d9153d107dcf3a3"
+      ]
+    },
+    {
+      "id": "61-moenchberg-elsenfeld",
+      "label": "Elsenfeld ↔ Mönchberg",
+      "description": "über Erlenbach, Klingenberg, Röllfeld, Röllbach und Schmachtenberg",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "637d075d83554a2844e1",
+        "66a8c298bd9d4d57db5b",
+        "770bd233a36dd1c64852",
+        "77d8bbaf18a9e43819fb",
+        "90d36acc3b8f2b2889c8",
+        "a840296d80a3934450e7",
+        "bf5f1da3aa36203c8e78",
+        "ccd7d13d1bf13d5a35d1",
+        "d573d45d488f56b8e5d3",
+        "daa7750b93faf18519fb",
+        "f75210f2a0f96db11ab9"
+      ]
+    },
+    {
+      "id": "61-moenchberg-berufsschule",
+      "label": "Mönchberg → Obernburg Berufsschule",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "d57e8e7394584743e2c5"
+      ]
+    },
+    {
+      "id": "61-schule-erlenbach-roellbach",
+      "label": "Schulverkehr Elsenfeld – Erlenbach – Röllbach",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "3932ff3c6e38bddc3c2c",
+        "4d85a93043007b409aaa",
+        "51cacd02e7dfa12e0e79",
+        "6d28afe80bd97d52e23f",
+        "a1342b87f88f265906b1",
+        "a18b11c8a185329c8fd5",
+        "a42361bc157476accc64"
+      ]
+    },
+    {
+      "id": "61-schule-sulzbach-moenchberg",
+      "label": "Schulverkehr Elsenfeld – Sulzbach – Kleinwallstadt – Mönchberg",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "47c4a470dd7e02c47732",
+        "58bf13d64538bab9ca7d",
+        "c17edd21f12ec3d40cd8",
+        "f134f6209f10663216b1",
+        "f6e35c78b282961bc6c4"
+      ]
+    }
+  ]
+}

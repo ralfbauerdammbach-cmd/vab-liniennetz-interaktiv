@@ -1,0 +1,53 @@
+{
+  "line": "GU2",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "gu2-auto-01",
+      "label": "Dieburg ↔ Mömlingen",
+      "description": "über Breuberg-Wald-Amorbach An der alten Brücke, Groß-Umstadt-Dorndiel Mitte, Groß-Umstadt Dorndiel Friedhof, Groß-Umstadt-Raibach Am alten Steinbruch, Groß-Umstadt-Raibach Pumpstation, Groß-Umstadt-Raibach Alte Schule",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "9ae2eb37dcbfcfaadb22",
+        "b9b26ff50db03fe1eaf2",
+        "c50aa91987ede3aa8a3a"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "gu2-auto-02",
+      "label": "Dieburg ↔ Groß-Umstadt Mitte",
+      "description": "über Groß-Umstadt Habitzheimer Straße, Groß-Umstadt Medic-Center, Groß-Umstadt Otto-Hahn-Straße, Groß-Umstadt-Semd Schule, Groß-Umstadt-Semd Kirche, Dieburg Hochschule Süd",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "17cd4ca6a8810838f12b"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "gu2-auto-03",
+      "label": "Groß-Umstadt Mitte ↔ Mömlingen",
+      "description": "über Breuberg-Wald-Amorbach An der alten Brücke, Groß-Umstadt-Dorndiel Mitte, Groß-Umstadt Dorndiel Friedhof, Groß-Umstadt-Raibach Am alten Steinbruch, Groß-Umstadt-Raibach Pumpstation, Groß-Umstadt-Raibach Alte Schule",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "3603902f3c1c8b4477f6"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "gu2-auto-04",
+      "label": "Breuberg-Wald-Amorbach An der alten Brücke ↔ Groß-Umstadt Mitte",
+      "description": "über Groß-Umstadt-Dorndiel Mitte, Groß-Umstadt Dorndiel Friedhof, Groß-Umstadt-Raibach Am alten Steinbruch, Groß-Umstadt-Raibach Pumpstation, Groß-Umstadt-Raibach Alte Schule, Groß-Umstadt Stadtfriedhof",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "ac2fcb2b20205064ce56"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

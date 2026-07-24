@@ -1,0 +1,30 @@
+{
+  "line": "76",
+  "groups": [
+    {
+      "id": "76-trennfurt-roellfeld",
+      "label": "Trennfurt ↔ Röllfeld",
+      "description": "über Klingenberg",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "0990ca207ef8990a40c8",
+        "5747033d7fe13df43c31",
+        "aeeb8c2baaf93f8f3dbb",
+        "e54babceae16172dea4c",
+        "f16cb17b339eb892ef02",
+        "f67966d621a553a8e09f"
+      ]
+    },
+    {
+      "id": "76-klingenberg-trennfurt",
+      "label": "Klingenberg ↔ Trennfurt",
+      "description": "direkt oder über Röllfeld",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "22f0256f05dc0d26b0c3",
+        "44dfac73a72b96f43381",
+        "9e8bcb34551ab36b3db8"
+      ]
+    }
+  ]
+}

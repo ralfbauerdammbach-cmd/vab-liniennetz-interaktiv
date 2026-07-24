@@ -1,0 +1,70 @@
+{
+  "line": "63",
+  "groups": [
+    {
+      "id": "63-aschaffenburg-dornau",
+      "label": "Aschaffenburg ↔ Dornau",
+      "description": "über Soden und Sulzbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "00464415dbc57af89cbe",
+        "43cdc87e395e11d51580",
+        "4b4d41744b60ec0ed33c",
+        "9d1525ca212b2aaefc5e",
+        "a1a5abd77107a163f63e",
+        "b4ab7f053c0cb6517be7"
+      ]
+    },
+    {
+      "id": "63-aschaffenburg-soden-sulzbach",
+      "label": "Aschaffenburg ↔ Soden/Sulzbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "93ebbcdc68d304e2636b",
+        "ee1a90debc1649f9e90e"
+      ]
+    },
+    {
+      "id": "63-soden-sulzbach-dornau",
+      "label": "Soden/Sulzbach ↔ Dornau",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "27ea3ec8c1a15a4cf2f7",
+        "4a512b6518be62f9d739",
+        "a13304a229afc3ff8b15",
+        "f49d1b563dbb8d04ee3f",
+        "fbb904025c835fe19d89"
+      ]
+    },
+    {
+      "id": "63-schule-elsenfeld-aschaffenburg",
+      "label": "Schulverkehr Elsenfeld/Kleinwallstadt – Aschaffenburg/Soden",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "0ab22b7f30f31d622681",
+        "0ac2a6cb5e1378418e73",
+        "54441184561529b73fb7",
+        "9bafe56756d19b7c6bf4",
+        "e1707f9ae7d25f1e2b0a"
+      ]
+    },
+    {
+      "id": "63-schule-aschaffenburg-sulzbach",
+      "label": "Schulverkehr Aschaffenburg – Sulzbach",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "0edf01ef9b4faca984cb"
+      ]
+    },
+    {
+      "id": "63-lokale-zubringer",
+      "label": "Lokale Schul- und Zubringerfahrten",
+      "description": "im Bereich Soden, Sulzbach, Dornau und Ebersbach",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "53c28c0d2b03deec3636",
+        "649c9f8257e4aa0220bf"
+      ]
+    }
+  ]
+}

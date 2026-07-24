@@ -1,0 +1,48 @@
+{
+  "line": "5",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "5-auto-01",
+      "label": "Aschaffenburg ↔ Dörrmorsbach",
+      "description": "über AB-Gailbach, AB-Schweinheim",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "668e6988422605dfd294",
+        "6a10201c78bed64e16c8",
+        "94b91323d21d4e461200",
+        "99427e87810063a0f892",
+        "b3902e9747c51f97be71"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "5-auto-02",
+      "label": "AB-Gailbach ↔ Aschaffenburg",
+      "description": "über AB-Schweinheim",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "18bfc3efcaf626eb436e",
+        "4232187ecb6c8c8126e7",
+        "831af3552b30976eba71",
+        "fe5934198ba8823aad08"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "5-auto-03",
+      "label": "AB-Gailbach ↔ AB-Schweinheim",
+      "description": "",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "56e8b7fb09276663cf54",
+        "678b74e600430cdba7d0"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

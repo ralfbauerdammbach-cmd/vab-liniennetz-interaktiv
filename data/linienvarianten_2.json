@@ -1,0 +1,35 @@
+{
+  "line": "2",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "2-auto-01",
+      "label": "AB-Strietwald ↔ Aschaffenburg",
+      "description": "über AB-Damm",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "0ad3b57bb34284b75e16",
+        "241ab3f9279e04f16fd0",
+        "91fb425eba6b34126e04",
+        "a2c46da67e450f197a89",
+        "aec3f2b0ed16d4bd2fa4",
+        "dabe663144d6bbc7647c",
+        "f0ca92eefd6b0fc0c28f"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    },
+    {
+      "id": "2-auto-02",
+      "label": "AB-Strietwald ↔ AB-Strietwald",
+      "description": "",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "694ea46b01449669623f"
+      ],
+      "generated": true,
+      "generated_at": "20260722-092446"
+    }
+  ]
+}

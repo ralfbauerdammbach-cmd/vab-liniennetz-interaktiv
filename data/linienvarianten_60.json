@@ -1,0 +1,78 @@
+{
+  "line": "60",
+  "groups": [
+    {
+      "id": "60-aschaffenburg-elsenfeld",
+      "label": "Aschaffenburg ↔ Elsenfeld",
+      "description": "über Nilkheim, Niedernberg, Großwallstadt und Obernburg",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "0a8b727217f8973c9708",
+        "0e75c68f034e21acf0f6",
+        "1806c25ff03da84debb9",
+        "2ab63b867215be570367",
+        "35a6683270778b163d65",
+        "3bcdbff4c80e05667f9c",
+        "505d83281905fa2d46d2",
+        "554ff847cdcac4a18854",
+        "6a1fd329a57d16dc5d36",
+        "7582659e00c53190e56c",
+        "9527e58a82d88cbe78fc",
+        "a4e77d3c1980288abe78",
+        "ae06968bf60a4b8ce3e3",
+        "d782de546745fa29a5c2"
+      ]
+    },
+    {
+      "id": "60-aschaffenburg-obernburg-erlenbach",
+      "label": "Aschaffenburg ↔ Obernburg/Erlenbach",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "4658c98f3fbe37add0c1",
+        "49ec22bc0ddb2c02b2e1",
+        "892c224d610fcd20fd3f"
+      ]
+    },
+    {
+      "id": "60-niedernberg-elsenfeld-glanzstoff",
+      "label": "Niedernberg ↔ Elsenfeld",
+      "description": "über Großwallstadt und Glanzstoffwerke",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "0c682c32219fa95b6d9f",
+        "ad9cc6de19f9a38e1d9f"
+      ]
+    },
+    {
+      "id": "60-schule-niedernberg-elsenfeld",
+      "label": "Schulverkehr Niedernberg/Großwallstadt – Elsenfeld",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "7a45253d276a019304d0",
+        "84784bc2a8ed20482a53",
+        "8aecfdc457de0c2faac9",
+        "d0b55a2782ead9b10a95",
+        "fd1bbce335d5b4320e87"
+      ]
+    },
+    {
+      "id": "60-schule-obernburg-kleinwallstadt",
+      "label": "Schulverkehr Kleinwallstadt/Großwallstadt – Obernburg",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "0d8fb4ebbf2322dc9594",
+        "23f2061bafdab4ef3cb2",
+        "c6f09f423913cb92e14a"
+      ]
+    },
+    {
+      "id": "60-schule-erlenbach-elsenfeld",
+      "label": "Schulverkehr Erlenbach – Elsenfeld/Großwallstadt",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "128c7552a07ec0eebf10",
+        "fae3570fc84e1095808f"
+      ]
+    }
+  ]
+}

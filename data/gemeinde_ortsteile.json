@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "description": "Zentrale Zuordnung von Gemeinden zu den im GTFS verwendeten Orts- und Ortsteilbezeichnungen.",
+  "gemeinden": {
+    "Dammbach": {
+      "ortsteile": [
+        "Krausenbach",
+        "Wintersbach"
+      ],
+      "status": "geprüft"
+    }
+  }
+}

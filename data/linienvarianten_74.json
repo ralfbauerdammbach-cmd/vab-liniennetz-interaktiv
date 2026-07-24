@@ -1,0 +1,34 @@
+{
+  "line": "74",
+  "groups": [
+    {
+      "id": "74-roellbach-moenchberg",
+      "label": "Röllbach ↔ Mönchberg",
+      "description": "direkt oder über Schmachtenberg",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "030dc20393214240763b",
+        "6e67e3bcb0f759a56056",
+        "93c4fa255c9cdc03a4bf"
+      ]
+    },
+    {
+      "id": "74-eschau-moenchberg",
+      "label": "Eschau ↔ Mönchberg",
+      "description": "Verbindung zwischen Schule und Freizeitanlage",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "4facb80abb3f6da05f50"
+      ]
+    },
+    {
+      "id": "74-sommerau-eschau",
+      "label": "Sommerau ↔ Eschau",
+      "description": "über Hobbach und Neuhammer",
+      "type": "schulverkehr",
+      "pattern_ids": [
+        "e8a575a4043d2a9cfe46"
+      ]
+    }
+  ]
+}

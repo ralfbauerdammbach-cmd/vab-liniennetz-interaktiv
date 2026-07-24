@@ -1,0 +1,34 @@
+{
+  "line": "8",
+  "generated": true,
+  "generated_at": "20260722-092446",
+  "groups": [
+    {
+      "id": "8-regel-hin",
+      "label": "Hbf/ROB → Damm",
+      "description": "Regelverkehr vom Hauptbahnhof über Stadtpalais und Grauer Stein nach Damm",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "2e5d264801876a8f4e13"
+      ]
+    },
+    {
+      "id": "8-regel-rueck",
+      "label": "Damm → Hbf/ROB",
+      "description": "Regelverkehr von Damm über Grauer Stein und Stadtpalais zum Hauptbahnhof",
+      "type": "regelverkehr",
+      "pattern_ids": [
+        "6743f97eef6177a7eaf1"
+      ]
+    },
+    {
+      "id": "8-dahlemstrasse",
+      "label": "Dahlemstraße → Hbf/ROB",
+      "description": "Einzelfahrt ab Dahlemstraße zum Hauptbahnhof",
+      "type": "einzelfahrt",
+      "pattern_ids": [
+        "8b69202aa0200c9c48ec"
+      ]
+    }
+  ]
+}
