@@ -1,0 +1,13 @@
+*.osm.pbf
+*.pbf
+*.osrm
+*.osrm.*
+stop_times.txt
+trips.txt
+stops.txt
+routes.txt
+shapes.txt
+*_vor_*
+*_kandidat*
+*.bak
+*.log
