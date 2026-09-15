@@ -198,6 +198,17 @@ let robBussteigOriginalpositionen = null;
 
 const robBussteigMarkerNachNummer = new Map();
 const linienNachName = new Map();
+let linienLabelLayer = null;
+
+/*
+ * Referenzpunkt des letzten Label-Renders.
+ *
+ * Kleine Kartenverschiebungen dürfen die Auswahl der
+ * Linienbeschriftungen nicht verändern. Leaflet bewegt
+ * vorhandene Marker ohnehin automatisch mit.
+ */
+let linienLabelRenderCenter = null;
+let linienLabelRenderZoom = null;
 let fixierteLinie = null;
 let gemeinsameAbschnitteGeoJSON = null;
 let linienvarianten61 = null;
@@ -373,6 +384,1976 @@ function getLineBounds(lineName) {
   return bounds;
 }
 
+
+
+
+function flattenLineLatLngs(latlngs) {
+  const result = [];
+
+  function walk(values) {
+    for (const value of values ?? []) {
+      if (
+        value
+        && Number.isFinite(value.lat)
+        && Number.isFinite(value.lng)
+      ) {
+        result.push(value);
+      } else if (Array.isArray(value)) {
+        walk(value);
+      }
+    }
+  }
+
+  walk(latlngs);
+  return result;
+}
+
+
+function getLeafletLineLength(layer) {
+  const points =
+    flattenLineLatLngs(
+      layer.getLatLngs?.() ?? []
+    );
+
+  let length = 0;
+
+  for (let i = 1; i < points.length; i += 1) {
+    length += karte.distance(
+      points[i - 1],
+      points[i]
+    );
+  }
+
+  return length;
+}
+
+
+function getLeafletLineMidpoint(layer) {
+  const points =
+    flattenLineLatLngs(
+      layer.getLatLngs?.() ?? []
+    );
+
+  if (points.length === 0) {
+    return null;
+  }
+
+  if (points.length === 1) {
+    return points[0];
+  }
+
+  let totalLength = 0;
+  const segments = [];
+
+  for (let i = 1; i < points.length; i += 1) {
+    const length =
+      karte.distance(
+        points[i - 1],
+        points[i]
+      );
+
+    segments.push({
+      start: points[i - 1],
+      end: points[i],
+      length
+    });
+
+    totalLength += length;
+  }
+
+  const target = totalLength / 2;
+  let travelled = 0;
+
+  for (const segment of segments) {
+    if (
+      travelled + segment.length
+      >= target
+    ) {
+      const ratio =
+        segment.length > 0
+          ? (target - travelled)
+            / segment.length
+          : 0;
+
+      return L.latLng(
+        segment.start.lat
+          + (
+            segment.end.lat
+            - segment.start.lat
+          ) * ratio,
+        segment.start.lng
+          + (
+            segment.end.lng
+            - segment.start.lng
+          ) * ratio
+      );
+    }
+
+    travelled += segment.length;
+  }
+
+  return points[points.length - 1];
+}
+
+
+
+function getLineLabelSpacingForZoom(zoom) {
+  if (zoom >= 16) {
+    return 3000;
+  }
+
+  if (zoom >= 15) {
+    return 5000;
+  }
+
+  if (zoom >= 14) {
+    return 8000;
+  }
+
+  if (zoom >= 13) {
+    return 12000;
+  }
+
+  return 18000;
+}
+
+
+function getLeafletLinePointAtDistance(
+  layer,
+  targetDistance
+) {
+  const points =
+    flattenLineLatLngs(
+      layer.getLatLngs?.() ?? []
+    );
+
+  if (points.length === 0) {
+    return null;
+  }
+
+  if (points.length === 1) {
+    return points[0];
+  }
+
+  let travelled = 0;
+
+  for (let i = 1; i < points.length; i += 1) {
+    const start = points[i - 1];
+    const end = points[i];
+
+    const segmentLength =
+      karte.distance(
+        start,
+        end
+      );
+
+    if (
+      travelled + segmentLength
+      >= targetDistance
+    ) {
+      const remaining =
+        targetDistance - travelled;
+
+      const ratio =
+        segmentLength > 0
+          ? remaining / segmentLength
+          : 0;
+
+      return L.latLng(
+        start.lat
+          + (
+            end.lat
+            - start.lat
+          ) * ratio,
+
+        start.lng
+          + (
+            end.lng
+            - start.lng
+          ) * ratio
+      );
+    }
+
+    travelled += segmentLength;
+  }
+
+  return points[
+    points.length - 1
+  ];
+}
+
+
+
+
+function normalizeLineLabelAngle(angle) {
+  let result = angle;
+
+  while (result > 180) {
+    result -= 360;
+  }
+
+  while (result < -180) {
+    result += 360;
+  }
+
+  /*
+   * Schrift niemals auf dem Kopf darstellen.
+   */
+  if (result > 90) {
+    result -= 180;
+  }
+
+  if (result < -90) {
+    result += 180;
+  }
+
+  return result;
+}
+
+
+function getVisibleLineLabelPositions(
+  layer,
+  spacingPixels = 300
+) {
+  const latLngs =
+    flattenLineLatLngs(
+      layer.getLatLngs?.() ?? []
+    );
+
+  if (latLngs.length < 2) {
+    return [];
+  }
+
+  const size =
+    karte.getSize();
+
+  /*
+   * Etwas großzügiger als der sichtbare Ausschnitt,
+   * damit Labels am Kartenrand nicht springen.
+   */
+  const margin = 50;
+
+  const positions = [];
+  let distanceSinceLabel =
+    spacingPixels / 2;
+
+  for (
+    let i = 1;
+    i < latLngs.length;
+    i += 1
+  ) {
+    const startLatLng =
+      latLngs[i - 1];
+
+    const endLatLng =
+      latLngs[i];
+
+    const startPoint =
+      karte.latLngToContainerPoint(
+        startLatLng
+      );
+
+    const endPoint =
+      karte.latLngToContainerPoint(
+        endLatLng
+      );
+
+    const dx =
+      endPoint.x - startPoint.x;
+
+    const dy =
+      endPoint.y - startPoint.y;
+
+    const segmentLength =
+      Math.sqrt(
+        dx * dx + dy * dy
+      );
+
+    if (segmentLength <= 0) {
+      continue;
+    }
+
+    let travelled = 0;
+
+    while (
+      distanceSinceLabel
+      + (
+        segmentLength - travelled
+      )
+      >= spacingPixels
+    ) {
+      const needed =
+        spacingPixels
+        - distanceSinceLabel;
+
+      travelled += needed;
+
+      const ratio =
+        travelled / segmentLength;
+
+      const x =
+        startPoint.x
+        + dx * ratio;
+
+      const y =
+        startPoint.y
+        + dy * ratio;
+
+      if (
+        x >= -margin
+        && x <= size.x + margin
+        && y >= -margin
+        && y <= size.y + margin
+      ) {
+        const latLng =
+          karte.containerPointToLatLng(
+            L.point(x, y)
+          );
+
+        const angle =
+          normalizeLineLabelAngle(
+            Math.atan2(
+              dy,
+              dx
+            ) * 180 / Math.PI
+          );
+
+        positions.push({
+          latLng,
+          point: L.point(x, y),
+          angle
+        });
+      }
+
+      distanceSinceLabel = 0;
+    }
+
+    distanceSinceLabel +=
+      segmentLength - travelled;
+  }
+
+  return positions;
+}
+
+
+function isLineLabelPositionFree(
+  point,
+  usedPoints,
+  minimumDistance = 55
+) {
+  return !usedPoints.some(
+    usedPoint =>
+      point.distanceTo(usedPoint)
+      < minimumDistance
+  );
+}
+
+
+
+function getSharedLineLabelText(lines) {
+  const sortedLines =
+    sortLines(
+      (lines ?? []).map(String)
+    );
+
+  const count =
+    sortedLines.length;
+
+  const zoom =
+    karte.getZoom();
+
+  let rowCount = 1;
+
+  if (zoom >= 19) {
+    if (count >= 11) {
+      rowCount = 2;
+    }
+
+    if (count >= 24) {
+      rowCount = 3;
+    }
+  } else if (zoom >= 18) {
+    if (count >= 8) {
+      rowCount = 2;
+    }
+
+    if (count >= 18) {
+      rowCount = 3;
+    }
+  } else {
+    if (count >= 5) {
+      rowCount = 2;
+    }
+
+    if (count >= 10) {
+      rowCount = 3;
+    }
+  }
+
+  /*
+   * WICHTIG:
+   *
+   * Die sortierte Reihenfolge der Linien darf beim
+   * Zeilenumbruch niemals zerstört werden.
+   *
+   * Also NICHT:
+   *
+   * 5,16,41
+   * 15,40,47
+   *
+   * sondern:
+   *
+   * 5,15,16
+   * 40,41,47
+   */
+
+  const rows = [];
+
+  if (rowCount === 1) {
+    rows.push(
+      sortedLines
+    );
+  } else {
+    /*
+     * Zusammenhängende Blöcke erzeugen.
+     *
+     * Wir suchen die Trennstellen so, dass die
+     * resultierenden Zeilen möglichst ähnlich breit
+     * werden, ohne die Reihenfolge zu verändern.
+     */
+
+    const lineTexts =
+      sortedLines.map(String);
+
+    function joinedLength(start, end) {
+      return lineTexts
+        .slice(start, end)
+        .join(', ')
+        .length;
+    }
+
+    if (rowCount === 2) {
+      let bestSplit = 1;
+      let bestDifference = Infinity;
+
+      for (
+        let split = 1;
+        split < count;
+        split += 1
+      ) {
+        const firstLength =
+          joinedLength(
+            0,
+            split
+          );
+
+        const secondLength =
+          joinedLength(
+            split,
+            count
+          );
+
+        const difference =
+          Math.abs(
+            firstLength
+            - secondLength
+          );
+
+        if (
+          difference
+          < bestDifference
+        ) {
+          bestDifference =
+            difference;
+
+          bestSplit =
+            split;
+        }
+      }
+
+      rows.push(
+        sortedLines.slice(
+          0,
+          bestSplit
+        )
+      );
+
+      rows.push(
+        sortedLines.slice(
+          bestSplit
+        )
+      );
+    } else {
+      /*
+       * Drei Zeilen:
+       * alle sinnvollen Kombinationen der beiden
+       * Trennstellen testen.
+       */
+      let bestFirst = 1;
+      let bestSecond = 2;
+      let bestScore = Infinity;
+
+      for (
+        let first = 1;
+        first < count - 1;
+        first += 1
+      ) {
+        for (
+          let second = first + 1;
+          second < count;
+          second += 1
+        ) {
+          const lengths = [
+            joinedLength(
+              0,
+              first
+            ),
+
+            joinedLength(
+              first,
+              second
+            ),
+
+            joinedLength(
+              second,
+              count
+            )
+          ];
+
+          const maximum =
+            Math.max(
+              ...lengths
+            );
+
+          const minimum =
+            Math.min(
+              ...lengths
+            );
+
+          /*
+           * Kleine Differenz zwischen längster und
+           * kürzester Zeile ist optimal.
+           */
+          const score =
+            maximum
+            - minimum;
+
+          if (score < bestScore) {
+            bestScore =
+              score;
+
+            bestFirst =
+              first;
+
+            bestSecond =
+              second;
+          }
+        }
+      }
+
+      rows.push(
+        sortedLines.slice(
+          0,
+          bestFirst
+        )
+      );
+
+      rows.push(
+        sortedLines.slice(
+          bestFirst,
+          bestSecond
+        )
+      );
+
+      rows.push(
+        sortedLines.slice(
+          bestSecond
+        )
+      );
+    }
+  }
+
+  const rowTexts =
+    rows
+      .map(
+        row =>
+          row.join(', ')
+      )
+      .filter(Boolean);
+
+  return {
+    text:
+      rowTexts.join(' '),
+
+    html:
+      rowTexts
+        .map(
+          row =>
+            `<span class="vab-linienlabel-zeile">${escapeHtml(row)}</span>`
+        )
+        .join(''),
+
+    rows:
+      rowTexts,
+
+    rowCount:
+      rowTexts.length
+  };
+}
+
+
+
+function getLeafletLineMidpointWithAngle(layer) {
+  const points =
+    flattenLineLatLngs(
+      layer.getLatLngs?.() ?? []
+    );
+
+  if (points.length < 2) {
+    return null;
+  }
+
+  const segments = [];
+  let totalLength = 0;
+
+  for (let i = 1; i < points.length; i += 1) {
+    const start = points[i - 1];
+    const end = points[i];
+
+    const length =
+      karte.distance(
+        start,
+        end
+      );
+
+    segments.push({
+      start,
+      end,
+      length
+    });
+
+    totalLength += length;
+  }
+
+  const target =
+    totalLength / 2;
+
+  let travelled = 0;
+
+  for (const segment of segments) {
+    if (
+      travelled + segment.length
+      >= target
+    ) {
+      const ratio =
+        segment.length > 0
+          ? (
+              target - travelled
+            ) / segment.length
+          : 0;
+
+      const latLng =
+        L.latLng(
+          segment.start.lat
+          + (
+              segment.end.lat
+              - segment.start.lat
+            ) * ratio,
+
+          segment.start.lng
+          + (
+              segment.end.lng
+              - segment.start.lng
+            ) * ratio
+        );
+
+      const startPoint =
+        karte.latLngToContainerPoint(
+          segment.start
+        );
+
+      const endPoint =
+        karte.latLngToContainerPoint(
+          segment.end
+        );
+
+      const angle =
+        normalizeLineLabelAngle(
+          Math.atan2(
+            endPoint.y - startPoint.y,
+            endPoint.x - startPoint.x
+          ) * 180 / Math.PI
+        );
+
+      return {
+        latLng,
+        angle
+      };
+    }
+
+    travelled += segment.length;
+  }
+
+  return null;
+}
+
+
+
+function getBestSharedLabelPosition(
+  layer,
+  labelData
+) {
+  const latLngs =
+    flattenLineLatLngs(
+      layer.getLatLngs?.() ?? []
+    );
+
+  if (latLngs.length < 2) {
+    return null;
+  }
+
+  /*
+   * --------------------------------------------------
+   * WICHTIG:
+   * --------------------------------------------------
+   *
+   * Die Lage des Labels darf NICHT von der aktuellen
+   * Zoomstufe abhängen.
+   *
+   * Deshalb wird die geometrisch beste Position immer
+   * bei derselben festen Referenz-Zoomstufe bestimmt.
+   */
+  const REFERENCE_ZOOM = 18;
+
+  const referencePoints =
+    latLngs.map(
+      latLng =>
+        karte.project(
+          latLng,
+          REFERENCE_ZOOM
+        )
+    );
+
+  const text =
+    String(
+      labelData?.text
+      ?? ''
+    );
+
+  const rows =
+    Array.isArray(
+      labelData?.rows
+    )
+      ? labelData.rows
+      : [text];
+
+  const lineCount =
+    rows.reduce(
+      (sum, row) =>
+        sum
+        + String(row)
+            .split(',')
+            .filter(Boolean)
+            .length,
+      0
+    );
+
+  /*
+   * Schriftgröße bleibt netzweit einheitlich.
+   */
+  const fontSize = 10;
+
+  const longestRowLength =
+    Math.max(
+      1,
+      ...rows.map(
+        row =>
+          String(row).length
+      )
+    );
+
+  /*
+   * Diese Breite dient nur zur Auswahl eines
+   * ausreichend langen Straßenstückes.
+   *
+   * Da REFERENCE_ZOOM fest ist, verändert auch
+   * dieser Wert die geografische Position beim
+   * Zoomen nicht mehr.
+   */
+  const estimatedTextWidth =
+    Math.max(
+      18,
+      longestRowLength
+      * fontSize
+      * 0.57
+    );
+
+  const requiredLength =
+    Math.max(
+      42,
+      estimatedTextWidth * 1.05
+    );
+
+  const candidates = [];
+
+
+  function pointDistance(a, b) {
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+
+    return Math.sqrt(
+      dx * dx
+      + dy * dy
+    );
+  }
+
+
+  function pointToLineDistance(
+    point,
+    startPoint,
+    endPoint
+  ) {
+    const dx =
+      endPoint.x - startPoint.x;
+
+    const dy =
+      endPoint.y - startPoint.y;
+
+    const denominator =
+      dx * dx + dy * dy;
+
+    if (denominator === 0) {
+      return pointDistance(
+        point,
+        startPoint
+      );
+    }
+
+    const factor =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          (
+            (
+              point.x - startPoint.x
+            ) * dx
+            +
+            (
+              point.y - startPoint.y
+            ) * dy
+          )
+          / denominator
+        )
+      );
+
+    const nearest =
+      L.point(
+        startPoint.x + factor * dx,
+        startPoint.y + factor * dy
+      );
+
+    return pointDistance(
+      point,
+      nearest
+    );
+  }
+
+
+  /*
+   * Geeigneten zusammenhängenden geraden Teil des
+   * Abschnitts suchen – ausschließlich im festen
+   * Referenzkoordinatensystem.
+   */
+  for (
+    let startIndex = 0;
+    startIndex < referencePoints.length - 1;
+    startIndex += 1
+  ) {
+    let accumulatedLength = 0;
+
+    for (
+      let endIndex = startIndex + 1;
+      endIndex < referencePoints.length;
+      endIndex += 1
+    ) {
+      accumulatedLength +=
+        pointDistance(
+          referencePoints[endIndex - 1],
+          referencePoints[endIndex]
+        );
+
+      if (
+        accumulatedLength
+        < requiredLength
+      ) {
+        continue;
+      }
+
+      /*
+       * Keine unnötig riesigen Suchfenster.
+       */
+      if (
+        accumulatedLength
+        > requiredLength * 1.8
+      ) {
+        break;
+      }
+
+      const first =
+        referencePoints[startIndex];
+
+      const last =
+        referencePoints[endIndex];
+
+      const dx =
+        last.x - first.x;
+
+      const dy =
+        last.y - first.y;
+
+      const directLength =
+        Math.sqrt(
+          dx * dx
+          + dy * dy
+        );
+
+      const straightness =
+        directLength
+        / Math.max(
+            1,
+            accumulatedLength
+          );
+
+      if (
+        straightness < 0.94
+      ) {
+        continue;
+      }
+
+      let maximumDeviation = 0;
+
+      for (
+        let index = startIndex + 1;
+        index < endIndex;
+        index += 1
+      ) {
+        maximumDeviation =
+          Math.max(
+            maximumDeviation,
+            pointToLineDistance(
+              referencePoints[index],
+              first,
+              last
+            )
+          );
+      }
+
+      if (
+        maximumDeviation > 9
+      ) {
+        continue;
+      }
+
+      const angle =
+        normalizeLineLabelAngle(
+          Math.atan2(
+            dy,
+            dx
+          )
+          * 180 / Math.PI
+        );
+
+      const absoluteAngle =
+        Math.abs(angle);
+
+      /*
+       * Große Bündel weiterhin nicht senkrecht
+       * als Zahlenwand darstellen.
+       */
+      if (
+        lineCount >= 10
+        && absoluteAngle > 55
+      ) {
+        continue;
+      }
+
+      if (
+        lineCount >= 18
+        && absoluteAngle > 42
+      ) {
+        continue;
+      }
+
+      /*
+       * Mittelpunkt entlang der tatsächlichen
+       * Teilgeometrie bestimmen.
+       */
+      const target =
+        accumulatedLength / 2;
+
+      let travelled = 0;
+      let midpointReference = null;
+
+      for (
+        let index = startIndex + 1;
+        index <= endIndex;
+        index += 1
+      ) {
+        const a =
+          referencePoints[index - 1];
+
+        const b =
+          referencePoints[index];
+
+        const segmentLength =
+          pointDistance(
+            a,
+            b
+          );
+
+        if (
+          travelled + segmentLength
+          >= target
+        ) {
+          const remaining =
+            target - travelled;
+
+          const ratio =
+            segmentLength > 0
+              ? remaining / segmentLength
+              : 0;
+
+          midpointReference =
+            L.point(
+              a.x
+                + (
+                    b.x - a.x
+                  ) * ratio,
+
+              a.y
+                + (
+                    b.y - a.y
+                  ) * ratio
+            );
+
+          break;
+        }
+
+        travelled += segmentLength;
+      }
+
+      if (!midpointReference) {
+        continue;
+      }
+
+      /*
+       * Feste Weltpixelposition zurück in eine
+       * geografische Koordinate umwandeln.
+       *
+       * DIESE Position bleibt anschließend in allen
+       * Zoomstufen identisch.
+       */
+      const latLng =
+        karte.unproject(
+          midpointReference,
+          REFERENCE_ZOOM
+        );
+
+      let orientationFactor = 1;
+
+      if (absoluteAngle > 15) {
+        orientationFactor = 0.93;
+      }
+
+      if (absoluteAngle > 30) {
+        orientationFactor = 0.78;
+      }
+
+      if (absoluteAngle > 45) {
+        orientationFactor = 0.52;
+      }
+
+      const score =
+        straightness
+        * orientationFactor
+        * (
+            1
+            + Math.min(
+                0.5,
+                (
+                  accumulatedLength
+                  - requiredLength
+                )
+                / requiredLength
+              )
+          )
+        * (
+            1
+            - Math.min(
+                0.35,
+                maximumDeviation / 30
+              )
+          );
+
+      candidates.push({
+        latLng,
+
+        /*
+         * Nur die Bildschirmposition wird beim
+         * aktuellen Zoom neu berechnet.
+         * Die geografische Lage bleibt gleich.
+         */
+        point:
+          karte.latLngToContainerPoint(
+            latLng
+          ),
+
+        angle,
+        fontSize,
+        lineCount,
+        estimatedTextWidth,
+        score
+      });
+
+      break;
+    }
+  }
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  /*
+   * Stabiler Tie-Breaker:
+   * Bei gleichem Score gewinnt immer die geografisch
+   * frühere Position. Dadurch gibt es auch bei nahezu
+   * identischen Kandidaten kein zufälliges Springen.
+   */
+  candidates.sort(
+    (a, b) => {
+      const scoreDifference =
+        b.score - a.score;
+
+      if (
+        Math.abs(scoreDifference)
+        > 0.000001
+      ) {
+        return scoreDifference;
+      }
+
+      const latDifference =
+        a.latLng.lat
+        - b.latLng.lat;
+
+      if (
+        Math.abs(latDifference)
+        > 0.0000001
+      ) {
+        return latDifference;
+      }
+
+      return (
+        a.latLng.lng
+        - b.latLng.lng
+      );
+    }
+  );
+
+  return candidates[0];
+}
+
+
+
+function getSharedLabelBox(
+  labelPosition,
+  labelData
+) {
+  const point =
+    labelPosition.point;
+
+  const fontSize =
+    Number(
+      labelPosition.fontSize
+      ?? 10
+    );
+
+  const rows =
+    Array.isArray(
+      labelData?.rows
+    )
+      ? labelData.rows
+      : [
+          String(
+            labelData?.text
+            ?? ''
+          )
+        ];
+
+  /*
+   * Tatsächliche Textbreite im Browser messen.
+   *
+   * Damit stimmen auch:
+   * - Leerzeichen nach Kommata
+   * - zweistellige Liniennummern
+   * - BG2 / BG3 / OF-85 usw.
+   */
+  const canvas =
+    getSharedLabelBox._canvas
+    ?? (
+      getSharedLabelBox._canvas =
+        document.createElement(
+          'canvas'
+        )
+    );
+
+  const context =
+    canvas.getContext('2d');
+
+  /*
+   * Entspricht möglichst genau dem CSS:
+   * font-weight 700, 10 px.
+   */
+  context.font =
+    `700 ${fontSize}px Arial, sans-serif`;
+
+  let textWidth = 0;
+
+  for (const row of rows) {
+    const measured =
+      context.measureText(
+        String(row)
+      ).width;
+
+    textWidth =
+      Math.max(
+        textWidth,
+        measured
+      );
+  }
+
+  /*
+   * Letter-spacing aus CSS grob berücksichtigen.
+   */
+  const longestRowLength =
+    Math.max(
+      1,
+      ...rows.map(
+        row =>
+          String(row).length
+      )
+    );
+
+  textWidth +=
+    longestRowLength
+    * 0.15;
+
+  const lineHeight =
+    fontSize * 1.15;
+
+  const textHeight =
+    Math.max(
+      lineHeight,
+      rows.length
+      * lineHeight
+    );
+
+  /*
+   * Sicherheitsrand um die tatsächliche Schrift.
+   */
+  const paddingX = 8;
+  const paddingY = 5;
+
+  const width =
+    textWidth
+    + paddingX * 2;
+
+  const height =
+    textHeight
+    + paddingY * 2;
+
+  /*
+   * Jetzt die Drehung berücksichtigen.
+   *
+   * Ein 100 px breites Label bei 45° benötigt
+   * sowohl horizontal als auch vertikal deutlich
+   * mehr Raum als ein ungedrehtes Label.
+   */
+  const angle =
+    Math.abs(
+      Number(
+        labelPosition.angle
+        ?? 0
+      )
+    )
+    * Math.PI / 180;
+
+  const rotatedWidth =
+    Math.abs(
+      width
+      * Math.cos(angle)
+    )
+    +
+    Math.abs(
+      height
+      * Math.sin(angle)
+    );
+
+  const rotatedHeight =
+    Math.abs(
+      width
+      * Math.sin(angle)
+    )
+    +
+    Math.abs(
+      height
+      * Math.cos(angle)
+    );
+
+  /*
+   * Kleine zusätzliche Luft zwischen zwei Labels.
+   */
+  const collisionMargin = 6;
+
+  return {
+    left:
+      point.x
+      - rotatedWidth / 2
+      - collisionMargin,
+
+    right:
+      point.x
+      + rotatedWidth / 2
+      + collisionMargin,
+
+    top:
+      point.y
+      - rotatedHeight / 2
+      - collisionMargin,
+
+    bottom:
+      point.y
+      + rotatedHeight / 2
+      + collisionMargin
+  };
+}
+
+
+function sharedLabelBoxesOverlap(
+  first,
+  second
+) {
+  return !(
+    first.right < second.left
+    || first.left > second.right
+    || first.bottom < second.top
+    || first.top > second.bottom
+  );
+}
+
+
+function isSharedLabelBoxFree(
+  box,
+  usedBoxes
+) {
+  return !usedBoxes.some(
+    usedBox =>
+      sharedLabelBoxesOverlap(
+        box,
+        usedBox
+      )
+  );
+}
+
+
+function createLineLabels() {
+  /*
+   * Zustand des aktuellen Renders festhalten.
+   * Er dient anschließend als Hysterese beim Panning.
+   */
+  linienLabelRenderCenter =
+    karte.getCenter();
+
+  linienLabelRenderZoom =
+    karte.getZoom();
+
+  if (linienLabelLayer) {
+    karte.removeLayer(
+      linienLabelLayer
+    );
+  }
+
+  linienLabelLayer = null;
+
+  const zoom =
+    karte.getZoom();
+
+  if (zoom < 12) {
+    return;
+  }
+
+  if (!karte.getPane('linienLabelPane')) {
+    karte.createPane(
+      'linienLabelPane'
+    );
+
+    karte.getPane(
+      'linienLabelPane'
+    ).style.zIndex = 605;
+
+    karte.getPane(
+      'linienLabelPane'
+    ).style.pointerEvents = 'none';
+  }
+
+  linienLabelLayer =
+    L.layerGroup();
+
+  const usedPoints = [];
+
+  /*
+   * Tatsächliche belegte Textflächen der Sammellabels.
+   * Dadurch werden Labels nicht mehr pauschal über
+   * 150–250 Pixel Entfernung gegenseitig verdrängt.
+   */
+  const usedSharedLabelBoxes = [];
+
+  /*
+   * Die Kollisionsprüfung basiert jetzt auf real
+   * gemessenen und entsprechend der Linienrichtung
+   * gedrehten Textflächen.
+   */
+
+  /*
+   * --------------------------------------------------
+   * 1. GEMEINSAME LINIENABSCHNITTE
+   * --------------------------------------------------
+   *
+   * Neue Strategie:
+   *
+   * Zunächst für ALLE sichtbaren gemeinsamen
+   * Abschnitte einen möglichen Label-Kandidaten
+   * berechnen.
+   *
+   * Anschließend werden Kandidaten danach ausgewählt,
+   * wie gut sie bisher noch nicht dargestellte Linien
+   * abdecken.
+   */
+
+  const representedLines =
+    new Set();
+
+  const sharedCandidates = [];
+
+  const sharedFeatures =
+    gemeinsameAbschnitteGeoJSON?.features
+    ?? [];
+
+  for (const feature of sharedFeatures) {
+    const properties =
+      feature.properties ?? {};
+
+    const lines =
+      sortLines(
+        (properties.lines ?? [])
+          .map(String)
+      );
+
+    if (lines.length < 2) {
+      continue;
+    }
+
+    const geometry =
+      feature.geometry ?? {};
+
+    if (
+      geometry.type !== 'LineString'
+      || !Array.isArray(
+        geometry.coordinates
+      )
+      || geometry.coordinates.length < 2
+    ) {
+      continue;
+    }
+
+    const latLngs =
+      geometry.coordinates.map(
+        coordinate =>
+          L.latLng(
+            coordinate[1],
+            coordinate[0]
+          )
+      );
+
+    const temporaryLayer =
+      L.polyline(latLngs);
+
+    const labelData =
+      getSharedLineLabelText(
+        lines
+      );
+
+    const labelPosition =
+      getBestSharedLabelPosition(
+        temporaryLayer,
+        labelData
+      );
+
+    if (!labelPosition) {
+      continue;
+    }
+
+    const point =
+      labelPosition.point;
+
+    const size =
+      karte.getSize();
+
+    if (
+      point.x < -30
+      || point.x > size.x + 30
+      || point.y < -30
+      || point.y > size.y + 30
+    ) {
+      continue;
+    }
+
+    /*
+     * Tatsächliche sichtbare Länge des Abschnitts.
+     */
+    let visibleLength = 0;
+
+    for (
+      let index = 1;
+      index < latLngs.length;
+      index += 1
+    ) {
+      const first =
+        karte.latLngToContainerPoint(
+          latLngs[index - 1]
+        );
+
+      const second =
+        karte.latLngToContainerPoint(
+          latLngs[index]
+        );
+
+      visibleLength +=
+        first.distanceTo(
+          second
+        );
+    }
+
+    sharedCandidates.push({
+      feature,
+      sharedSectionId:
+        properties.shared_section_id
+        ?? '',
+      lines,
+      labelData,
+      labelPosition,
+      point,
+      visibleLength
+    });
+  }
+
+
+  /*
+   * Lange Abschnitte zunächst bevorzugen.
+   */
+  sharedCandidates.sort(
+    (a, b) =>
+      b.visibleLength
+      - a.visibleLength
+  );
+
+
+  /*
+   * --------------------------------------------------
+   * ABSCHNITTSTREUE LABEL-AUSWAHL
+   * --------------------------------------------------
+   *
+   * Grundregel:
+   *
+   * Ein Label beschreibt ausschließlich den konkreten
+   * gemeinsamen Abschnitt, auf dem es platziert wird.
+   *
+   * Es spielt KEINE Rolle mehr, ob einzelne Linien
+   * bereits an anderer Stelle dargestellt wurden.
+   *
+   * Damit kann beispielsweise ein Abschnitt mit
+   * 4,10 nicht mehr deshalb bevorzugt oder verdrängt
+   * werden, weil andere Linien irgendwo im sichtbaren
+   * Kartenausschnitt bereits vorkommen.
+   */
+
+  sharedCandidates.sort(
+    (a, b) => {
+      /*
+       * Lange sichtbare Abschnitte zuerst.
+       */
+      const lengthDifference =
+        b.visibleLength
+        - a.visibleLength;
+
+      if (
+        Math.abs(lengthDifference)
+        > 0.01
+      ) {
+        return lengthDifference;
+      }
+
+      /*
+       * Bei nahezu gleicher Länge erhält die
+       * umfangreichere Linienkombination Vorrang.
+       */
+      return (
+        b.lines.length
+        - a.lines.length
+      );
+    }
+  );
+
+
+  for (const candidate of sharedCandidates) {
+    const {
+      sharedSectionId,
+      lines,
+      labelData,
+      labelPosition,
+      point
+    } = candidate;
+
+    /*
+     * Kollisionsfläche entspricht der tatsächlich
+     * gemessenen und gedrehten Beschriftung.
+     */
+    const labelBox =
+      getSharedLabelBox(
+        labelPosition,
+        labelData
+      );
+
+    /*
+     * Wichtig:
+     *
+     * Nur eine echte räumliche Textüberschneidung darf
+     * dazu führen, dass dieses Label nicht dargestellt
+     * wird.
+     *
+     * Die Tatsache, dass dieselben Linien bereits
+     * irgendwo anders vorkommen, ist KEIN Kriterium.
+     */
+    if (
+      !isSharedLabelBoxFree(
+        labelBox,
+        usedSharedLabelBoxes
+      )
+    ) {
+      continue;
+    }
+
+    const icon =
+      L.divIcon({
+        className: '',
+        iconSize: null,
+
+        html: `
+          <div
+            class="vab-linienlabel"
+            data-shared-section="${escapeHtml(sharedSectionId)}"
+            data-lines="${escapeHtml(lines.join(','))}"
+            style="
+              --vab-label-angle:
+              ${labelPosition.angle}deg;
+
+              --vab-label-size:
+              ${labelPosition.fontSize ?? 10}px;
+            "
+          >
+            ${labelData.html}
+          </div>
+        `
+      });
+
+    L.marker(
+      labelPosition.latLng,
+      {
+        pane: 'linienLabelPane',
+        icon,
+        interactive: false,
+        keyboard: false
+      }
+    ).addTo(
+      linienLabelLayer
+    );
+
+    usedPoints.push(
+      point
+    );
+
+    usedSharedLabelBoxes.push(
+      labelBox
+    );
+
+    /*
+     * Nur für die spätere Einzellabel-Logik merken,
+     * welche Linien tatsächlich in einem sichtbaren
+     * Sammellabel vorkommen.
+     *
+     * Diese Menge beeinflusst NICHT mehr die Auswahl
+     * anderer gemeinsamer Abschnitte.
+     */
+    for (const line of lines) {
+      representedLines.add(
+        String(line)
+      );
+    }
+  }
+
+
+  /*
+   * Dieses Set wird ausschließlich anschließend von
+   * der Einzellabel-Logik verwendet.
+   *
+   * Gemeinsame Abschnitte beeinflussen sich damit nur
+   * noch über echte räumliche Textkollisionen.
+   */
+  const linesRepresentedBySharedLabels =
+    representedLines;
+
+  /*
+   * Qualitätskontrolle der tatsächlich sichtbaren
+   * Sammellabels. Keine Änderung an der Darstellung.
+   */
+  window.setTimeout(() => {
+    const audit =
+      Array.from(
+        document.querySelectorAll(
+          '.vab-linienlabel[data-shared-section]'
+        )
+      ).map(element => ({
+        section:
+          element.dataset.sharedSection,
+        lines:
+          element.dataset.lines,
+        text:
+          element.innerText
+            .replace(/\\n+/g, ' / ')
+            .trim()
+      }));
+
+    window.vabSharedLabelAudit =
+      audit;
+
+    console.group(
+      `VAB Sammellabel-Prüfung – ${audit.length} sichtbare Labels`
+    );
+
+    console.table(audit);
+
+    console.groupEnd();
+  }, 0);
+
+
+  /*
+   * --------------------------------------------------
+   * 2. EINZELNE LINIEN
+   * --------------------------------------------------
+   *
+   * Einzellabels nur dort setzen, wo kein gemeinsamer
+   * Linienabschnitt vorhanden ist.
+   */
+  let spacingPixels = 650;
+
+  if (zoom >= 14) {
+    spacingPixels = 560;
+  }
+
+  if (zoom >= 16) {
+    spacingPixels = 470;
+  }
+
+  if (zoom >= 18) {
+    spacingPixels = 420;
+  }
+
+  for (
+    const [lineName, layers]
+    of linienNachName.entries()
+  ) {
+    if (
+      !lineName
+      || !Array.isArray(layers)
+      || layers.length === 0
+    ) {
+      continue;
+    }
+
+    for (const layer of layers) {
+      const positions =
+        getVisibleLineLabelPositions(
+          layer,
+          spacingPixels
+        );
+
+      for (const position of positions) {
+        /*
+         * Liegt hier ein gemeinsamer Abschnitt,
+         * übernimmt dessen Sammelbeschriftung.
+         */
+        const sharedFeature =
+          findSharedSectionAtClick(
+            position.latLng,
+            lineName
+          );
+
+        if (sharedFeature) {
+          continue;
+        }
+
+        if (
+          !isLineLabelPositionFree(
+            position.point,
+            usedPoints,
+            100
+          )
+        ) {
+          continue;
+        }
+
+        const icon =
+          L.divIcon({
+            className: '',
+            iconSize: null,
+            html: `
+              <div
+                class="vab-linienlabel"
+            data-line="${escapeHtml(String(lineName))}"
+                style="
+                  --vab-label-angle:
+                  ${position.angle ?? 0}deg;
+                "
+              >
+                ${escapeHtml(lineName)}
+              </div>
+            `
+          });
+
+        L.marker(
+          position.latLng,
+          {
+            pane: 'linienLabelPane',
+            icon,
+            interactive: false,
+            keyboard: false
+          }
+        ).addTo(
+          linienLabelLayer
+        );
+
+        usedPoints.push(
+          position.point
+        );
+      }
+    }
+  }
+
+  linienLabelLayer.addTo(
+    karte
+  );
+}
+
+
+
+function shouldRefreshLineLabelsAfterPan() {
+  const zoom =
+    karte.getZoom();
+
+  /*
+   * Nach Zoomwechsel immer neu rendern.
+   */
+  if (
+    linienLabelRenderCenter === null
+    || linienLabelRenderZoom !== zoom
+  ) {
+    return true;
+  }
+
+  const currentCenter =
+    karte.getCenter();
+
+  /*
+   * Weltpixel statt Containerpixel verwenden.
+   * Damit messen wir ausschließlich die tatsächliche
+   * Verschiebung der Karte.
+   */
+  const previousPoint =
+    karte.project(
+      linienLabelRenderCenter,
+      zoom
+    );
+
+  const currentPoint =
+    karte.project(
+      currentCenter,
+      zoom
+    );
+
+  const dx =
+    Math.abs(
+      currentPoint.x
+      - previousPoint.x
+    );
+
+  const dy =
+    Math.abs(
+      currentPoint.y
+      - previousPoint.y
+    );
+
+  const size =
+    karte.getSize();
+
+  /*
+   * Erst neu berechnen, wenn ungefähr 40 % des
+   * Kartenausschnitts verschoben wurden.
+   *
+   * Ein leichtes Ziehen mit der Maushand verändert
+   * damit KEINE Beschriftung mehr.
+   */
+  return (
+    dx > size.x * 0.40
+    || dy > size.y * 0.40
+  );
+}
+
+
+function refreshLineLabelsAfterPan() {
+  if (
+    !shouldRefreshLineLabelsAfterPan()
+  ) {
+    return;
+  }
+
+  createLineLabels();
+}
+
+
+function updateLineLabelVisibility() {
+  createLineLabels();
+}
+
+
+karte.on(
+  'zoomend',
+  updateLineLabelVisibility
+);
+
+karte.on(
+  'moveend',
+  refreshLineLabelsAfterPan
+);
 
 
 function getLineInformation(lineName) {
@@ -2800,6 +4781,8 @@ async function loadMapData() {
     onEachFeature: addLineInteraction
   }).addTo(karte);
 
+  createLineLabels();
+
   const bounds = linienLayer.getBounds();
 
   if (bounds.isValid()) {
@@ -2818,6 +4801,14 @@ async function loadMapData() {
   );
 
   gemeinsameAbschnitteGeoJSON = abschnittGeoJSON;
+
+  /*
+   * Die Linienlabels wurden beim Laden der Linien
+   * zunächst ohne Kenntnis der gemeinsamen Abschnitte
+   * erzeugt. Jetzt mit den vollständigen Daten
+   * nochmals neu berechnen.
+   */
+  createLineLabels();
 
   abschnittKlickLayer = L.geoJSON(
     abschnittGeoJSON,
@@ -2877,6 +4868,215 @@ setStatus(
     'erfolg'
   );
 }
+
+
+/*
+ * ======================================================
+ * VAB QUALITÄTSPRÜFUNG – SICHTBARE LINIENBESCHRIFTUNGEN
+ * ======================================================
+ *
+ * Prüft für den aktuellen Kartenausschnitt:
+ * - welche Linien dort geometrisch sichtbar sind
+ * - welche davon durch Sammel-/Einzellabels dargestellt
+ *   werden
+ * - welche sichtbaren Linien keine Beschriftung besitzen
+ *
+ * Keine Änderung an der Kartendarstellung.
+ */
+window.vabPruefeSichtbareLinienlabels = function() {
+  const bounds =
+    karte.getBounds();
+
+  const sichtbareLinien =
+    new Set();
+
+  for (
+    const [lineName, layers]
+    of linienNachName.entries()
+  ) {
+    if (
+      !lineName
+      || !Array.isArray(layers)
+    ) {
+      continue;
+    }
+
+    let sichtbar = false;
+
+    for (const layer of layers) {
+      if (
+        typeof layer.getBounds === 'function'
+        && layer.getBounds().isValid()
+        && bounds.intersects(
+          layer.getBounds()
+        )
+      ) {
+        sichtbar = true;
+        break;
+      }
+    }
+
+    if (sichtbar) {
+      sichtbareLinien.add(
+        String(lineName)
+      );
+    }
+  }
+
+  const dargestellteLinien =
+    new Set();
+
+  /*
+   * Sammellabels
+   */
+  document
+    .querySelectorAll(
+      '.vab-linienlabel[data-lines]'
+    )
+    .forEach(element => {
+      const lines =
+        String(
+          element.dataset.lines
+          ?? ''
+        )
+          .split(',')
+          .map(value => value.trim())
+          .filter(Boolean);
+
+      for (const line of lines) {
+        dargestellteLinien.add(line);
+      }
+    });
+
+  /*
+   * Einzellabels
+   */
+  document
+    .querySelectorAll(
+      '.vab-linienlabel[data-line]'
+    )
+    .forEach(element => {
+      const line =
+        String(
+          element.dataset.line
+          ?? ''
+        ).trim();
+
+      if (line) {
+        dargestellteLinien.add(line);
+      }
+    });
+
+  const fehlendeLinien =
+    [...sichtbareLinien]
+      .filter(
+        line =>
+          !dargestellteLinien.has(line)
+      )
+      .sort(sortLines);
+
+  const sichtbareSortiert =
+    sortLines(
+      [...sichtbareLinien]
+    );
+
+  const dargestellteSortiert =
+    sortLines(
+      [...dargestellteLinien]
+    );
+
+  const ergebnis = {
+    zoom:
+      karte.getZoom(),
+
+    sichtbareLinien:
+      sichtbareSortiert,
+
+    dargestellteLinien:
+      dargestellteSortiert,
+
+    fehlendeLinien,
+
+    anzahlSichtbar:
+      sichtbareSortiert.length,
+
+    anzahlDargestellt:
+      dargestellteSortiert.length,
+
+    anzahlFehlend:
+      fehlendeLinien.length,
+
+    status:
+      fehlendeLinien.length === 0
+        ? 'OK'
+        : 'FEHLER'
+  };
+
+  console.group(
+    `VAB Label-QA | Zoom ${ergebnis.zoom} | ${ergebnis.status}`
+  );
+
+  console.log(
+    'Sichtbare Linien:',
+    ergebnis.anzahlSichtbar
+  );
+
+  console.log(
+    'Durch Labels dargestellt:',
+    ergebnis.anzahlDargestellt
+  );
+
+  console.log(
+    'Fehlende sichtbare Linien:',
+    ergebnis.anzahlFehlend
+  );
+
+  if (fehlendeLinien.length > 0) {
+    console.warn(
+      'FEHLENDE LINIEN:',
+      fehlendeLinien.join(', ')
+    );
+  } else {
+    console.log(
+      'Alle sichtbaren Linien besitzen mindestens eine Beschriftung.'
+    );
+  }
+
+  console.groupEnd();
+
+  return ergebnis;
+};
+
+
+window.vabLabelQA = function() {
+  const result =
+    window.vabPruefeSichtbareLinienlabels();
+
+  console.table([
+    {
+      Zoom:
+        result.zoom,
+
+      Sichtbar:
+        result.anzahlSichtbar,
+
+      Beschriftet:
+        result.anzahlDargestellt,
+
+      Fehlend:
+        result.anzahlFehlend,
+
+      Status:
+        result.status,
+
+      Fehlende_Linien:
+        result.fehlendeLinien.join(', ')
+    }
+  ]);
+
+  return result;
+};
+
 
 karte.on('click', event => {
   /*

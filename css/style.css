@@ -1899,3 +1899,286 @@ main {
 }
 
 /* END ROB-SEITENLEISTE EXTREM KOMPAKT */
+
+
+/* BEGIN LINIENNUMMERN AUF DER KARTE */
+
+.vab-linienlabel {
+  display: inline-flex;
+  min-width: 24px;
+  height: 20px;
+  padding: 0 5px;
+  align-items: center;
+  justify-content: center;
+
+  transform: translate(-50%, -50%);
+
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+
+  background: #000F47;
+  color: #ffffff;
+
+  box-shadow:
+    0 1px 4px rgba(0, 15, 71, 0.28);
+
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* END LINIENNUMMERN AUF DER KARTE */
+
+
+/* BEGIN GEMEINSAME LINIENLABELS */
+
+.vab-linienlabel-gemeinsam {
+  min-width: 0;
+  height: 20px;
+  padding: 0 6px;
+
+  border-color: #000F47;
+
+  background: #ffffff;
+  color: #000F47;
+
+  box-shadow:
+    0 1px 5px rgba(0, 15, 71, 0.22);
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* END GEMEINSAME LINIENLABELS */
+
+
+/* BEGIN VIELE GEMEINSAME LINIEN */
+
+/*
+ * Ab fünf gemeinsam fahrenden Linien:
+ * keine Box mehr, sondern eine kompakte
+ * Nummernfolge unmittelbar am Linienverlauf.
+ */
+.vab-linienlabel-viele {
+  min-width: 0;
+  height: auto;
+  padding: 0;
+
+  transform:
+    translate(-50%, -135%);
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+  color: #000F47;
+
+  box-shadow: none;
+
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1;
+
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+
+  /*
+   * Heller Halo für gute Lesbarkeit auf
+   * Straßen, Gebäuden und Linienverläufen.
+   */
+  text-shadow:
+    -2px -2px 0 #FFFFFF,
+     2px -2px 0 #FFFFFF,
+    -2px  2px 0 #FFFFFF,
+     2px  2px 0 #FFFFFF,
+     0   -2px 0 #FFFFFF,
+     0    2px 0 #FFFFFF,
+    -2px  0   0 #FFFFFF,
+     2px  0   0 #FFFFFF;
+}
+
+/* END VIELE GEMEINSAME LINIEN */
+
+
+/* BEGIN LINIENBESCHRIFTUNG NACH ÖPNVKARTE-PRINZIP */
+
+/*
+ * Einheitliche Beschriftung:
+ * Liniennummern direkt auf dem Linienverlauf,
+ * ohne Kästchen oder Badge.
+ */
+.vab-linienlabel,
+.vab-linienlabel-gemeinsam,
+.vab-linienlabel-viele {
+  display: inline-block !important;
+
+  min-width: 0 !important;
+  width: auto !important;
+  height: auto !important;
+
+  padding: 0 !important;
+
+  /*
+   * Mittelpunkt des Labels liegt direkt auf
+   * dem Linienverlauf. Zusätzlich wird der Text
+   * entsprechend der Linienrichtung gedreht.
+   */
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--vab-label-angle, 0deg))
+    !important;
+
+  transform-origin: center center !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  /*
+   * VAB Urban Blue als Linienbeschriftungsfarbe.
+   */
+  color: #000F47 !important;
+
+  box-shadow: none !important;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif !important;
+
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+
+  letter-spacing: -0.02em !important;
+  white-space: nowrap !important;
+
+  pointer-events: none !important;
+
+  /*
+   * Weißer Halo wie bei klassischen
+   * ÖPNV- und Straßenkarten.
+   */
+  text-shadow:
+    -2px -2px 0 #FFFFFF,
+     0   -2px 0 #FFFFFF,
+     2px -2px 0 #FFFFFF,
+    -2px  0   0 #FFFFFF,
+     2px  0   0 #FFFFFF,
+    -2px  2px 0 #FFFFFF,
+     0    2px 0 #FFFFFF,
+     2px  2px 0 #FFFFFF !important;
+
+  z-index: 1;
+}
+
+/* END LINIENBESCHRIFTUNG NACH ÖPNVKARTE-PRINZIP */
+
+
+/* BEGIN ÖPNVKARTE-FEINSCHLIFF LINIENNUMMERN */
+
+.vab-linienlabel {
+  /*
+   * Bei langen Linienkombinationen wird die
+   * Schrift automatisch etwas kleiner.
+   */
+  font-size:
+    var(--vab-label-size, 10px)
+    !important;
+
+  /*
+   * Sehr kompakte Kartenschrift.
+   */
+  letter-spacing: -0.04em !important;
+
+  /*
+   * Etwas schmalerer Halo, damit lange Folgen
+   * nicht zu einem weißen Balken werden.
+   */
+  text-shadow:
+    -1px -1px 0 #FFFFFF,
+     0   -1px 0 #FFFFFF,
+     1px -1px 0 #FFFFFF,
+    -1px  0   0 #FFFFFF,
+     1px  0   0 #FFFFFF,
+    -1px  1px 0 #FFFFFF,
+     0    1px 0 #FFFFFF,
+     1px  1px 0 #FFFFFF
+    !important;
+}
+
+/* END ÖPNVKARTE-FEINSCHLIFF LINIENNUMMERN */
+
+/* Mehrzeilige Linienbeschriftungen */
+
+.vab-linienlabel {
+  line-height: 1.05 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.vab-linienlabel-zeile {
+  display: block;
+  white-space: nowrap;
+}
+
+
+/* BEGIN SAMMELLABEL-FEINSCHLIFF 2026-08-07 */
+
+/*
+ * Näher an klassischer Netzplankartografie:
+ * kompakt, aber nicht fett und dominant.
+ */
+.vab-linienlabel {
+  font-weight: 700 !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.025em !important;
+  text-align: center !important;
+
+  text-shadow:
+    -1px -1px 0 #fff,
+     0   -1px 0 #fff,
+     1px -1px 0 #fff,
+    -1px  0   0 #fff,
+     1px  0   0 #fff,
+    -1px  1px 0 #fff,
+     0    1px 0 #fff,
+     1px  1px 0 #fff
+    !important;
+}
+
+.vab-linienlabel-zeile {
+  display: block !important;
+  width: max-content;
+  min-width: 100%;
+  white-space: nowrap !important;
+  text-align: center !important;
+}
+
+/* END SAMMELLABEL-FEINSCHLIFF 2026-08-07 */
+
+/* Einheitliche Liniennummerngröße */
+
+.vab-linienlabel,
+.vab-linienlabel-zeile {
+  font-size: 10px !important;
+}
+
+.vab-linienlabel {
+  line-height: 1.0 !important;
+}
+
+/* etwas mehr Lesbarkeit für mehrzeilige Linienlabels */
+.vab-linienlabel,
+.vab-linienlabel-zeile {
+  letter-spacing: 0.15px;
+}
+
+.vab-linienlabel {
+  line-height: 1.15 !important;
+}
