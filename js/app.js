@@ -157,6 +157,15 @@ L.control.scale({
   position: 'bottomleft'
 }).addTo(karte);
 
+karte.createPane('linienRenderPane');
+karte.getPane('linienRenderPane').style.zIndex = 405;
+karte.getPane('linienRenderPane').style.pointerEvents = 'none';
+
+const linienRenderRenderer = L.canvas({
+  pane: 'linienRenderPane',
+  padding: 0.5
+});
+
 karte.createPane('linienPane');
 karte.getPane('linienPane').style.zIndex = 410;
 
@@ -183,6 +192,7 @@ karte.getPane('robPane').style.zIndex = 700;
 karte.createPane('robBussteigPane');
 karte.getPane('robBussteigPane').style.zIndex = 690;
 
+let linienRenderLayer;
 let linienLayer;
 let abschnittKlickLayer;
 let ausgewaehlterAbschnitt = null;
@@ -211,6 +221,7 @@ let linienLabelRenderCenter = null;
 let linienLabelRenderZoom = null;
 let fixierteLinie = null;
 let gemeinsameAbschnitteGeoJSON = null;
+let linienLabelKorridoreGeoJSON = null;
 let linienvarianten61 = null;
 let aktiveVariante61 = null;
 let linienvarianten68 = null;
@@ -326,12 +337,30 @@ function clearAllSelection() {
   }
 }
 
-function lineStyle() {
+function renderLineStyle() {
   return {
-    pane: 'linienPane',
+    pane: 'linienRenderPane',
     color: '#000F47',
     weight: 3,
     opacity: 0.72,
+    lineCap: 'round',
+    lineJoin: 'round'
+  };
+}
+
+function lineStyle() {
+  /*
+   * Fachliche VAB-Geometrie bleibt vollständig erhalten,
+   * dient im Grundzustand aber nur noch als Interaktionsfläche.
+   *
+   * Hover-/Auswahlfunktionen setzen weiterhin explizite
+   * sichtbare Farben auf genau diesen Layer.
+   */
+  return {
+    pane: 'linienPane',
+    color: '#000F47',
+    weight: 10,
+    opacity: 0.001,
     lineCap: 'round',
     lineJoin: 'round'
   };
@@ -756,249 +785,110 @@ function getSharedLineLabelText(lines) {
       (lines ?? []).map(String)
     );
 
-  const count =
-    sortedLines.length;
-
-  const zoom =
-    karte.getZoom();
-
-  let rowCount = 1;
-
-  if (zoom >= 19) {
-    if (count >= 11) {
-      rowCount = 2;
-    }
-
-    if (count >= 24) {
-      rowCount = 3;
-    }
-  } else if (zoom >= 18) {
-    if (count >= 8) {
-      rowCount = 2;
-    }
-
-    if (count >= 18) {
-      rowCount = 3;
-    }
-  } else {
-    if (count >= 5) {
-      rowCount = 2;
-    }
-
-    if (count >= 10) {
-      rowCount = 3;
-    }
-  }
-
   /*
-   * WICHTIG:
+   * Kartografische Grundregel:
    *
-   * Die sortierte Reihenfolge der Linien darf beim
-   * Zeilenumbruch niemals zerstört werden.
+   * Sammellabels werden immer in genau einer Zeile
+   * geschrieben – wie bei klassischen Liniennetzplänen.
    *
-   * Also NICHT:
-   *
-   * 5,16,41
-   * 15,40,47
-   *
-   * sondern:
-   *
-   * 5,15,16
-   * 40,41,47
+   * Keine Umbrüche, keine Kästen, keine mehrzeiligen
+   * Nummernblöcke.
    */
-
-  const rows = [];
-
-  if (rowCount === 1) {
-    rows.push(
-      sortedLines
-    );
-  } else {
-    /*
-     * Zusammenhängende Blöcke erzeugen.
-     *
-     * Wir suchen die Trennstellen so, dass die
-     * resultierenden Zeilen möglichst ähnlich breit
-     * werden, ohne die Reihenfolge zu verändern.
-     */
-
-    const lineTexts =
-      sortedLines.map(String);
-
-    function joinedLength(start, end) {
-      return lineTexts
-        .slice(start, end)
-        .join(', ')
-        .length;
-    }
-
-    if (rowCount === 2) {
-      let bestSplit = 1;
-      let bestDifference = Infinity;
-
-      for (
-        let split = 1;
-        split < count;
-        split += 1
-      ) {
-        const firstLength =
-          joinedLength(
-            0,
-            split
-          );
-
-        const secondLength =
-          joinedLength(
-            split,
-            count
-          );
-
-        const difference =
-          Math.abs(
-            firstLength
-            - secondLength
-          );
-
-        if (
-          difference
-          < bestDifference
-        ) {
-          bestDifference =
-            difference;
-
-          bestSplit =
-            split;
-        }
-      }
-
-      rows.push(
-        sortedLines.slice(
-          0,
-          bestSplit
-        )
-      );
-
-      rows.push(
-        sortedLines.slice(
-          bestSplit
-        )
-      );
-    } else {
-      /*
-       * Drei Zeilen:
-       * alle sinnvollen Kombinationen der beiden
-       * Trennstellen testen.
-       */
-      let bestFirst = 1;
-      let bestSecond = 2;
-      let bestScore = Infinity;
-
-      for (
-        let first = 1;
-        first < count - 1;
-        first += 1
-      ) {
-        for (
-          let second = first + 1;
-          second < count;
-          second += 1
-        ) {
-          const lengths = [
-            joinedLength(
-              0,
-              first
-            ),
-
-            joinedLength(
-              first,
-              second
-            ),
-
-            joinedLength(
-              second,
-              count
-            )
-          ];
-
-          const maximum =
-            Math.max(
-              ...lengths
-            );
-
-          const minimum =
-            Math.min(
-              ...lengths
-            );
-
-          /*
-           * Kleine Differenz zwischen längster und
-           * kürzester Zeile ist optimal.
-           */
-          const score =
-            maximum
-            - minimum;
-
-          if (score < bestScore) {
-            bestScore =
-              score;
-
-            bestFirst =
-              first;
-
-            bestSecond =
-              second;
-          }
-        }
-      }
-
-      rows.push(
-        sortedLines.slice(
-          0,
-          bestFirst
-        )
-      );
-
-      rows.push(
-        sortedLines.slice(
-          bestFirst,
-          bestSecond
-        )
-      );
-
-      rows.push(
-        sortedLines.slice(
-          bestSecond
-        )
-      );
-    }
-  }
-
-  const rowTexts =
-    rows
-      .map(
-        row =>
-          row.join(', ')
-      )
-      .filter(Boolean);
+  const text =
+    sortedLines.join(', ');
 
   return {
-    text:
-      rowTexts.join(' '),
-
-    html:
-      rowTexts
-        .map(
-          row =>
-            `<span class="vab-linienlabel-zeile">${escapeHtml(row)}</span>`
-        )
-        .join(''),
-
-    rows:
-      rowTexts,
-
-    rowCount:
-      rowTexts.length
+    text,
+    rows: [text],
+    html: `
+      <span class="vab-linienlabel-zeile">${escapeHtml(text)}</span>
+    `
   };
+}
+
+
+
+function getSharedLineLabelFontSize(labelData) {
+  const text =
+    String(
+      labelData?.text
+      ?? ''
+    );
+
+  /*
+   * Netzweite typografische Regel:
+   *
+   * kurze Kombinationen bleiben gut sichtbar,
+   * lange Linienfolgen treten optisch zurück.
+   *
+   * Keine linien- oder ortsspezifische Sonderregel.
+   */
+  if (text.length <= 20) {
+    return 10;
+  }
+
+  if (text.length <= 40) {
+    return 9;
+  }
+
+  return 8;
+}
+
+
+
+function getSharedLineLabelRequiredWidth(
+  labelData,
+  fontSize = 10
+) {
+  const text =
+    String(
+      labelData?.text
+      ?? ''
+    );
+
+  if (!text) {
+    return 0;
+  }
+
+  const canvas =
+    getSharedLineLabelRequiredWidth._canvas
+    ?? (
+      getSharedLineLabelRequiredWidth._canvas =
+        document.createElement(
+          'canvas'
+        )
+    );
+
+  const context =
+    canvas.getContext('2d');
+
+  context.font =
+    `700 ${fontSize}px Arial, sans-serif`;
+
+  let width =
+    context.measureText(
+      text
+    ).width;
+
+  /*
+   * CSS letter-spacing: 0.15 px.
+   */
+  width +=
+    Math.max(
+      0,
+      text.length - 1
+    )
+    * 0.15;
+
+  /*
+   * Entspricht dem horizontalen Padding
+   * von getSharedLabelBox:
+   *
+   * 8 px links + 8 px rechts.
+   */
+  width += 16;
+
+  return width;
 }
 
 
@@ -1159,9 +1049,13 @@ function getBestSharedLabelPosition(
     );
 
   /*
-   * Schriftgröße bleibt netzweit einheitlich.
+   * Schriftgröße folgt ausschließlich der Länge des
+   * eigentlichen einzeiligen Labeltexts.
    */
-  const fontSize = 10;
+  const fontSize =
+    getSharedLineLabelFontSize(
+      labelData
+    );
 
   const longestRowLength =
     Math.max(
@@ -1846,7 +1740,7 @@ function createLineLabels() {
   const sharedCandidates = [];
 
   const sharedFeatures =
-    gemeinsameAbschnitteGeoJSON?.features
+    linienLabelKorridoreGeoJSON?.features
     ?? [];
 
   for (const feature of sharedFeatures) {
@@ -1944,16 +1838,47 @@ function createLineLabels() {
         );
     }
 
+    /*
+     * --------------------------------------------------
+     * FIT-ON-CORRIDOR
+     * --------------------------------------------------
+     *
+     * Ein Sammellabel darf nur erscheinen, wenn seine
+     * tatsächlich benötigte Bildschirmbreite vollständig
+     * auf den sichtbaren OSM-Korridor passt.
+     *
+     * Das ist keine geografische Distanzheuristik:
+     * Textbreite und sichtbare Korridorlänge werden beide
+     * direkt in Browser-Pixeln verglichen.
+     */
+    const requiredLabelWidth =
+      getSharedLineLabelRequiredWidth(
+        labelData,
+        labelPosition.fontSize ?? 10
+      );
+
+    if (
+      requiredLabelWidth <= 0
+      || visibleLength < requiredLabelWidth
+    ) {
+      continue;
+    }
+
     sharedCandidates.push({
       feature,
       sharedSectionId:
         properties.shared_section_id
-        ?? '',
+        ?? (
+          Array.isArray(properties.osm_way_ids)
+            ? properties.osm_way_ids.join('-')
+            : ''
+        ),
       lines,
       labelData,
       labelPosition,
       point,
-      visibleLength
+      visibleLength,
+      requiredLabelWidth
     });
   }
 
@@ -4770,6 +4695,25 @@ async function loadMapData() {
     }
   );
 
+  setStatus(
+    'Kartografisches Liniennetz wird geladen …'
+  );
+
+  const linienRenderGeoJSON = await loadGeoJSON(
+    'data/liniennetz_render.geojson',
+    'Kartografisches Liniennetz'
+  );
+
+  linienRenderLayer = L.geoJSON(
+    linienRenderGeoJSON,
+    {
+      pane: 'linienRenderPane',
+      renderer: linienRenderRenderer,
+      style: renderLineStyle,
+      interactive: false
+    }
+  ).addTo(karte);
+
   const linienGeoJSON = await loadGeoJSON(
     'data/linien_routed.geojson',
     'Linien'
@@ -4792,6 +4736,21 @@ async function loadMapData() {
   }
 
   setStatus(
+    'Linienbeschriftungen werden geladen …'
+  );
+
+  linienLabelKorridoreGeoJSON = await loadGeoJSON(
+    'data/liniennetz_labelkorridore.geojson',
+    'OSM-Labelkorridore'
+  );
+
+  /*
+   * Sammellabels jetzt ausschließlich aus den
+   * topologisch exakten OSM-Korridoren erzeugen.
+   */
+  createLineLabels();
+
+  setStatus(
     'Gemeinsame Linienabschnitte werden geladen …'
   );
 
@@ -4801,14 +4760,6 @@ async function loadMapData() {
   );
 
   gemeinsameAbschnitteGeoJSON = abschnittGeoJSON;
-
-  /*
-   * Die Linienlabels wurden beim Laden der Linien
-   * zunächst ohne Kenntnis der gemeinsamen Abschnitte
-   * erzeugt. Jetzt mit den vollständigen Daten
-   * nochmals neu berechnen.
-   */
-  createLineLabels();
 
   abschnittKlickLayer = L.geoJSON(
     abschnittGeoJSON,
