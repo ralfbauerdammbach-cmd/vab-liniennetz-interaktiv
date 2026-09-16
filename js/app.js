@@ -5364,6 +5364,10 @@ function vabFindSearchResults(queryText) {
       title: stop.name,
       subtitle:
         `${stop.lines.length} Linien`,
+      lines:
+        vabNaturalSort(
+          stop.lines ?? []
+        ),
       connections,
       score
     });
@@ -5408,66 +5412,49 @@ function vabRenderSuggestions(queryText) {
       const connectionsHtml =
         result.type === 'stop'
           ? `
-            <span class="vab-suche-verbindungen">
-              ${
-                visibleConnections.length > 0
-                  ? visibleConnections
-                      .map(connection => `
-                        <span class="vab-suche-verbindung">
-                          <span class="vab-suche-linie">
-                            ${escapeHtml(connection.line)}
-                          </span>
+              <span class="vab-suche-ort-info">
+                <small>
+                  ${escapeHtml(result.subtitle)}
+                </small>
 
-                          <span class="vab-suche-richtung">
-                            Richtung
-                            ${escapeHtml(connection.direction)}
-                          </span>
+                ${
+                  Array.isArray(result.lines)
+                  && result.lines.length > 0
+                    ? `
+                        <span class="vab-suche-ort-linien">
+                          ${result.lines.map(line => `
+                            <span class="vab-suche-linie">
+                              ${escapeHtml(line)}
+                            </span>
+                          `).join('')}
                         </span>
-                      `)
-                      .join('')
-                  : `
-                    <small>
-                      ${escapeHtml(result.subtitle)}
-                    </small>
-                  `
-              }
-
-              ${
-                connections.length > visibleConnections.length
-                  ? `
-                    <small class="vab-suche-weitere">
-                      + ${
-                        connections.length
-                        - visibleConnections.length
-                      } weitere Verbindungen
-                    </small>
-                  `
-                  : ''
-              }
-            </span>
-          `
+                      `
+                    : ''
+                }
+              </span>
+            `
           : `
-            <span class="vab-suche-ort-info">
-              <small>
-                ${escapeHtml(result.subtitle)}
-              </small>
+              <span class="vab-suche-ort-info">
+                <small>
+                  ${escapeHtml(result.subtitle)}
+                </small>
 
-              ${
-                Array.isArray(result.lines)
-                && result.lines.length > 0
-                  ? `
-                    <span class="vab-suche-ort-linien">
-                      ${result.lines.map(line => `
-                        <span class="vab-suche-linie">
-                          ${escapeHtml(line)}
+                ${
+                  Array.isArray(result.lines)
+                  && result.lines.length > 0
+                    ? `
+                        <span class="vab-suche-ort-linien">
+                          ${result.lines.map(line => `
+                            <span class="vab-suche-linie">
+                              ${escapeHtml(line)}
+                            </span>
+                          `).join('')}
                         </span>
-                      `).join('')}
-                    </span>
-                  `
-                  : ''
-              }
-            </span>
-          `;
+                      `
+                    : ''
+                }
+              </span>
+            `;
 
       return `
         <button
@@ -6140,6 +6127,343 @@ function vabApplyMunicipalityMappings(
 }
 
 
+
+function vabNormalizePlaceAliasKey(value) {
+  let normalized =
+    vabNormalizeSearchText(
+      value
+    );
+
+  /*
+   * Netzweit bekannte Schreibvarianten derselben
+   * geografischen Zusatzbezeichnung vereinheitlichen.
+   *
+   * Diese Funktion verändert NICHT die Originaldaten,
+   * sondern nur den Gruppierungsschlüssel der Suche.
+   */
+  normalized = normalized
+    .replace(/\bmain\b/g, 'main')
+    .replace(/\bm\b/g, 'main')
+    .replace(/\bufr\b/g, 'ufr')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return normalized;
+}
+
+
+
+function vabChooseCanonicalPlaceName(names) {
+  const candidates =
+    [...new Set(
+      (names ?? [])
+        .map(value => String(value ?? '').trim())
+        .filter(Boolean)
+    )];
+
+  if (candidates.length === 0) {
+    return '';
+  }
+
+  /*
+   * Für die Anzeige verständliche ausgeschriebene
+   * Schreibweisen bevorzugen:
+   *
+   *   Sulzbach (Main) vor Sulzbach/M.
+   *   Michelbach (Ufr.) vor Michelbach (Ufr)
+   *
+   * Keine ortsspezifische Namensliste.
+   */
+  candidates.sort((a, b) => {
+    function score(value) {
+      let result = 0;
+
+      if (value.includes('(') && value.includes(')')) {
+        result += 100;
+      }
+
+      if (!value.includes('/')) {
+        result += 20;
+      }
+
+      if (/\.\)$/.test(value)) {
+        result += 5;
+      }
+
+      /*
+       * Bei sonst gleicher Qualität die informativere
+       * Schreibweise bevorzugen.
+       */
+      result += Math.min(
+        String(value).length,
+        50
+      ) / 100;
+
+      return result;
+    }
+
+    const scoreDifference =
+      score(b) - score(a);
+
+    if (Math.abs(scoreDifference) > 0.000001) {
+      return scoreDifference;
+    }
+
+    return a.localeCompare(
+      b,
+      'de',
+      {
+        numeric: true,
+        sensitivity: 'base'
+      }
+    );
+  });
+
+  return candidates[0];
+}
+
+
+
+function vabConsolidatePlaceAliases(searchIndex) {
+  if (
+    !searchIndex
+    || !Array.isArray(searchIndex.places)
+  ) {
+    return searchIndex;
+  }
+
+  const stops =
+    Array.isArray(searchIndex.stops)
+      ? searchIndex.stops
+      : [];
+
+  /*
+   * --------------------------------------------------
+   * KANONISCHE HALTESTELLEN-ID
+   * --------------------------------------------------
+   *
+   * Im Ortsindex können sowohl echte stop.id-Werte
+   * als auch einzelne GTFS-/DELFI-Member-IDs stehen.
+   *
+   * Jede solche ID wird deshalb zuerst auf genau den
+   * kanonischen Stop-Datensatz zurückgeführt.
+   */
+  const canonicalStopIdByAnyId =
+    new Map();
+
+  for (const stop of stops) {
+    const canonicalId =
+      String(
+        stop?.id
+        ?? ''
+      ).trim();
+
+    if (!canonicalId) {
+      continue;
+    }
+
+    canonicalStopIdByAnyId.set(
+      canonicalId,
+      canonicalId
+    );
+
+    for (
+      const memberId
+      of (
+        Array.isArray(stop?.member_stop_ids)
+          ? stop.member_stop_ids
+          : []
+      )
+    ) {
+      const id =
+        String(memberId ?? '').trim();
+
+      if (id) {
+        canonicalStopIdByAnyId.set(
+          id,
+          canonicalId
+        );
+      }
+    }
+  }
+
+  const groups =
+    new Map();
+
+  for (const place of searchIndex.places) {
+    const name =
+      String(
+        place?.name
+        ?? ''
+      ).trim();
+
+    if (!name) {
+      continue;
+    }
+
+    const key =
+      vabNormalizePlaceAliasKey(
+        name
+      );
+
+    if (!groups.has(key)) {
+      groups.set(key, []);
+    }
+
+    groups.get(key).push(place);
+  }
+
+  const consolidated = [];
+
+  for (const [key, group] of groups) {
+    const names =
+      group.map(
+        place =>
+          String(
+            place?.name
+            ?? ''
+          ).trim()
+      ).filter(Boolean);
+
+    const canonicalName =
+      vabChooseCanonicalPlaceName(
+        names
+      );
+
+    /*
+     * Erst alle station_ids auf kanonische Stops
+     * auflösen, DANN deduplizieren.
+     */
+    const stationIds =
+      [...new Set(
+        group.flatMap(place =>
+          (
+            Array.isArray(place?.station_ids)
+              ? place.station_ids
+              : []
+          )
+          .map(value =>
+            String(value ?? '').trim()
+          )
+          .filter(Boolean)
+          .map(id =>
+            canonicalStopIdByAnyId.get(id)
+            ?? id
+          )
+        )
+      )];
+
+    /*
+     * Nur IDs behalten, für die tatsächlich ein
+     * Stop-Datensatz existiert.
+     *
+     * Damit können verwaiste Member-/Steig-IDs nicht
+     * mehr als zusätzliche Haltestelle gezählt werden.
+     */
+    const validStationIds =
+      stationIds.filter(
+        id =>
+          canonicalStopIdByAnyId.has(id)
+      );
+
+    /*
+     * Linien nicht mehr aus den alten Place-Einträgen
+     * übernehmen, sondern aus den tatsächlich
+     * zugeordneten kanonischen Stops neu bestimmen.
+     */
+    const validStationIdSet =
+      new Set(validStationIds);
+
+    const lines =
+      vabNaturalSort(
+        [...new Set(
+          stops
+            .filter(stop =>
+              validStationIdSet.has(
+                String(stop?.id ?? '').trim()
+              )
+            )
+            .flatMap(stop =>
+              Array.isArray(stop?.lines)
+                ? stop.lines.map(String)
+                : []
+            )
+        )]
+      );
+
+    const searchTerms =
+      [...new Set(
+        group.flatMap(place => [
+          String(place?.search ?? '').trim(),
+          vabNormalizeSearchText(
+            place?.name
+            ?? ''
+          )
+        ])
+        .filter(Boolean)
+      )];
+
+    const base =
+      group.find(
+        place =>
+          String(place?.name ?? '').trim()
+          === canonicalName
+      )
+      ?? group[0];
+
+    consolidated.push({
+      ...base,
+
+      name:
+        canonicalName,
+
+      search:
+        searchTerms.join(' '),
+
+      station_ids:
+        validStationIds.sort((a, b) =>
+          a.localeCompare(
+            b,
+            'de',
+            {
+              numeric: true,
+              sensitivity: 'base'
+            }
+          )
+        ),
+
+      lines,
+
+      aliases:
+        vabNaturalSort(
+          names.filter(
+            name =>
+              name !== canonicalName
+          )
+        ),
+
+      alias_key:
+        key
+    });
+  }
+
+  searchIndex.places =
+    consolidated.sort((a, b) =>
+      String(a.name ?? '').localeCompare(
+        String(b.name ?? ''),
+        'de',
+        {
+          numeric: true,
+          sensitivity: 'base'
+        }
+      )
+    );
+
+  return searchIndex;
+}
+
+
+
 async function vabInitializeSearch() {
   try {
     const [
@@ -6207,6 +6531,12 @@ async function vabInitializeSearch() {
         rawSearchIndex,
         municipalityMapping
       );
+
+    vabSuchindex =
+      vabConsolidatePlaceAliases(
+        vabSuchindex
+      );
+
 
     vabFahrplanindex =
       await scheduleResponse.json();
