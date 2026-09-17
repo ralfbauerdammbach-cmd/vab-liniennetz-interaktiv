@@ -1,4 +1,4 @@
-/* VAB Linienfahrt / Echtzeit */
+﻿/* VAB Linienfahrt / Echtzeit */
 
 .vab-linienfahrt-bereich {
   margin-top: 24px;
@@ -108,12 +108,13 @@
 }
 
 /* Verspätungsanzeige */
-.vab-linienfahrt-meta-verspaetung {
-  color: #B45309;
-  font-weight: 700;
+.vab-linienfahrt-meta.vab-linienfahrt-meta-verspaetung {
+  color: #E65100;
+  font-weight: 800;
 }
 
-.vab-linienfahrt-meta-verspaetung-stark {
-  color: #B91C1C;
-  font-weight: 700;
+.vab-linienfahrt-meta.vab-linienfahrt-meta-verspaetung-stark {
+  color: #C62828;
+  font-weight: 800;
 }
+
