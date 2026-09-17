@@ -6072,6 +6072,36 @@ function vabShowSchedule(
 
   vabOpenInfoPanel();
 
+  /*
+   * selectLineFromStopSearch() zeigt zunächst
+   * den gesamten Linienverlauf. Sobald die
+   * Linienfahrt geöffnet ist, soll jedoch die
+   * ausgewählte Haltestelle im maximalen Zoom
+   * im Mittelpunkt stehen.
+   */
+  window.setTimeout(
+    () => {
+      if (
+        Number.isFinite(Number(stop.lat))
+        && Number.isFinite(Number(stop.lon))
+      ) {
+        karte.invalidateSize();
+
+        karte.setView(
+          [
+            Number(stop.lat),
+            Number(stop.lon)
+          ],
+          karte.getMaxZoom(),
+          {
+            animate: false
+          }
+        );
+      }
+    },
+    350
+  );
+
   infoPanelInhalt
     .querySelector('.vab-zurueck-haltestelle')
     ?.addEventListener(
