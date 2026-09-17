@@ -5952,25 +5952,50 @@ function vabShowSchedule(
   vabAktuelleHaltestelle = stop;
   vabAktuelleLinie = line;
 
+  const displayLine =
+    vabDisplayLineName(line);
+
   const pdfHtml =
     vabCreateSchedulePdfHtml(line);
 
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt vab-suche-panel">
       <div class="liniennummer-gross">
-        ${escapeHtml(vabDisplayLineName(line))}
+        ${escapeHtml(displayLine)}
       </div>
 
-      <h2>${escapeHtml(stop.name)}</h2>
+      <h2>Linie ${escapeHtml(displayLine)}</h2>
 
       <p class="gemeinsame-auswahl-hinweis">
-        Verfügbare Fahrplandokumente der Linie
-        ${escapeHtml(vabDisplayLineName(line))}.
+        Nächste Fahrt ab
+        <strong>${escapeHtml(stop.name)}</strong>.
       </p>
 
-      <div class="vab-fahrplan-pdf-bereich">
-        ${pdfHtml}
-      </div>
+      <section class="vab-linienfahrt-bereich">
+        <div
+          id="vab-linienfahrt-kopf"
+          class="vab-linienfahrt-kopf"
+        >
+          Fahrtdaten werden geladen ...
+        </div>
+
+        <div
+          id="vab-linienfahrt-inhalt"
+          class="vab-linienfahrt-inhalt"
+        >
+          <div class="vab-linienfahrt-laden">
+            Haltestellen und Echtzeitdaten werden geladen ...
+          </div>
+        </div>
+      </section>
+
+      <section class="vab-fahrplan-dokument-bereich">
+        <h3>Fahrplandokument</h3>
+
+        <div class="vab-fahrplan-pdf-bereich">
+          ${pdfHtml}
+        </div>
+      </section>
 
       <button
         type="button"
@@ -5990,12 +6015,21 @@ function vabShowSchedule(
       () => vabShowStop(stop)
     );
 
+  if (
+    typeof window.vabRealtimeShowLineTrip
+    === 'function'
+  ) {
+    window.vabRealtimeShowLineTrip(
+      stop,
+      line
+    );
+  }
+
   setStatus(
-    `Linie ${vabDisplayLineName(line)}: Fahrplandokumente`,
+    `Linie ${displayLine}: Fahrtverlauf`,
     'erfolg'
   );
 }
-
 function vabSelectSearchResult(type, id) {
   if (type === 'place') {
     vabShowPlace(
@@ -6698,3 +6732,4 @@ document.addEventListener(
 vabInitializeSearch();
 
 /* END VAB-SUCHE */
+

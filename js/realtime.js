@@ -1,9 +1,20 @@
-﻿'use strict';
+'use strict';
 
-const VAB_REALTIME_URL =
-  'https://vab-realtime.bauer-48e.workers.dev/departures';
+const VAB_REALTIME_LINE_TRIP_URL =
+  'https://vab-realtime.bauer-48e.workers.dev/line-trip';
 
-let vabRealtimeRequestId = 0;
+let vabRealtimeLineTripRequestId = 0;
+
+
+function vabRealtimeEscape(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
 
 function vabRealtimeFormatTime(value) {
   if (!value) {
@@ -21,265 +32,344 @@ function vabRealtimeFormatTime(value) {
     {
       hour: '2-digit',
       minute: '2-digit',
+      hour12: false,
       timeZone: 'Europe/Berlin'
     }
   ).format(date);
 }
 
-function vabRealtimeGetLine(event) {
-  return String(
-    event?.transportation?.disassembledName
-    ?? event?.transportation?.number
-    ?? event?.transportation?.name
-    ?? ''
-  ).trim();
-}
 
-function vabRealtimeGetDestination(event) {
-  return String(
-    event?.transportation?.destination?.name
-    ?? 'Richtung nicht angegeben'
-  ).trim();
-}
-
-function vabRealtimeIsCancelled(event) {
-  if (
-    event?.isCancelled === true
-    || event?.cancelled === true
-  ) {
-    return true;
-  }
-
-  const statuses =
-    Array.isArray(event?.realtimeStatus)
-      ? event.realtimeStatus
-      : [];
-
-  return statuses.some(status =>
-    /CANCEL|CANCELED|CANCELLED|DELETED|REMOVED/i
-      .test(String(status))
-  );
-}
-
-function vabRealtimeCreateDepartureHtml(event) {
-  const line = vabRealtimeGetLine(event);
-  const destination = vabRealtimeGetDestination(event);
-
+function vabRealtimeGetTimes(stop) {
   const planned =
-    event?.departureTimePlanned
-    ?? event?.departureTimeBaseTimetable
+    stop?.departureTimePlanned
+    ?? stop?.arrivalTimePlanned
     ?? '';
 
   const estimated =
-    event?.departureTimeEstimated
+    stop?.departureTimeEstimated
+    ?? stop?.arrivalTimeEstimated
     ?? '';
 
-  const realtime =
-    event?.isRealtimeControlled === true
-    && Boolean(estimated);
+  return {
+    planned,
+    estimated
+  };
+}
 
-  const cancelled =
-    vabRealtimeIsCancelled(event);
+
+function vabRealtimeGetDeviation(
+  planned,
+  estimated
+) {
+  if (!planned || !estimated) {
+    return '';
+  }
+
+  const plannedMs =
+    new Date(planned).getTime();
+
+  const estimatedMs =
+    new Date(estimated).getTime();
+
+  if (
+    !Number.isFinite(plannedMs)
+    || !Number.isFinite(estimatedMs)
+  ) {
+    return '';
+  }
+
+  const difference =
+    Math.round(
+      (estimatedMs - plannedMs) / 60000
+    );
+
+  if (difference === 0) {
+    return 'pünktlich';
+  }
+
+  if (difference > 0) {
+    return `+${difference} min`;
+  }
+
+  return `${difference} min`;
+}
+
+
+function vabRealtimeIsSelectedStop(
+  sequenceStop,
+  selectedStopId
+) {
+  const platformId =
+    String(sequenceStop?.id ?? '');
+
+  const parentId =
+    String(sequenceStop?.parent?.id ?? '');
+
+  const selected =
+    String(selectedStopId ?? '');
+
+  return (
+    parentId === selected
+    || platformId === selected
+    || platformId.startsWith(
+      `${selected}:`
+    )
+  );
+}
+
+
+function vabRealtimeCreateStopRow(
+  sequenceStop,
+  index,
+  selectedIndex
+) {
+  const name =
+    sequenceStop?.parent?.name
+    ?? sequenceStop?.name
+    ?? 'Haltestelle';
+
+  const {
+    planned,
+    estimated
+  } = vabRealtimeGetTimes(sequenceStop);
+
+  const realtime =
+    Boolean(estimated);
 
   const shownTime =
-    realtime
-      ? estimated
-      : planned;
+    estimated || planned;
 
-  let deviation = '';
+  const deviation =
+    vabRealtimeGetDeviation(
+      planned,
+      estimated
+    );
 
-  if (cancelled) {
-    deviation = 'entfällt';
-  } else if (realtime && planned && estimated) {
-    const plannedMs = new Date(planned).getTime();
-    const estimatedMs = new Date(estimated).getTime();
+  let rowClass =
+    'vab-linienfahrt-halt';
 
-    if (
-      Number.isFinite(plannedMs)
-      && Number.isFinite(estimatedMs)
-    ) {
-      const difference =
-        Math.round(
-          (estimatedMs - plannedMs) / 60000
-        );
+  if (
+    selectedIndex >= 0
+    && index < selectedIndex
+  ) {
+    rowClass +=
+      ' vab-linienfahrt-halt-vorbei';
+  }
 
-      if (difference === 0) {
-        deviation = 'pünktlich';
-      } else if (difference > 0) {
-        deviation = `+${difference} min`;
-      } else {
-        deviation = `${difference} min`;
-      }
-    }
+  if (index === selectedIndex) {
+    rowClass +=
+      ' vab-linienfahrt-halt-ausgewaehlt';
+  }
+
+  let meta = 'Fahrplanzeit';
+
+  if (realtime) {
+    meta =
+      deviation
+        ? `${deviation} · Echtzeit`
+        : 'Echtzeit';
   }
 
   return `
-    <div class="vab-echtzeit-fahrt">
-      <div class="vab-echtzeit-kopf">
-        <span class="vab-echtzeit-linie">
-          ${escapeHtml(line)}
-        </span>
-
-        <span class="vab-echtzeit-ziel">
-          ${escapeHtml(destination)}
-        </span>
-      </div>
-
-      <div class="vab-echtzeit-zeitzeile">
-        <span class="vab-echtzeit-uhrzeit">
-          ${escapeHtml(vabRealtimeFormatTime(shownTime))}
-        </span>
+    <div class="${rowClass}">
+      <div class="vab-linienfahrt-halt-name">
+        ${vabRealtimeEscape(name)}
 
         ${
-          deviation
+          index === selectedIndex
             ? `
-              <span class="vab-echtzeit-abweichung">
-                ${escapeHtml(deviation)}
+              <span class="vab-linienfahrt-auswahlhinweis">
+                ausgewählte Haltestelle
               </span>
             `
             : ''
         }
       </div>
 
-      <div class="vab-echtzeit-status">
-        ${realtime ? 'Echtzeit' : 'Fahrplanzeit'}
+      <div class="vab-linienfahrt-halt-zeit">
+        <div class="vab-linienfahrt-uhrzeit">
+          ${
+            vabRealtimeEscape(
+              vabRealtimeFormatTime(shownTime)
+            ) || '–'
+          }
+        </div>
+
+        <div class="vab-linienfahrt-meta">
+          ${vabRealtimeEscape(meta)}
+        </div>
       </div>
     </div>
   `;
 }
 
-async function vabRealtimeLoad(stop) {
-  const container =
-    document.getElementById('vab-echtzeit-inhalt');
 
-  if (!container || !stop?.id) {
-    return;
-  }
+window.vabRealtimeShowLineTrip =
+  async function(stop, line) {
+    const requestId =
+      ++vabRealtimeLineTripRequestId;
 
-  const requestId =
-    ++vabRealtimeRequestId;
-
-  container.innerHTML = `
-    <div class="vab-echtzeit-laden">
-      Echtzeitdaten werden geladen ...
-    </div>
-  `;
-
-  try {
-    const url =
-      `${VAB_REALTIME_URL}?stop=`
-      + encodeURIComponent(stop.id);
-
-    const response = await fetch(
-      url,
-      {
-        cache: 'no-store'
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(
-        `HTTP ${response.status}`
+    const header =
+      document.getElementById(
+        'vab-linienfahrt-kopf'
       );
-    }
 
-    const data =
-      await response.json();
+    const content =
+      document.getElementById(
+        'vab-linienfahrt-inhalt'
+      );
 
     if (
-      requestId !== vabRealtimeRequestId
-      || !document.body.contains(container)
+      !header
+      || !content
+      || !stop?.id
+      || !line
     ) {
       return;
     }
 
-    const events =
-      Array.isArray(data?.stopEvents)
-        ? data.stopEvents
-        : [];
+    header.textContent =
+      'Fahrtdaten werden geladen ...';
 
-    if (events.length === 0) {
-      container.innerHTML = `
-        <div class="vab-echtzeit-leer">
-          Derzeit keine Abfahrten gefunden.
+    content.innerHTML = `
+      <div class="vab-linienfahrt-laden">
+        Haltestellen und Echtzeitdaten werden geladen ...
+      </div>
+    `;
+
+    try {
+      const url =
+        `${VAB_REALTIME_LINE_TRIP_URL}`
+        + `?stop=${encodeURIComponent(stop.id)}`
+        + `&line=${encodeURIComponent(line)}`;
+
+      const response =
+        await fetch(
+          url,
+          {
+            cache: 'no-store'
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        requestId
+        !== vabRealtimeLineTripRequestId
+      ) {
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data?.error
+          ?? `HTTP ${response.status}`
+        );
+      }
+
+      const leg =
+        data?.tripStopTimes?.leg;
+
+      const sequence =
+        Array.isArray(leg?.stopSequence)
+          ? leg.stopSequence
+          : [];
+
+      if (sequence.length === 0) {
+        throw new Error(
+          'Keine Haltestellenfolge vorhanden.'
+        );
+      }
+
+      const destination =
+        data?.selectedTrip?.destination
+        ?? leg?.transportation?.destination?.name
+        ?? 'Ziel nicht angegeben';
+
+      const selectedIndex =
+        sequence.findIndex(
+          sequenceStop =>
+            vabRealtimeIsSelectedStop(
+              sequenceStop,
+              stop.id
+            )
+        );
+
+      const lineName =
+        data?.displayLine
+        ?? String(line);
+
+      header.innerHTML = `
+        <div class="vab-linienfahrt-richtung">
+          Linie ${vabRealtimeEscape(lineName)}
+          · Richtung
+          ${vabRealtimeEscape(destination)}
+        </div>
+
+        <div class="vab-linienfahrt-hinweis">
+          Nächste konkrete Fahrt ab
+          ${vabRealtimeEscape(stop.name)}.
+          Angezeigt werden alle Haltestellen
+          dieser Fahrt.
         </div>
       `;
 
-      return;
-    }
-
-    container.innerHTML =
-      events
-        .slice(0, 8)
-        .map(vabRealtimeCreateDepartureHtml)
-        .join('');
-  } catch (error) {
-    console.warn(
-      'Echtzeitdaten konnten nicht geladen werden:',
-      error
-    );
-
-    if (
-      requestId !== vabRealtimeRequestId
-      || !document.body.contains(container)
-    ) {
-      return;
-    }
-
-    container.innerHTML = `
-      <div class="vab-echtzeit-fehler">
-        Echtzeitdaten sind derzeit nicht verfügbar.
-      </div>
-    `;
-  }
-}
-
-if (typeof window.vabShowStop === 'function') {
-  const originalVabShowStop =
-    window.vabShowStop;
-
-  window.vabShowStop = function(stop) {
-    originalVabShowStop(stop);
-
-    if (!stop) {
-      return;
-    }
-
-    const panel =
-      document.querySelector(
-        '#info-panel-inhalt .vab-suche-panel'
-      );
-
-    const firstSection =
-      panel?.querySelector(
-        '.vab-suche-panel-bereich'
-      );
-
-    if (!panel || !firstSection) {
-      return;
-    }
-
-    const realtimeSection =
-      document.createElement('section');
-
-    realtimeSection.className =
-      'vab-suche-panel-bereich vab-echtzeit-bereich';
-
-    realtimeSection.innerHTML = `
-      <h3>Nächste Abfahrten</h3>
-
-      <div id="vab-echtzeit-inhalt">
-        <div class="vab-echtzeit-laden">
-          Echtzeitdaten werden geladen ...
+      content.innerHTML = `
+        <div class="vab-linienfahrt-liste">
+          ${
+            sequence
+              .map(
+                (sequenceStop, index) =>
+                  vabRealtimeCreateStopRow(
+                    sequenceStop,
+                    index,
+                    selectedIndex
+                  )
+              )
+              .join('')
+          }
         </div>
-      </div>
-    `;
+      `;
 
-    panel.insertBefore(
-      realtimeSection,
-      firstSection
-    );
+      if (selectedIndex >= 0) {
+        window.setTimeout(
+          () => {
+            const selectedRow =
+              content.querySelector(
+                '.vab-linienfahrt-halt-ausgewaehlt'
+              );
 
-    vabRealtimeLoad(stop);
+            selectedRow?.scrollIntoView({
+              block: 'center',
+              inline: 'nearest'
+            });
+          },
+          80
+        );
+      }
+    } catch (error) {
+      console.warn(
+        'Linien-Echtzeit konnte nicht geladen werden:',
+        error
+      );
+
+      if (
+        requestId
+        !== vabRealtimeLineTripRequestId
+      ) {
+        return;
+      }
+
+      header.textContent =
+        `Linie ${String(line)}`;
+
+      content.innerHTML = `
+        <div class="vab-linienfahrt-fehler">
+          Die aktuellen Fahrtdaten sind derzeit
+          nicht verfügbar. Der reguläre PDF-Fahrplan
+          bleibt weiterhin verfügbar.
+        </div>
+      `;
+    }
   };
-}

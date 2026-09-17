@@ -1,77 +1,100 @@
-﻿/* VAB Echtzeit */
+/* VAB Linienfahrt / Echtzeit */
 
-.vab-echtzeit-bereich {
+.vab-linienfahrt-bereich {
   margin-top: 24px;
 }
 
-.vab-echtzeit-bereich h3 {
-  margin: 0 0 12px;
+.vab-linienfahrt-kopf {
+  margin-bottom: 14px;
+}
+
+.vab-linienfahrt-richtung {
   color: #000F47;
-  font-size: 0.9rem;
-}
-
-.vab-echtzeit-liste {
-  display: grid;
-  gap: 8px;
-}
-
-.vab-echtzeit-fahrt {
-  padding: 11px 12px;
-  border: 1px solid #D8DEE4;
-  border-radius: 9px;
-  background: #FFFFFF;
-}
-
-.vab-echtzeit-kopf {
-  display: grid;
-  grid-template-columns: minmax(42px, auto) 1fr;
-  gap: 9px;
-  align-items: baseline;
-}
-
-.vab-echtzeit-linie {
-  color: #000F47;
+  font-size: 0.92rem;
   font-weight: 800;
+  line-height: 1.4;
 }
 
-.vab-echtzeit-ziel {
+.vab-linienfahrt-hinweis {
+  margin-top: 5px;
+  color: #5E6973;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.vab-linienfahrt-liste {
+  border-top: 1px solid #D9DEE3;
+}
+
+.vab-linienfahrt-halt {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: 1px solid #D9DEE3;
+}
+
+.vab-linienfahrt-halt-vorbei {
+  opacity: 0.62;
+}
+
+.vab-linienfahrt-halt-ausgewaehlt {
+  background: #F1F4F6;
+  font-weight: 700;
+}
+
+.vab-linienfahrt-halt-name {
   min-width: 0;
-  font-size: 0.82rem;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-.vab-echtzeit-zeitzeile {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-top: 7px;
-}
-
-.vab-echtzeit-uhrzeit {
   color: #17212B;
-  font-size: 1rem;
-  font-weight: 800;
-}
-
-.vab-echtzeit-abweichung {
   font-size: 0.82rem;
-  font-weight: 700;
+  line-height: 1.35;
 }
 
-.vab-echtzeit-status {
-  margin-top: 3px;
-  color: #687580;
-  font-size: 0.68rem;
+.vab-linienfahrt-auswahlhinweis {
+  display: block;
+  margin-top: 2px;
+  color: #66727C;
+  font-size: 0.66rem;
+  font-weight: 400;
 }
 
-.vab-echtzeit-laden,
-.vab-echtzeit-fehler,
-.vab-echtzeit-leer {
-  padding: 12px;
-  border-radius: 9px;
+.vab-linienfahrt-halt-zeit {
+  min-width: 82px;
+  text-align: right;
+}
+
+.vab-linienfahrt-uhrzeit {
+  color: #17212B;
+  font-size: 0.93rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.vab-linienfahrt-meta {
+  margin-top: 2px;
+  color: #66727C;
+  font-size: 0.66rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.vab-linienfahrt-laden,
+.vab-linienfahrt-fehler {
+  padding: 13px;
+  border-radius: 8px;
   background: #F1F4F6;
   color: #53606B;
   font-size: 0.8rem;
-  line-height: 1.4;
+  line-height: 1.45;
+}
+
+.vab-fahrplan-dokument-bereich {
+  margin-top: 28px;
+}
+
+.vab-fahrplan-dokument-bereich h3 {
+  margin: 0 0 12px;
+  color: #000F47;
+  font-size: 0.9rem;
 }
