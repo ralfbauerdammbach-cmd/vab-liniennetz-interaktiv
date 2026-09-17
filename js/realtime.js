@@ -152,6 +152,42 @@ function vabRealtimeCreateStopRow(
       estimated
     );
 
+  let delayMinutes = null;
+
+  if (planned && estimated) {
+    const plannedMs =
+      new Date(planned).getTime();
+
+    const estimatedMs =
+      new Date(estimated).getTime();
+
+    if (
+      Number.isFinite(plannedMs)
+      && Number.isFinite(estimatedMs)
+    ) {
+      delayMinutes =
+        Math.round(
+          (estimatedMs - plannedMs) / 60000
+        );
+    }
+  }
+
+  let metaClass =
+    'vab-linienfahrt-meta';
+
+  if (
+    realtime
+    && Number.isFinite(delayMinutes)
+  ) {
+    if (delayMinutes >= 6) {
+      metaClass +=
+        ' vab-linienfahrt-meta-verspaetung-stark';
+    } else if (delayMinutes >= 1) {
+      metaClass +=
+        ' vab-linienfahrt-meta-verspaetung';
+    }
+  }
+
   let rowClass =
     'vab-linienfahrt-halt';
 
@@ -207,7 +243,7 @@ function vabRealtimeCreateStopRow(
           }
         </div>
 
-        <div class="vab-linienfahrt-meta">
+        <div class="${metaClass}">
           ${vabRealtimeEscape(meta)}
         </div>
       </div>
