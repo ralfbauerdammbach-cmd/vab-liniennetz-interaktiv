@@ -2750,6 +2750,29 @@ function showStopsForLine(lineName, selectedLayers = null) {
         event.originalEvent.vabLineHandled = true;
       }
 
+      const selectedStop =
+        vabGetStopById(
+          stop.stopId
+        );
+
+      if (
+        selectedStop
+        && fixierteLinie
+      ) {
+        /*
+         * Linie ist bereits eindeutig ausgewählt.
+         * Deshalb keine erneute Linienauswahl,
+         * sondern direkt die Fahrt-/Echtzeitansicht
+         * dieser Linie an dieser Haltestelle öffnen.
+         */
+        vabShowSchedule(
+          selectedStop,
+          fixierteLinie
+        );
+
+        return;
+      }
+
       if (
         typeof window.vabFocusStopInLine
         === 'function'
