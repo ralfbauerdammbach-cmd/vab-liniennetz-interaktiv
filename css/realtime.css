@@ -1,0 +1,77 @@
+﻿/* VAB Echtzeit */
+
+.vab-echtzeit-bereich {
+  margin-top: 24px;
+}
+
+.vab-echtzeit-bereich h3 {
+  margin: 0 0 12px;
+  color: #000F47;
+  font-size: 0.9rem;
+}
+
+.vab-echtzeit-liste {
+  display: grid;
+  gap: 8px;
+}
+
+.vab-echtzeit-fahrt {
+  padding: 11px 12px;
+  border: 1px solid #D8DEE4;
+  border-radius: 9px;
+  background: #FFFFFF;
+}
+
+.vab-echtzeit-kopf {
+  display: grid;
+  grid-template-columns: minmax(42px, auto) 1fr;
+  gap: 9px;
+  align-items: baseline;
+}
+
+.vab-echtzeit-linie {
+  color: #000F47;
+  font-weight: 800;
+}
+
+.vab-echtzeit-ziel {
+  min-width: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.vab-echtzeit-zeitzeile {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 7px;
+}
+
+.vab-echtzeit-uhrzeit {
+  color: #17212B;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.vab-echtzeit-abweichung {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.vab-echtzeit-status {
+  margin-top: 3px;
+  color: #687580;
+  font-size: 0.68rem;
+}
+
+.vab-echtzeit-laden,
+.vab-echtzeit-fehler,
+.vab-echtzeit-leer {
+  padding: 12px;
+  border-radius: 9px;
+  background: #F1F4F6;
+  color: #53606B;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
