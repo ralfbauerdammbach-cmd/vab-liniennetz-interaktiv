@@ -1,0 +1,364 @@
+{
+  "metadata": {
+    "purpose": "display-only line label enrichment",
+    "source": "gemeinsame_linienabschnitte_korridor_kandidat.geojson",
+    "min_section_length_m": 60,
+    "max_additional_lines": 3,
+    "routing_data_modified": false
+  },
+  "sections": {
+    "shared-new-00002": {
+      "add_lines": [
+        "1"
+      ],
+      "section_length_m": 95.1
+    },
+    "shared-new-00014": {
+      "add_lines": [
+        "1"
+      ],
+      "section_length_m": 132.9
+    },
+    "shared-new-00024": {
+      "add_lines": [
+        "56"
+      ],
+      "section_length_m": 85.0
+    },
+    "shared-new-00032": {
+      "add_lines": [
+        "1",
+        "61"
+      ],
+      "section_length_m": 61.2
+    },
+    "shared-new-00061": {
+      "add_lines": [
+        "15"
+      ],
+      "section_length_m": 99.5
+    },
+    "shared-new-00070": {
+      "add_lines": [
+        "40",
+        "41"
+      ],
+      "section_length_m": 90.1
+    },
+    "shared-new-00085": {
+      "add_lines": [
+        "6",
+        "14",
+        "43"
+      ],
+      "section_length_m": 69.9
+    },
+    "shared-new-00098": {
+      "add_lines": [
+        "BG2",
+        "BG3"
+      ],
+      "section_length_m": 133.6
+    },
+    "shared-new-00151": {
+      "add_lines": [
+        "74"
+      ],
+      "section_length_m": 81.8
+    },
+    "shared-new-00254": {
+      "add_lines": [
+        "63"
+      ],
+      "section_length_m": 94.6
+    },
+    "shared-new-00570": {
+      "add_lines": [
+        "566"
+      ],
+      "section_length_m": 97.6
+    },
+    "shared-new-00584": {
+      "add_lines": [
+        "566"
+      ],
+      "section_length_m": 83.9
+    },
+    "shared-new-00593": {
+      "add_lines": [
+        "566"
+      ],
+      "section_length_m": 73.8
+    },
+    "shared-new-00625": {
+      "add_lines": [
+        "566"
+      ],
+      "section_length_m": 79.4
+    },
+    "shared-new-00736": {
+      "add_lines": [
+        "74"
+      ],
+      "section_length_m": 83.8
+    },
+    "shared-new-00748": {
+      "add_lines": [
+        "5"
+      ],
+      "section_length_m": 63.4
+    },
+    "shared-new-00782": {
+      "add_lines": [
+        "41"
+      ],
+      "section_length_m": 60.3
+    },
+    "shared-new-01028": {
+      "add_lines": [
+        "971"
+      ],
+      "section_length_m": 63.1
+    },
+    "shared-new-01127": {
+      "add_lines": [
+        "3",
+        "14",
+        "15"
+      ],
+      "section_length_m": 88.8
+    },
+    "shared-new-01144": {
+      "add_lines": [
+        "7",
+        "26"
+      ],
+      "section_length_m": 78.5
+    },
+    "shared-new-01145": {
+      "add_lines": [
+        "7",
+        "26"
+      ],
+      "section_length_m": 67.8
+    },
+    "shared-new-01183": {
+      "add_lines": [
+        "26"
+      ],
+      "section_length_m": 75.9
+    },
+    "shared-new-01265": {
+      "add_lines": [
+        "30"
+      ],
+      "section_length_m": 70.2
+    },
+    "shared-new-01316": {
+      "add_lines": [
+        "24"
+      ],
+      "section_length_m": 102.6
+    },
+    "shared-new-01332": {
+      "add_lines": [
+        "24"
+      ],
+      "section_length_m": 124.8
+    },
+    "shared-new-01423": {
+      "add_lines": [
+        "63"
+      ],
+      "section_length_m": 64.1
+    },
+    "shared-new-01430": {
+      "add_lines": [
+        "BG3"
+      ],
+      "section_length_m": 60.7
+    },
+    "shared-new-01449": {
+      "add_lines": [
+        "BG2"
+      ],
+      "section_length_m": 75.6
+    },
+    "shared-new-01465": {
+      "add_lines": [
+        "BG2",
+        "BG3"
+      ],
+      "section_length_m": 64.2
+    },
+    "shared-new-01470": {
+      "add_lines": [
+        "BG2",
+        "BG3"
+      ],
+      "section_length_m": 62.6
+    },
+    "shared-new-01505": {
+      "add_lines": [
+        "30",
+        "33"
+      ],
+      "section_length_m": 89.6
+    },
+    "shared-new-01525": {
+      "add_lines": [
+        "BG1"
+      ],
+      "section_length_m": 61.8
+    },
+    "shared-new-01526": {
+      "add_lines": [
+        "BG1"
+      ],
+      "section_length_m": 74.5
+    },
+    "shared-new-01618": {
+      "add_lines": [
+        "1"
+      ],
+      "section_length_m": 64.2
+    },
+    "shared-new-01619": {
+      "add_lines": [
+        "1"
+      ],
+      "section_length_m": 74.0
+    },
+    "shared-new-01633": {
+      "add_lines": [
+        "BG1"
+      ],
+      "section_length_m": 61.7
+    },
+    "shared-new-01674": {
+      "add_lines": [
+        "56",
+        "BG3"
+      ],
+      "section_length_m": 78.4
+    },
+    "shared-new-01678": {
+      "add_lines": [
+        "BG1",
+        "BG2",
+        "BG3"
+      ],
+      "section_length_m": 88.6
+    },
+    "shared-new-01690": {
+      "add_lines": [
+        "BG2"
+      ],
+      "section_length_m": 115.9
+    },
+    "shared-new-01782": {
+      "add_lines": [
+        "63"
+      ],
+      "section_length_m": 69.9
+    },
+    "shared-new-01811": {
+      "add_lines": [
+        "86"
+      ],
+      "section_length_m": 180.8
+    },
+    "shared-new-01830": {
+      "add_lines": [
+        "53"
+      ],
+      "section_length_m": 75.8
+    },
+    "shared-new-01846": {
+      "add_lines": [
+        "80"
+      ],
+      "section_length_m": 86.3
+    },
+    "shared-new-02095": {
+      "add_lines": [
+        "40N"
+      ],
+      "section_length_m": 184.0
+    },
+    "shared-new-02113": {
+      "add_lines": [
+        "1",
+        "63"
+      ],
+      "section_length_m": 61.2
+    },
+    "shared-new-02120": {
+      "add_lines": [
+        "63"
+      ],
+      "section_length_m": 60.4
+    },
+    "shared-new-02121": {
+      "add_lines": [
+        "63"
+      ],
+      "section_length_m": 89.1
+    },
+    "shared-new-02235": {
+      "add_lines": [
+        "86"
+      ],
+      "section_length_m": 82.4
+    },
+    "shared-new-02245": {
+      "add_lines": [
+        "52",
+        "53",
+        "54"
+      ],
+      "section_length_m": 78.4
+    },
+    "shared-new-02334": {
+      "add_lines": [
+        "67"
+      ],
+      "section_length_m": 82.6
+    },
+    "shared-new-02337": {
+      "add_lines": [
+        "67",
+        "76"
+      ],
+      "section_length_m": 60.6
+    },
+    "shared-new-02421": {
+      "add_lines": [
+        "972",
+        "977"
+      ],
+      "section_length_m": 81.2
+    },
+    "shared-new-02425": {
+      "add_lines": [
+        "81",
+        "86",
+        "88"
+      ],
+      "section_length_m": 92.0
+    },
+    "shared-new-02447": {
+      "add_lines": [
+        "82"
+      ],
+      "section_length_m": 82.4
+    },
+    "shared-new-02486": {
+      "add_lines": [
+        "82",
+        "94"
+      ],
+      "section_length_m": 180.3
+    }
+  }
+}

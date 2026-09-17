@@ -11,3 +11,8 @@ shapes.txt
 *_kandidat*
 *.bak
 *.log
+
+data/quellen/delfi_haltestellen_deutschland.csv
+
+js/app_kaputter_*
+js/app_abgestuerzter_*

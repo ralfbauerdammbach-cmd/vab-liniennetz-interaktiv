@@ -4969,7 +4969,7 @@
       "lat": 49.834824,
       "lon": 9.0430305,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg hainstadt sparkasse breuberg hainstadt sparkasse",
       "member_stop_ids": [
@@ -4985,7 +4985,7 @@
       "lat": 49.830963499999996,
       "lon": 9.040998,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg hainstadt süd breuberg hainstadt süd",
       "member_stop_ids": [
@@ -5001,7 +5001,7 @@
       "lat": 49.8135085,
       "lon": 9.0391215,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg neustadt bahnhofstraße breuberg neustadt bahnhofstraße",
       "member_stop_ids": [
@@ -5017,7 +5017,7 @@
       "lat": 49.813152,
       "lon": 9.042622,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg neustadt breitenbacher straße breuberg neustadt breitenbacher straße",
       "member_stop_ids": [
@@ -5033,7 +5033,7 @@
       "lat": 49.817687,
       "lon": 9.032024,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg neustadt brückenstraße breuberg neustadt brückenstraße",
       "member_stop_ids": [
@@ -5048,7 +5048,7 @@
       "lat": 49.818065000000004,
       "lon": 9.029703999999999,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg neustadt katholische kirche breuberg neustadt katholische kirche",
       "member_stop_ids": [
@@ -5064,7 +5064,7 @@
       "lat": 49.8171785,
       "lon": 9.0350185,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg neustadt markt breuberg neustadt markt",
       "member_stop_ids": [
@@ -5080,7 +5080,7 @@
       "lat": 49.8219345,
       "lon": 9.046973,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg neustadt rosenbach breuberg neustadt rosenbach",
       "member_stop_ids": [
@@ -5096,7 +5096,7 @@
       "lat": 49.812979,
       "lon": 9.047721,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg rai breitenbach ort breuberg rai breitenbach ort",
       "member_stop_ids": [
@@ -5112,7 +5112,7 @@
       "lat": 49.813012,
       "lon": 9.054738,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg rai breitenbach schule breuberg rai breitenbach schule",
       "member_stop_ids": [
@@ -5127,7 +5127,7 @@
       "lat": 49.812625,
       "lon": 9.008769000000001,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg sandbach firma pirelli breuberg sandbach firma pirelli",
       "member_stop_ids": [
@@ -5143,7 +5143,7 @@
       "lat": 49.81667,
       "lon": 9.015148,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg sandbach grundschule breuberg sandbach grundschule",
       "member_stop_ids": [
@@ -5159,7 +5159,7 @@
       "lat": 49.8192765,
       "lon": 9.020033,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "breuberg sandbach tiergarten breuberg sandbach tiergarten",
       "member_stop_ids": [
@@ -11286,7 +11286,7 @@
       "lat": 49.8030545,
       "lon": 8.9977795,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "höchst (odw ) aschaffenburger straße höchst (odw ) aschaffenburger straße",
       "member_stop_ids": [
@@ -11302,7 +11302,7 @@
       "lat": 49.795601,
       "lon": 8.988898,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "höchst (odw ) bahnhof höchst (odw ) bahnhof",
       "member_stop_ids": [
@@ -11317,7 +11317,7 @@
       "lat": 49.794585,
       "lon": 8.992467,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "höchst (odw ) bismarckstraße höchst (odw ) bismarckstraße",
       "member_stop_ids": [
@@ -11332,7 +11332,7 @@
       "lat": 49.808178999999996,
       "lon": 9.003523999999999,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "höchst (odw ) himmelsleiter höchst (odw ) himmelsleiter",
       "member_stop_ids": [
@@ -11348,7 +11348,7 @@
       "lat": 49.799776,
       "lon": 8.994454,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "höchst (odw ) polizei höchst (odw ) polizei",
       "member_stop_ids": [
@@ -11363,7 +11363,7 @@
       "lat": 49.79922,
       "lon": 8.993826,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "höchst montmelianer platz höchst montmelianer platz",
       "member_stop_ids": [
@@ -16105,7 +16105,7 @@
       "lat": 49.85837,
       "lon": 9.082668,
       "lines": [
-        "20",
+        "20RMV",
         "55",
         "68",
         "GU2"
@@ -16127,7 +16127,7 @@
       "lat": 49.852219,
       "lon": 9.083135,
       "lines": [
-        "20",
+        "20RMV",
         "68"
       ],
       "search": "mömlingen bahnhofstr mömlingen",
@@ -16144,7 +16144,7 @@
       "lat": 49.850673,
       "lon": 9.078994,
       "lines": [
-        "20",
+        "20RMV",
         "68"
       ],
       "search": "mömlingen gewerbegebiet mömlingen",
@@ -16161,7 +16161,7 @@
       "lat": 49.854084,
       "lon": 9.085911,
       "lines": [
-        "20"
+        "20RMV"
       ],
       "search": "mömlingen kreisel mömlingen",
       "member_stop_ids": [
@@ -16195,7 +16195,7 @@
       "lat": 49.854906,
       "lon": 9.086342,
       "lines": [
-        "20",
+        "20RMV",
         "55",
         "68",
         "GU2"
@@ -16217,7 +16217,7 @@
       "lat": 49.862145,
       "lon": 9.079066,
       "lines": [
-        "20",
+        "20RMV",
         "55",
         "68"
       ],
@@ -16238,7 +16238,7 @@
       "lat": 49.85936,
       "lon": 9.079856,
       "lines": [
-        "20",
+        "20RMV",
         "55",
         "68",
         "GU2"
@@ -27544,10 +27544,10 @@
         "de:09676:53821"
       ],
       "lines": [
-        "20",
         "55",
         "68",
-        "GU2"
+        "GU2",
+        "20RMV"
       ]
     },
     {

@@ -217,21 +217,8 @@
     "20RMV": [
       {
         "type": "Regulärer Fahrplan",
-        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach -Feldkahl - Sommerkahl - Schöllkrippen und zurück Stand 13.12.25 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach -Feldkahl - Sommerkahl - Schöllkrippen und zurück Stand 13.12.25",
-        "valid_from": "2025-12-13",
-        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_3375e5ce1d.pdf"
-      },
-      {
-        "type": "Regulärer Fahrplan",
-        "title": "Linie 20 0.26 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 03.05.26 Bus Linie 20 0.26 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 03.05.26",
-        "valid_from": "2026-05-03",
-        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_ab_260504_52ec11fbdc.pdf"
-      },
-      {
-        "type": "Regulärer Fahrplan",
-        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 26.06.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 26.06.26",
-        "valid_from": "2026-06-26",
-        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_ab_260627_8a0c3a01ad.pdf"
+        "title": "Linie 20 Mömlingen - Breuberg - Höchst i. Odw.",
+        "url": "https://www.odenwaldmobil.de/fileadmin/DAM/Dokumente/Fahrplaene/2026/Lokale_Buslinien/20.pdf"
       }
     ],
     "21": [

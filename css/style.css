@@ -2182,3 +2182,10 @@ main {
 .vab-linienlabel {
   line-height: 1.15 !important;
 }
+
+/* Statusanzeige im Kopfbereich ausblenden */
+#status,
+.status,
+.vab-status {
+  display: none !important;
+}

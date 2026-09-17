@@ -18,6 +18,14 @@ const vabSucheVorschlaege =
   document.getElementById('vab-suche-vorschlaege');
 
 function setStatus(text, type = '') {
+  /*
+   * Der technische Statusblock wird im öffentlichen
+   * Kopfbereich nicht mehr angezeigt.
+   */
+  if (!statusElement) {
+    return;
+  }
+
   statusElement.textContent = text;
   statusElement.className = 'status';
 
@@ -247,6 +255,15 @@ function getLineName(properties = {}) {
     ?? ''
   ).trim();
 }
+
+function vabDisplayLineName(line) {
+  const value = String(line ?? '').trim();
+
+  return value === '20RMV'
+    ? '20'
+    : value;
+}
+
 
 function sortLines(lines = []) {
   return [...lines].sort((first, second) =>
@@ -2160,7 +2177,7 @@ function createLineLabels() {
                   ${position.angle ?? 0}deg;
                 "
               >
-                ${escapeHtml(lineName)}
+                ${escapeHtml(vabDisplayLineName(lineName))}
               </div>
             `
           });
@@ -2382,10 +2399,10 @@ function renderLineInformation(lineName) {
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt linien-information">
       <div class="liniennummer-gross">
-        ${escapeHtml(lineName)}
+        ${escapeHtml(vabDisplayLineName(lineName))}
       </div>
 
-      <h2>Linie ${escapeHtml(lineName)}</h2>
+      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
 
       <section class="linien-info-bereich">
         <h3>Zielrichtungen</h3>
@@ -2891,7 +2908,7 @@ function renderVariants(
       : `
         <p class="varianten-hinweis">
           Fahrweg der Linie
-          ${escapeHtml(lineName)}.
+          ${escapeHtml(vabDisplayLineName(lineName))}.
         </p>
       `;
 
@@ -2901,10 +2918,10 @@ function renderVariants(
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt linien-information">
       <div class="liniennummer-gross">
-        ${escapeHtml(lineName)}
+        ${escapeHtml(vabDisplayLineName(lineName))}
       </div>
 
-      <h2>Linie ${escapeHtml(lineName)}</h2>
+      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
 
       ${hintHtml}
 
@@ -3134,7 +3151,7 @@ function selectLineFromStopSearch(lineName) {
   }
 
   setStatus(
-    `Linie ${lineName}: Aushangfahrplan`,
+    `Linie ${vabDisplayLineName(lineName)}: Aushangfahrplan`,
     'erfolg'
   );
 }
@@ -3298,7 +3315,7 @@ function addLineInteraction(feature, layer) {
 
   if (lineName) {
     layer.bindTooltip(
-      `Linie ${escapeHtml(lineName)}`,
+      `Linie ${escapeHtml(vabDisplayLineName(lineName))}`,
       {
         sticky: true,
         direction: 'top'
@@ -3335,7 +3352,7 @@ function addLineInteraction(feature, layer) {
                 font-weight:700;
               "
             >
-              ${escapeHtml(line)}
+              ${escapeHtml(vabDisplayLineName(line))}
             </span>
           `)
           .join('');
@@ -3357,7 +3374,7 @@ function addLineInteraction(feature, layer) {
         `);
       } else if (lineName) {
         layer.setTooltipContent(
-          `Linie ${escapeHtml(lineName)}`
+          `Linie ${escapeHtml(vabDisplayLineName(lineName))}`
         );
       }
 
@@ -3378,7 +3395,7 @@ function addLineInteraction(feature, layer) {
     mouseout() {
       if (lineName) {
         layer.setTooltipContent(
-          `Linie ${escapeHtml(lineName)}`
+          `Linie ${escapeHtml(vabDisplayLineName(lineName))}`
         );
       }
 
@@ -3509,14 +3526,14 @@ function showSharedSection(feature, clickedLayer) {
         type="button"
         class="linien-auswahl-button linien-badge-button"
         data-line="${escapeHtml(line)}"
-        aria-label="Linie ${escapeHtml(line)} anzeigen"
+        aria-label="Linie ${escapeHtml(vabDisplayLineName(line))} anzeigen"
       >
         <span class="linien-auswahl-nummer">
-          ${escapeHtml(line)}
+          ${escapeHtml(vabDisplayLineName(line))}
         </span>
 
         <span class="linien-auswahl-text">
-          Linie ${escapeHtml(line)} anzeigen
+          Linie ${escapeHtml(vabDisplayLineName(line))} anzeigen
         </span>
 
         <span
@@ -3629,14 +3646,14 @@ function showRobSelection(configuration) {
                 type="button"
                 class="linien-auswahl-button rob-linien-button"
                 data-line="${escapeHtml(line)}"
-                aria-label="Linie ${escapeHtml(line)} anzeigen"
+                aria-label="Linie ${escapeHtml(vabDisplayLineName(line))} anzeigen"
               >
                 <span class="linien-auswahl-nummer">
-                  ${escapeHtml(line)}
+                  ${escapeHtml(vabDisplayLineName(line))}
                 </span>
 
                 <span class="linien-auswahl-text">
-                  Linie ${escapeHtml(line)} anzeigen
+                  Linie ${escapeHtml(vabDisplayLineName(line))} anzeigen
                 </span>
 
                 <span
@@ -5424,7 +5441,7 @@ function vabRenderSuggestions(queryText) {
                         <span class="vab-suche-ort-linien">
                           ${result.lines.map(line => `
                             <span class="vab-suche-linie">
-                              ${escapeHtml(line)}
+                              ${escapeHtml(vabDisplayLineName(line))}
                             </span>
                           `).join('')}
                         </span>
@@ -5446,7 +5463,7 @@ function vabRenderSuggestions(queryText) {
                         <span class="vab-suche-ort-linien">
                           ${result.lines.map(line => `
                             <span class="vab-suche-linie">
-                              ${escapeHtml(line)}
+                              ${escapeHtml(vabDisplayLineName(line))}
                             </span>
                           `).join('')}
                         </span>
@@ -5523,29 +5540,34 @@ function vabOpenInfoPanel() {
 
 
 function vabCreateLineButtons(lines, stopId = '') {
-  return vabNaturalSort(lines).map(line => `
-    <button
-      type="button"
-      class="linien-auswahl-button vab-suche-linien-button"
-      data-search-line="${escapeHtml(line)}"
-      data-search-stop="${escapeHtml(stopId)}"
-    >
-      <span class="linien-auswahl-nummer">
-        ${escapeHtml(line)}
-      </span>
+  return vabNaturalSort(lines).map(line => {
+    const displayLine =
+      vabDisplayLineName(line);
 
-      <span class="linien-auswahl-text">
-        Linie ${escapeHtml(line)} anzeigen
-      </span>
-
-      <span
-        class="linien-auswahl-pfeil"
-        aria-hidden="true"
+    return `
+      <button
+        type="button"
+        class="linien-auswahl-button vab-suche-linien-button"
+        data-search-line="${escapeHtml(line)}"
+        data-search-stop="${escapeHtml(stopId)}"
       >
-        ›
-      </span>
-    </button>
-  `).join('');
+        <span class="linien-auswahl-nummer">
+          ${escapeHtml(displayLine)}
+        </span>
+
+        <span class="linien-auswahl-text">
+          Linie ${escapeHtml(displayLine)} anzeigen
+        </span>
+
+        <span
+          class="linien-auswahl-pfeil"
+          aria-hidden="true"
+        >
+          ›
+        </span>
+      </button>
+    `;
+  }).join('');
 }
 
 
@@ -5634,7 +5656,9 @@ function vabShowPlace(place) {
 
       <small>
         ${escapeHtml(
-          vabNaturalSort(stop.lines).join(', ')
+          vabNaturalSort(stop.lines)
+            .map(vabDisplayLineName)
+            .join(', ')
         )}
       </small>
     </button>
@@ -5783,7 +5807,7 @@ function vabCreateSchedulePdfHtml(line) {
     return `
       <div class="vab-fahrplan-pdf-fehlt">
         Für die Linie
-        <strong>${escapeHtml(line)}</strong>
+        <strong>${escapeHtml(vabDisplayLineName(line))}</strong>
         ist derzeit kein PDF hinterlegt.
       </div>
     `;
@@ -5852,14 +5876,14 @@ function vabShowPlaceSchedule(
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt vab-suche-panel">
       <div class="liniennummer-gross">
-        ${escapeHtml(line)}
+        ${escapeHtml(vabDisplayLineName(line))}
       </div>
 
       <h2>${escapeHtml(place.name)}</h2>
 
       <p class="gemeinsame-auswahl-hinweis">
         Verfügbare Fahrplandokumente der Linie
-        ${escapeHtml(line)}.
+        ${escapeHtml(vabDisplayLineName(line))}.
       </p>
 
       <div class="vab-fahrplan-pdf-bereich">
@@ -5911,7 +5935,7 @@ function vabShowPlaceSchedule(
     );
 
   setStatus(
-    `Linie ${line}: Fahrplandokumente für ${place.name}`,
+    `Linie ${vabDisplayLineName(line)}: Fahrplandokumente für ${place.name}`,
     'erfolg'
   );
 }
@@ -5934,14 +5958,14 @@ function vabShowSchedule(
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt vab-suche-panel">
       <div class="liniennummer-gross">
-        ${escapeHtml(line)}
+        ${escapeHtml(vabDisplayLineName(line))}
       </div>
 
       <h2>${escapeHtml(stop.name)}</h2>
 
       <p class="gemeinsame-auswahl-hinweis">
         Verfügbare Fahrplandokumente der Linie
-        ${escapeHtml(line)}.
+        ${escapeHtml(vabDisplayLineName(line))}.
       </p>
 
       <div class="vab-fahrplan-pdf-bereich">
@@ -5967,7 +5991,7 @@ function vabShowSchedule(
     );
 
   setStatus(
-    `Linie ${line}: Fahrplandokumente`,
+    `Linie ${vabDisplayLineName(line)}: Fahrplandokumente`,
     'erfolg'
   );
 }
