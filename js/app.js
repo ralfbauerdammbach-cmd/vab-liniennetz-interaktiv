@@ -2743,6 +2743,23 @@ function showStopsForLine(lineName, selectedLayers = null) {
       );
     }
 
+    marker.on('click', event => {
+      L.DomEvent.stopPropagation(event);
+
+      if (event.originalEvent) {
+        event.originalEvent.vabLineHandled = true;
+      }
+
+      if (
+        typeof window.vabFocusStopInLine
+        === 'function'
+      ) {
+        window.vabFocusStopInLine(
+          stop.stopId
+        );
+      }
+    });
+
     marker.addTo(linienHaltestellenLayer);
   }
 
@@ -5721,6 +5738,67 @@ function vabShowPlace(place) {
 }
 
 
+function vabFocusStopOnMap(stop, delay = 0) {
+  if (
+    !stop
+    || !Number.isFinite(Number(stop.lat))
+    || !Number.isFinite(Number(stop.lon))
+  ) {
+    return;
+  }
+
+  const latitude =
+    Number(stop.lat);
+
+  const longitude =
+    Number(stop.lon);
+
+  window.setTimeout(
+    () => {
+      karte.invalidateSize();
+
+      karte.setView(
+        [
+          latitude,
+          longitude
+        ],
+        karte.getMaxZoom(),
+        {
+          animate: true
+        }
+      );
+    },
+    delay
+  );
+}
+
+
+window.vabFocusStopInLine = function(stopId) {
+  const stop =
+    vabGetStopById(stopId);
+
+  if (!stop) {
+    return;
+  }
+
+  vabFocusStopOnMap(
+    stop,
+    60
+  );
+
+  window.dispatchEvent(
+    new CustomEvent(
+      'vab-line-stop-focused',
+      {
+        detail: {
+          stopId:
+            String(stop.id ?? stopId)
+        }
+      }
+    )
+  );
+};
+
 function vabShowStop(stop) {
   if (!stop) {
     return;
@@ -5730,22 +5808,6 @@ function vabShowStop(stop) {
   vabAktuelleLinie = null;
 
   vabCloseSuggestions();
-
-  if (
-    Number.isFinite(Number(stop.lat))
-    && Number.isFinite(Number(stop.lon))
-  ) {
-    karte.setView(
-      [
-        Number(stop.lat),
-        Number(stop.lon)
-      ],
-      Math.max(karte.getZoom(), 16),
-      {
-        animate: true
-      }
-    );
-  }
 
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt vab-suche-panel">
@@ -5775,6 +5837,8 @@ function vabShowStop(stop) {
 
   vabOpenInfoPanel();
   vabBindLineButtons();
+
+  vabFocusStopOnMap(stop, 260);
 
   setStatus(
     `${stop.name}: ${stop.lines.length} Linien gefunden`,

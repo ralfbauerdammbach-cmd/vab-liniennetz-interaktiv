@@ -98,3 +98,11 @@
   color: #000F47;
   font-size: 0.9rem;
 }
+.vab-linienfahrt-halt[data-vab-trip-stop-id] {
+  cursor: pointer;
+}
+
+.vab-linienfahrt-halt[data-vab-trip-stop-id]:focus-visible {
+  outline: 2px solid #000F47;
+  outline-offset: -2px;
+}

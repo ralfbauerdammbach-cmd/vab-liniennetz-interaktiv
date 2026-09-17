@@ -123,6 +123,13 @@ function vabRealtimeCreateStopRow(
   index,
   selectedIndex
 ) {
+  const stopId =
+    String(
+      sequenceStop?.parent?.id
+      ?? sequenceStop?.id
+      ?? ''
+    );
+
   const name =
     sequenceStop?.parent?.name
     ?? sequenceStop?.name
@@ -171,7 +178,12 @@ function vabRealtimeCreateStopRow(
   }
 
   return `
-    <div class="${rowClass}">
+    <div
+      class="${rowClass}"
+      data-vab-trip-stop-id="${vabRealtimeEscape(stopId)}"
+      role="button"
+      tabindex="0"
+    >
       <div class="vab-linienfahrt-halt-name">
         ${vabRealtimeEscape(name)}
 
@@ -203,6 +215,82 @@ function vabRealtimeCreateStopRow(
   `;
 }
 
+
+function vabRealtimeMarkSelectedRow(
+  container,
+  stopId
+) {
+  if (!container || !stopId) {
+    return;
+  }
+
+  for (
+    const row
+    of container.querySelectorAll(
+      '[data-vab-trip-stop-id]'
+    )
+  ) {
+    row.classList.remove(
+      'vab-linienfahrt-halt-ausgewaehlt'
+    );
+
+    row.querySelector(
+      '.vab-linienfahrt-auswahlhinweis'
+    )?.remove();
+  }
+
+  const selectedRow =
+    Array.from(
+      container.querySelectorAll(
+        '[data-vab-trip-stop-id]'
+      )
+    ).find(
+      row =>
+        row.dataset.vabTripStopId
+        === String(stopId)
+    );
+
+  if (!selectedRow) {
+    return;
+  }
+
+  selectedRow.classList.add(
+    'vab-linienfahrt-halt-ausgewaehlt'
+  );
+
+  const name =
+    selectedRow.querySelector(
+      '.vab-linienfahrt-halt-name'
+    );
+
+  name?.insertAdjacentHTML(
+    'beforeend',
+    `
+      <span class="vab-linienfahrt-auswahlhinweis">
+        ausgewählte Haltestelle
+      </span>
+    `
+  );
+}
+
+
+window.addEventListener(
+  'vab-line-stop-focused',
+  event => {
+    const container =
+      document.getElementById(
+        'vab-linienfahrt-inhalt'
+      );
+
+    const stopId =
+      event?.detail?.stopId;
+
+    vabRealtimeMarkSelectedRow(
+      container,
+      stopId
+    );
+  }
+);
 
 window.vabRealtimeShowLineTrip =
   async function(stop, line) {
@@ -332,6 +420,49 @@ window.vabRealtimeShowLineTrip =
         </div>
       `;
 
+      for (
+        const row
+        of content.querySelectorAll(
+          '[data-vab-trip-stop-id]'
+        )
+      ) {
+        const activateStop = () => {
+          const stopId =
+            row.dataset.vabTripStopId;
+
+          vabRealtimeMarkSelectedRow(
+            content,
+            stopId
+          );
+
+          if (
+            typeof window.vabFocusStopInLine
+            === 'function'
+          ) {
+            window.vabFocusStopInLine(
+              stopId
+            );
+          }
+        };
+
+        row.addEventListener(
+          'click',
+          activateStop
+        );
+
+        row.addEventListener(
+          'keydown',
+          event => {
+            if (
+              event.key === 'Enter'
+              || event.key === ' '
+            ) {
+              event.preventDefault();
+              activateStop();
+            }
+          }
+        );
+      }
       if (selectedIndex >= 0) {
         window.setTimeout(
           () => {
