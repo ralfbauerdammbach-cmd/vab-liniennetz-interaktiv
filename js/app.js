@@ -2581,6 +2581,203 @@ function getStopsForLine(lineName, selectedLayers = null) {
 }
 
 
+/*
+ * Ermittelt zu einem Haltestelleneintrag aus der
+ * Liniengeometrie den passenden Eintrag aus dem
+ * VAB-Haltestellensuchindex.
+ */
+/*
+ * Ermittelt für einen Klick auf einen Linienverlauf
+ * die räumlich nächstgelegene Haltestelle aus dem
+ * zentralen VAB-Suchindex, die von dieser Linie
+ * tatsächlich bedient wird.
+ *
+ * Dadurch sind unterschiedliche Stop-IDs zwischen
+ * Routingdaten, DELFI und DEFAS unproblematisch.
+ */
+function vabFindNearestStopForLineClick(
+  lineName,
+  latlng,
+  selectedLayers = null
+) {
+  if (
+    !lineName
+    || !latlng
+    || !vabSuchindex
+  ) {
+    return null;
+  }
+
+  const requestedLine =
+    String(lineName).trim();
+
+  const stops =
+    vabSuchindex?.stops ?? [];
+
+  let nearestStop = null;
+  let nearestDistance = Infinity;
+
+  /*
+   * Zuerst nur Haltestellen berücksichtigen,
+   * bei denen die interne Linienkennung exakt passt.
+   */
+  for (const stop of stops) {
+    const lines =
+      Array.isArray(stop?.lines)
+        ? stop.lines.map(value =>
+            String(value).trim()
+          )
+        : [];
+
+    if (!lines.includes(requestedLine)) {
+      continue;
+    }
+
+    const latitude =
+      Number(stop?.lat);
+
+    const longitude =
+      Number(stop?.lon);
+
+    if (
+      !Number.isFinite(latitude)
+      || !Number.isFinite(longitude)
+    ) {
+      continue;
+    }
+
+    const distance =
+      karte.distance(
+        latlng,
+        L.latLng(
+          latitude,
+          longitude
+        )
+      );
+
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestStop = stop;
+    }
+  }
+
+  /*
+   * Sonder-/Rückfallebene:
+   * Falls intern beispielsweise 20RMV verwendet wird,
+   * kann die sichtbare Liniennummer trotzdem 20 sein.
+   */
+  if (!nearestStop) {
+    const displayLine =
+      vabDisplayLineName(
+        requestedLine
+      );
+
+    for (const stop of stops) {
+      const lines =
+        Array.isArray(stop?.lines)
+          ? stop.lines
+          : [];
+
+      const servesDisplayLine =
+        lines.some(line =>
+          vabDisplayLineName(line)
+          === displayLine
+        );
+
+      if (!servesDisplayLine) {
+        continue;
+      }
+
+      const latitude =
+        Number(stop?.lat);
+
+      const longitude =
+        Number(stop?.lon);
+
+      if (
+        !Number.isFinite(latitude)
+        || !Number.isFinite(longitude)
+      ) {
+        continue;
+      }
+
+      const distance =
+        karte.distance(
+          latlng,
+          L.latLng(
+            latitude,
+            longitude
+          )
+        );
+
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestStop = stop;
+      }
+    }
+  }
+
+  return nearestStop;
+}
+
+
+/*
+ * Klick auf einen Linienverlauf:
+ * nächstgelegene Haltestelle bestimmen und unmittelbar
+ * die nächste konkrete Fahrt einschließlich
+ * Haltestellenfolge und Echtzeit öffnen.
+ */
+function vabShowLineTripFromMapClick(
+  lineName,
+  latlng,
+  selectedLayers = null
+) {
+  const stop =
+    vabFindNearestStopForLineClick(
+      lineName,
+      latlng,
+      selectedLayers
+    );
+
+  if (!stop) {
+    console.warn(
+      'Keine Haltestelle für Linienklick gefunden',
+      {
+        lineName,
+        latlng
+      }
+    );
+
+    setStatus(
+      `Linie ${vabDisplayLineName(lineName)}: keine passende Haltestelle gefunden`,
+      'fehler'
+    );
+
+    return false;
+  }
+
+  console.log(
+    'Linienklick öffnet Fahrt',
+    {
+      line:
+        lineName,
+
+      stopId:
+        stop.id,
+
+      stopName:
+        stop.name
+    }
+  );
+
+  vabShowSchedule(
+    stop,
+    lineName
+  );
+
+  return true;
+}
+
 let vabSichtbareHaltestellenMarker = [];
 
 
@@ -3468,50 +3665,59 @@ function addLineInteraction(feature, layer) {
 
     click(event) {
       /*
-       * Das Ereignis darf bis zur Karte weiterlaufen.
-       * Es wird nur als bereits verarbeiteter Linienklick markiert.
+       * Klick auf einen Linienverlauf.
+       *
+       * Eindeutige Linie:
+       * direkt Fahrt, Haltestellenfolge und Echtzeit.
+       *
+       * Mehrere Linien auf demselben Abschnitt:
+       * zunächst Linie auswählen.
        */
       if (event.originalEvent) {
         event.originalEvent.vabLineHandled = true;
       }
 
-      /*
-       * Ein erneuter Klick auf die bereits fixierte Linie
-       * hebt die Auswahl immer zuerst auf.
-       */
-      if (fixierteLinie === lineName) {
-        selectLine(
-          lineName,
-          String(properties.pattern_id ?? '')
+      const sharedFeature =
+        findSharedSectionAtClick(
+          event.latlng,
+          lineName
         );
-        return;
-      }
-
-      const sharedFeature = findSharedSectionAtClick(
-        event.latlng,
-        lineName
-      );
 
       if (sharedFeature) {
-        const temporaryLayer = L.geoJSON(sharedFeature);
+        const temporaryLayer =
+          L.geoJSON(sharedFeature);
 
         showSharedSection(
           sharedFeature,
-          temporaryLayer
+          temporaryLayer,
+          event.latlng
         );
 
         return;
       }
 
-      selectLine(
+      /*
+       * Bewusst nicht selectLine():
+       * Diese Funktion würde bei Linien mit Varianten
+       * wieder die alte Variantenansicht öffnen.
+       */
+      selectLineFromStopSearch(
+        lineName
+      );
+
+      /*
+       * Passende Haltestelle am Klickpunkt bestimmen
+       * und direkt die konkrete Fahrt öffnen.
+       */
+      vabShowLineTripFromMapClick(
         lineName,
-        String(properties.pattern_id ?? '')
+        event.latlng
       );
     }
   });
 }
 
-function showSharedSection(feature, clickedLayer) {
+function showSharedSection(feature, clickedLayer, clickLatLng = null) {
   const properties = feature.properties ?? {};
   const coordinates = feature.geometry?.coordinates ?? [];
 
@@ -3629,7 +3835,16 @@ function showSharedSection(feature, clickedLayer) {
         return;
       }
 
-      selectLine(lineName);
+      selectLineFromStopSearch(
+        lineName
+      );
+
+      if (clickLatLng) {
+        vabShowLineTripFromMapClick(
+          lineName,
+          clickLatLng
+        );
+      }
     });
   }
 }
@@ -3637,7 +3852,11 @@ function showSharedSection(feature, clickedLayer) {
 function addSharedSectionInteraction(feature, layer) {
   layer.on('click', event => {
     L.DomEvent.stopPropagation(event);
-    showSharedSection(feature, layer);
+    showSharedSection(
+      feature,
+      layer,
+      event.latlng
+    );
   });
 }
 
