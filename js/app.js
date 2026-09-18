@@ -200,6 +200,15 @@ karte.getPane('robPane').style.zIndex = 700;
 karte.createPane('robBussteigPane');
 karte.getPane('robBussteigPane').style.zIndex = 690;
 
+/*
+ * ROB-Bussteigmarker liegen bewusst weit oben.
+ * Leaflet-Tooltips und Popups müssen darüber liegen,
+ * damit Linienangaben nicht von den Bussteig-Icons
+ * verdeckt werden.
+ */
+karte.getPane('tooltipPane').style.zIndex = 760;
+karte.getPane('popupPane').style.zIndex = 770;
+
 let linienRenderLayer;
 let linienLayer;
 let abschnittKlickLayer;
@@ -3784,6 +3793,48 @@ function showRobSelection(configuration) {
         return;
       }
 
+      /*
+       * Der ROB ist gleichzeitig die Haltestelle
+       * Aschaffenburg Hauptbahnhof/ROB.
+       *
+       * Deshalb soll ein Klick auf eine Linie nicht nur
+       * den Linienverlauf markieren, sondern - genau wie
+       * bei einer normalen Haltestelle - die nächste
+       * konkrete Fahrt mit Haltestellenfolge und
+       * Echtzeitdaten öffnen.
+       */
+      const robStop =
+        vabGetStopById('de:09661:5100')
+        ?? (vabSuchindex?.stops ?? []).find(stop => {
+          const name =
+            vabNormalizeSearchText(
+              stop?.name ?? ''
+            );
+
+          return (
+            name.includes('hauptbahnhof rob')
+            || name.includes('hbf rob')
+          );
+        })
+        ?? null;
+
+      if (robStop) {
+        selectLineFromStopSearch(
+          lineName
+        );
+
+        vabShowSchedule(
+          robStop,
+          lineName
+        );
+
+        return;
+      }
+
+      /*
+       * Rückfallebene, falls die ROB-Haltestelle
+       * wider Erwarten nicht im Suchindex enthalten ist.
+       */
       selectLine(lineName);
     });
   }
