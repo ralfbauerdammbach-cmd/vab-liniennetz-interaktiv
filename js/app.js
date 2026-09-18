@@ -2772,7 +2772,8 @@ function vabShowLineTripFromMapClick(
 
   vabShowSchedule(
     stop,
-    lineName
+    lineName,
+    'map'
   );
 
   return true;
@@ -2973,7 +2974,8 @@ function showStopsForLine(lineName, selectedLayers = null) {
          */
         vabShowSchedule(
           selectedStop,
-          fixierteLinie
+          fixierteLinie,
+          'map'
         );
 
         return;
@@ -4044,7 +4046,8 @@ function showRobSelection(configuration) {
 
         vabShowSchedule(
           robStop,
-          lineName
+          lineName,
+          'rob'
         );
 
         return;
@@ -6299,7 +6302,8 @@ function vabShowPlaceSchedule(
 
 function vabShowSchedule(
   stop,
-  line
+  line,
+  returnContext = 'stop'
 ) {
   if (!stop || !line) {
     return;
@@ -6312,11 +6316,41 @@ function vabShowSchedule(
   const displayLine =
     vabDisplayLineName(line);
 
+  const backLabel =
+    returnContext === 'rob'
+      ? 'Zurück zum ROB'
+      : (
+          returnContext === 'map'
+            ? 'Zurück zur Karte'
+            : 'Zurück zur Haltestelle'
+        );
+
   const pdfHtml =
     vabCreateSchedulePdfHtml(line);
 
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt vab-suche-panel">
+      <div
+        class="vab-panel-navigation"
+        aria-label="Navigation"
+      >
+        <button
+          type="button"
+          class="vab-panel-nav-button vab-panel-nav-zurueck"
+        >
+          <span aria-hidden="true">←</span>
+          ${escapeHtml(backLabel)}
+        </button>
+
+        <button
+          type="button"
+          class="vab-panel-nav-button vab-panel-nav-start"
+        >
+          <span aria-hidden="true">↻</span>
+          Kartenstart
+        </button>
+      </div>
+
       <div class="liniennummer-gross">
         ${escapeHtml(displayLine)}
       </div>
@@ -6366,6 +6400,58 @@ function vabShowSchedule(
   vabOpenInfoPanel();
 
   /*
+   * Kontextabhängige Rücknavigation.
+   *
+   * ROB:
+   * zurück zur Bussteig-/Linienauswahl.
+   *
+   * Karte:
+   * Fahrtansicht schließen und ausgewählte Linie
+   * mit ihren Haltestellen wieder anzeigen.
+   *
+   * Haltestellensuche:
+   * zurück zur ursprünglichen Haltestelle.
+   */
+  const handleScheduleBack = () => {
+    if (
+      returnContext === 'rob'
+      && robConfigurationAktuell
+    ) {
+      showRobSelection(
+        robConfigurationAktuell
+      );
+
+      return;
+    }
+
+    if (returnContext === 'map') {
+      selectLineFromStopSearch(
+        line
+      );
+
+      return;
+    }
+
+    vabShowStop(
+      stop
+    );
+  };
+
+  infoPanelInhalt
+    .querySelector('.vab-panel-nav-zurueck')
+    ?.addEventListener(
+      'click',
+      handleScheduleBack
+    );
+
+  infoPanelInhalt
+    .querySelector('.vab-panel-nav-start')
+    ?.addEventListener(
+      'click',
+      () => window.location.reload()
+    );
+
+  /*
    * selectLineFromStopSearch() zeigt zunächst
    * den gesamten Linienverlauf. Sobald die
    * Linienfahrt geöffnet ist, soll jedoch die
@@ -6399,7 +6485,7 @@ function vabShowSchedule(
     .querySelector('.vab-zurueck-haltestelle')
     ?.addEventListener(
       'click',
-      () => vabShowStop(stop)
+      handleScheduleBack
     );
 
   if (

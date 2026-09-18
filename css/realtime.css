@@ -1,4 +1,4 @@
-﻿/* VAB Linienfahrt / Echtzeit */
+/* VAB Linienfahrt / Echtzeit */
 
 .vab-linienfahrt-bereich {
   margin-top: 24px;
@@ -118,3 +118,62 @@
   font-weight: 800;
 }
 
+
+/*
+ * ======================================================
+ * FAHRTANSICHT – STICKY NAVIGATION
+ * ======================================================
+ */
+
+.vab-panel-navigation {
+  position: sticky;
+  top: -30px;
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+  margin: -30px -24px 20px;
+  padding: 10px 58px 10px 24px;
+  border-bottom: 1px solid #D7DDE3;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.vab-panel-nav-button {
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 1px solid #CCD6DF;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #000F47;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.vab-panel-nav-button:hover {
+  border-color: #000F47;
+  background: #F1F4F6;
+}
+
+.vab-panel-nav-button:focus-visible {
+  outline: 3px solid rgba(0, 15, 71, 0.18);
+  outline-offset: 2px;
+}
+
+.vab-panel-nav-zurueck {
+  flex: 1 1 auto;
+}
+
+.vab-panel-nav-start {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 700px) {
+  .vab-panel-navigation {
+    top: -24px;
+    margin: -24px -18px 18px;
+    padding: 9px 54px 9px 18px;
+  }
+}
