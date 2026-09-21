@@ -3986,6 +3986,44 @@ function addLineInteraction(feature, layer) {
           lineName
         );
 
+      /*
+       * Wenn bereits eine Linie aktiv ist und diese
+       * ebenfalls ueber den angeklickten gemeinsamen
+       * Abschnitt verlaeuft, darf die Mehrlinien-Auswahl
+       * die bestehende Auswahl nicht ersetzen.
+       *
+       * Das ist besonders wichtig beim Doppelklick zum
+       * Zoomen: Die pink markierte Linie bleibt erhalten.
+       */
+      if (
+        sharedFeature
+        && fixierteLinie
+      ) {
+        const sharedLines =
+          (
+            sharedFeature.properties?.lines
+            ?? []
+          ).map(String);
+
+        if (
+          sharedLines.includes(
+            String(fixierteLinie)
+          )
+        ) {
+          vabShowLineTripFromMapClick(
+            fixierteLinie,
+            event.latlng
+          );
+
+          return;
+        }
+      }
+
+      /*
+       * Nur wenn noch keine passende Linie ausgewaehlt
+       * ist, wird die Auswahl fuer gemeinsam befahrene
+       * Abschnitte angezeigt.
+       */
       if (sharedFeature) {
         const temporaryLayer =
           L.geoJSON(sharedFeature);
