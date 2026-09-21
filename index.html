@@ -26,7 +26,7 @@
   <header class="kopfbereich">
     <div>
       <h1>Interaktives VAB-Liniennetz</h1>
-      <p>geroutete Linienverläufe echtzeitabfahrten</p>
+      <p>geroutete Linienverläufe echtzeitabfahrten &middot; Stand: <span id="tagesdatum"></span></p>
     </div>
 
 
@@ -116,6 +116,13 @@
 
   <script src="js/app.js?v=20260918-7"></script>
   <script src="js/realtime.js?v=20260917-6"></script>
+  <script>
+    document.getElementById("tagesdatum").textContent =
+      new Intl.DateTimeFormat(
+        "de-DE",
+        { timeZone: "Europe/Berlin" }
+      ).format(new Date());
+  </script>
 </body>
 </html>
 
