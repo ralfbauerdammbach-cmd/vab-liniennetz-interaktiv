@@ -2457,57 +2457,74 @@ function renderLineInformation(lineName) {
 }
 
 
+function vabNormalizePlatformStopId(value) {
+  return String(value ?? '')
+    .trim()
+    .replace(/(?:_G)+$/, '');
+}
+
+
+function vabGetParentStopIdForPlatform(stopId) {
+  const normalizedId =
+    vabNormalizePlatformStopId(stopId);
+
+  if (!normalizedId) {
+    return '';
+  }
+
+  const parentStop =
+    (vabSuchindex?.stops ?? []).find(
+      stop =>
+        (stop.member_stop_ids ?? []).some(
+          memberId =>
+            vabNormalizePlatformStopId(memberId)
+            === normalizedId
+        )
+    );
+
+  return String(parentStop?.id ?? '');
+}
+
+
+function vabGetStopGroupId(stopId) {
+  const normalizedId =
+    vabNormalizePlatformStopId(stopId);
+
+  if (!normalizedId) {
+    return '';
+  }
+
+  const parentId =
+    vabGetParentStopIdForPlatform(
+      normalizedId
+    );
+
+  if (parentId) {
+    return parentId;
+  }
+
+  const match =
+    normalizedId.match(
+      /^(.*):0:[^:]+$/
+    );
+
+  return match?.[1] ?? normalizedId;
+}
+
+
 function getStopsForLine(lineName, selectedLayers = null) {
   const layers =
     selectedLayers ?? linienNachName.get(lineName) ?? [];
-  const rawStops = [];
 
-  function normalizeStopName(value) {
-    return String(value ?? '')
-      .trim()
-      .toLocaleLowerCase('de')
-      .replace(/\s+/g, ' ');
-  }
-
-  function distanceInMeters(first, second) {
-    const earthRadius = 6371000;
-    const toRadians = value =>
-      value * Math.PI / 180;
-
-    const latitude1 =
-      toRadians(first.latitude);
-
-    const latitude2 =
-      toRadians(second.latitude);
-
-    const latitudeDifference =
-      toRadians(
-        second.latitude - first.latitude
-      );
-
-    const longitudeDifference =
-      toRadians(
-        second.longitude - first.longitude
-      );
-
-    const a =
-      Math.sin(latitudeDifference / 2) ** 2
-      + Math.cos(latitude1)
-      * Math.cos(latitude2)
-      * Math.sin(longitudeDifference / 2) ** 2;
-
-    return earthRadius * 2 * Math.atan2(
-      Math.sqrt(a),
-      Math.sqrt(1 - a)
-    );
-  }
+  const stopsByPhysicalId =
+    new Map();
 
   for (const layer of layers) {
     const properties =
       layer.feature?.properties ?? {};
 
     for (const stop of properties.stops ?? []) {
-      const stopId = String(
+      const sourceStopId = String(
         stop.stop_id ?? ''
       ).trim();
 
@@ -2515,71 +2532,83 @@ function getStopsForLine(lineName, selectedLayers = null) {
         stop.stop_name ?? ''
       ).trim();
 
-      const latitude = Number(stop.lat);
-      const longitude = Number(stop.lon);
+      const latitude =
+        Number(stop.lat);
+
+      const longitude =
+        Number(stop.lon);
+
+      const physicalStopId =
+        vabNormalizePlatformStopId(
+          sourceStopId
+        );
 
       if (
-        !stopId
+        !physicalStopId
         || !Number.isFinite(latitude)
         || !Number.isFinite(longitude)
       ) {
         continue;
       }
 
-      rawStops.push({
-        stopId,
-        stopName,
-        normalizedName:
-          normalizeStopName(stopName),
-        latitude,
-        longitude
-      });
+      const existing =
+        stopsByPhysicalId.get(
+          physicalStopId
+        );
+
+      const sourceIsGenerated =
+        /(?:_G)+$/.test(sourceStopId);
+
+      const existingIsGenerated =
+        /(?:_G)+$/.test(
+          String(
+            existing?.stopId ?? ''
+          )
+        );
+
+      /*
+       * Gleiche physische Plattform nur einmal.
+       *
+       * 0:1 und 0:2 bleiben getrennt.
+       * _G-Dubletten werden zusammengefasst.
+       *
+       * Wenn sowohl Basis-ID als auch _G-ID
+       * existieren, wird die Basis-ID bevorzugt.
+       */
+      if (
+        existing
+        && !(
+          existingIsGenerated
+          && !sourceIsGenerated
+        )
+      ) {
+        continue;
+      }
+
+      stopsByPhysicalId.set(
+        physicalStopId,
+        {
+          stopId:
+            sourceStopId,
+
+          stopName,
+
+          latitude,
+          longitude,
+
+          parentStopId:
+            vabGetParentStopIdForPlatform(
+              sourceStopId
+            )
+        }
+      );
     }
   }
 
-  const mergedStops = [];
-
-  for (const stop of rawStops) {
-    const existingStop = mergedStops.find(
-      candidate =>
-        candidate.normalizedName
-          === stop.normalizedName
-        && distanceInMeters(
-          candidate,
-          stop
-        ) <= 60
-    );
-
-    if (existingStop) {
-      existingStop.latitude =
-        (
-          existingStop.latitude
-          * existingStop.count
-          + stop.latitude
-        )
-        / (existingStop.count + 1);
-
-      existingStop.longitude =
-        (
-          existingStop.longitude
-          * existingStop.count
-          + stop.longitude
-        )
-        / (existingStop.count + 1);
-
-      existingStop.count += 1;
-      continue;
-    }
-
-    mergedStops.push({
-      ...stop,
-      count: 1
-    });
-  }
-
-  return mergedStops;
+  return [
+    ...stopsByPhysicalId.values()
+  ];
 }
-
 
 /*
  * Ermittelt zu einem Haltestelleneintrag aus der
@@ -2781,50 +2810,50 @@ function vabShowLineTripFromMapClick(
 
 let vabSichtbareHaltestellenMarker = [];
 
-function vabUpdateStopTooltipDirection(
-  stopId,
+let vabLineDirectionGeneration = 0;
+
+
+function vabFindVisibleStopMarker(stopId) {
+  const normalizedId =
+    vabNormalizePlatformStopId(
+      stopId
+    );
+
+  if (!normalizedId) {
+    return null;
+  }
+
+  const exactMarker =
+    vabSichtbareHaltestellenMarker.find(
+      marker =>
+        vabNormalizePlatformStopId(
+          marker?.vabStopId
+        )
+        === normalizedId
+    );
+
+  if (exactMarker) {
+    return exactMarker;
+  }
+
+  return (
+    vabSichtbareHaltestellenMarker.find(
+      marker =>
+        String(
+          marker?.vabStopGroupId ?? ''
+        )
+        === String(stopId ?? '')
+    )
+    ?? null
+  );
+}
+
+
+function vabSetStopMarkerDirection(
+  marker,
   lineName,
   destination
 ) {
-  const selectedId =
-    String(stopId ?? '');
-
-  for (
-    const item
-    of vabSichtbareHaltestellenMarker
-  ) {
-    const stopName =
-      String(item?.vabStopName ?? '');
-
-    if (
-      stopName
-      && typeof item?.setTooltipContent === 'function'
-      && item.getTooltip()
-    ) {
-      item.setTooltipContent(
-        escapeHtml(stopName)
-      );
-    }
-  }
-
-  const marker =
-    vabSichtbareHaltestellenMarker.find(
-      item => {
-        const markerId =
-          String(item?.vabStopId ?? '');
-
-        return (
-          markerId === selectedId
-          || markerId.startsWith(
-            `${selectedId}:`
-          )
-          || selectedId.startsWith(
-            `${markerId}:`
-          )
-        );
-      }
-    );
-
   if (
     !marker
     || !destination
@@ -2858,17 +2887,155 @@ function vabUpdateStopTooltipDirection(
 }
 
 
+function vabResetStopTooltipDirections() {
+  for (
+    const marker
+    of vabSichtbareHaltestellenMarker
+  ) {
+    const stopName =
+      String(marker?.vabStopName ?? '');
+
+    if (
+      stopName
+      && marker?.getTooltip()
+    ) {
+      marker.setTooltipContent(
+        escapeHtml(stopName)
+      );
+    }
+  }
+}
+
+
+function vabUpdateStopTooltipDirection(
+  stopId,
+  lineName,
+  destination,
+  requestLine = ''
+) {
+  vabLineDirectionGeneration += 1;
+
+  const generation =
+    vabLineDirectionGeneration;
+
+  vabResetStopTooltipDirections();
+
+  const marker =
+    vabFindVisibleStopMarker(
+      stopId
+    );
+
+  if (!marker) {
+    return;
+  }
+
+  vabSetStopMarkerDirection(
+    marker,
+    lineName,
+    destination
+  );
+
+  const groupId =
+    String(
+      marker.vabStopGroupId ?? ''
+    );
+
+  const stopName =
+    String(
+      marker.vabStopName ?? ''
+    );
+
+  if (!groupId) {
+    return;
+  }
+
+  /*
+   * Weitere physische Plattformen derselben
+   * Haltestelle bekommen ihre eigene naechste
+   * Fahrtrichtung direkt aus DEFAS.
+   */
+  for (
+    const sibling
+    of vabSichtbareHaltestellenMarker
+  ) {
+    if (
+      sibling === marker
+      || String(
+        sibling?.vabStopGroupId ?? ''
+      ) !== groupId
+      || String(
+        sibling?.vabStopName ?? ''
+      ) !== stopName
+    ) {
+      continue;
+    }
+
+    window.dispatchEvent(
+      new CustomEvent(
+        'vab-line-direction-request',
+        {
+          detail: {
+            stopId:
+              String(
+                sibling.vabStopId ?? ''
+              ),
+
+            line:
+              String(
+                requestLine
+                || lineName
+                || ''
+              ),
+
+            generation
+          }
+        }
+      )
+    );
+  }
+}
+
+
 window.addEventListener(
   'vab-line-direction-focused',
   event => {
     vabUpdateStopTooltipDirection(
       event?.detail?.stopId,
       event?.detail?.line,
-      event?.detail?.destination
+      event?.detail?.destination,
+      event?.detail?.requestLine
     );
   }
 );
 
+
+window.addEventListener(
+  'vab-line-direction-secondary',
+  event => {
+    const generation =
+      Number(
+        event?.detail?.generation ?? 0
+      );
+
+    if (
+      generation
+      !== vabLineDirectionGeneration
+    ) {
+      return;
+    }
+
+    const marker =
+      vabFindVisibleStopMarker(
+        event?.detail?.stopId
+      );
+
+    vabSetStopMarkerDirection(
+      marker,
+      event?.detail?.line,
+      event?.detail?.destination
+    );
+  }
+);
 
 
 /*
@@ -2990,47 +3157,69 @@ karte.on(
 function showStopsForLine(lineName, selectedLayers = null) {
   /*
    * Markerbestand der zuvor angezeigten Linie
-   * zurücksetzen.
+   * zuruecksetzen.
    */
   vabSichtbareHaltestellenMarker = [];
 
-  karte.getPane('haltestellenPane').style.pointerEvents = 'auto';
+  karte.getPane(
+    'haltestellenPane'
+  ).style.pointerEvents = 'auto';
 
   if (linienHaltestellenLayer) {
-    karte.removeLayer(linienHaltestellenLayer);
+    karte.removeLayer(
+      linienHaltestellenLayer
+    );
+
     linienHaltestellenLayer = null;
   }
 
-  const stops = getStopsForLine(
-    lineName,
-    selectedLayers
-  );
-
-  linienHaltestellenLayer = L.layerGroup();
-
-  for (const stop of stops) {
-    const marker = L.marker(
-      [stop.latitude, stop.longitude],
-      {
-        pane: 'haltestellenPane',
-        icon: createStopMarkerIconForZoom(
-          karte.getZoom()
-        ),
-        bubblingMouseEvents: false,
-        keyboard: false
-      }
+  const stops =
+    getStopsForLine(
+      lineName,
+      selectedLayers
     );
 
-    /*
-     * Marker für spätere Zoomänderungen speichern.
-     */
+  linienHaltestellenLayer =
+    L.layerGroup();
+
+  for (const stop of stops) {
+    const marker =
+      L.marker(
+        [
+          stop.latitude,
+          stop.longitude
+        ],
+        {
+          pane: 'haltestellenPane',
+
+          icon:
+            createStopMarkerIconForZoom(
+              karte.getZoom()
+            ),
+
+          bubblingMouseEvents: false,
+          keyboard: false
+        }
+      );
+
     marker.vabStopId =
       String(stop.stopId ?? '');
 
     marker.vabStopName =
       String(stop.stopName ?? '');
 
-    vabSichtbareHaltestellenMarker.push(marker);
+    marker.vabStopGroupId =
+      String(
+        stop.parentStopId
+        || vabGetStopGroupId(
+          stop.stopId
+        )
+        || ''
+      );
+
+    vabSichtbareHaltestellenMarker.push(
+      marker
+    );
 
     if (stop.stopName) {
       marker.bindTooltip(
@@ -3040,64 +3229,81 @@ function showStopsForLine(lineName, selectedLayers = null) {
           direction: 'right',
           offset: [13, 0],
           opacity: 0.95,
-          className: 'vab-haltestellenname'
+          className:
+            'vab-haltestellenname'
         }
       );
     }
 
-    marker.on('click', event => {
-      L.DomEvent.stopPropagation(event);
-
-      if (event.originalEvent) {
-        event.originalEvent.vabLineHandled = true;
-      }
-
-      const selectedStop =
-        vabGetStopById(
-          stop.stopId
+    marker.on(
+      'click',
+      event => {
+        L.DomEvent.stopPropagation(
+          event
         );
 
-      if (
-        selectedStop
-        && fixierteLinie
-      ) {
+        if (event.originalEvent) {
+          event.originalEvent.vabLineHandled =
+            true;
+        }
+
         /*
-         * Linie ist bereits eindeutig ausgewählt.
-         * Deshalb keine erneute Linienauswahl,
-         * sondern direkt die Fahrt-/Echtzeitansicht
-         * dieser Linie an dieser Haltestelle öffnen.
+         * Die konkrete Plattform wird direkt
+         * verwendet. Dadurch fragt DEFAS genau
+         * die zu dieser Fahrtrichtung gehoerende
+         * Haltestelle ab.
          */
-        vabShowSchedule(
-          selectedStop,
-          fixierteLinie,
-          'map'
-        );
+        const selectedStop = {
+          id:
+            String(stop.stopId ?? ''),
 
-        return;
+          name:
+            String(stop.stopName ?? ''),
+
+          lat:
+            Number(stop.latitude),
+
+          lon:
+            Number(stop.longitude),
+
+          lines:
+            fixierteLinie
+              ? [fixierteLinie]
+              : []
+        };
+
+        if (fixierteLinie) {
+          vabShowSchedule(
+            selectedStop,
+            fixierteLinie,
+            'map'
+          );
+
+          return;
+        }
+
+        if (
+          typeof window.vabFocusStopInLine
+          === 'function'
+        ) {
+          window.vabFocusStopInLine(
+            stop.stopId
+          );
+        }
       }
+    );
 
-      if (
-        typeof window.vabFocusStopInLine
-        === 'function'
-      ) {
-        window.vabFocusStopInLine(
-          stop.stopId
-        );
-      }
-    });
-
-    marker.addTo(linienHaltestellenLayer);
+    marker.addTo(
+      linienHaltestellenLayer
+    );
   }
 
-  linienHaltestellenLayer.addTo(karte);
+  linienHaltestellenLayer.addTo(
+    karte
+  );
 
-  /*
-   * Marker und Namen unmittelbar nach dem Einfügen
-   * an die aktuelle Zoomstufe anpassen.
-   */
   updateVisibleStopMarkerStyle();
 }
-
 
 function getPatternIdFromLayer(layer) {
   return String(
@@ -6165,6 +6371,54 @@ function vabFocusStopOnMap(stop, delay = 0) {
 
 
 window.vabFocusStopInLine = function(stopId) {
+  const marker =
+    vabFindVisibleStopMarker(
+      stopId
+    );
+
+  if (marker) {
+    const latlng =
+      marker.getLatLng();
+
+    window.setTimeout(
+      () => {
+        karte.invalidateSize();
+
+        karte.setView(
+          [
+            latlng.lat,
+            latlng.lng
+          ],
+          karte.getMaxZoom(),
+          {
+            animate: true
+          }
+        );
+      },
+      60
+    );
+
+    window.dispatchEvent(
+      new CustomEvent(
+        'vab-line-stop-focused',
+        {
+          detail: {
+            stopId:
+              String(
+                marker.vabStopId
+                ?? stopId
+              )
+          }
+        }
+      )
+    );
+
+    return;
+  }
+
+  /*
+   * Rueckfallebene fuer normale Parent-Haltestellen.
+   */
   const stop =
     vabGetStopById(stopId);
 
@@ -6547,34 +6801,48 @@ function vabShowSchedule(
     );
 
   /*
-   * selectLineFromStopSearch() zeigt zunächst
-   * den gesamten Linienverlauf. Sobald die
-   * Linienfahrt geöffnet ist, soll jedoch die
-   * ausgewählte Haltestelle im maximalen Zoom
-   * im Mittelpunkt stehen.
+   * Wenn eine Parent-Haltestelle mehrere konkrete
+   * Plattformen besitzt, nicht auf deren kuenstliche
+   * Mittelkoordinate springen.
+   *
+   * Nach Laden der konkreten DEFAS-Fahrt wird auf
+   * die tatsaechlich verwendete Plattform fokussiert.
    */
-  window.setTimeout(
-    () => {
-      if (
-        Number.isFinite(Number(stop.lat))
-        && Number.isFinite(Number(stop.lon))
-      ) {
-        karte.invalidateSize();
+  const visiblePlatformsForParent =
+    vabSichtbareHaltestellenMarker.filter(
+      marker =>
+        String(
+          marker?.vabStopGroupId ?? ''
+        )
+        === String(stop.id ?? '')
+    );
 
-        karte.setView(
-          [
-            Number(stop.lat),
-            Number(stop.lon)
-          ],
-          karte.getMaxZoom(),
-          {
-            animate: false
-          }
-        );
-      }
-    },
-    350
-  );
+  if (
+    visiblePlatformsForParent.length <= 1
+  ) {
+    window.setTimeout(
+      () => {
+        if (
+          Number.isFinite(Number(stop.lat))
+          && Number.isFinite(Number(stop.lon))
+        ) {
+          karte.invalidateSize();
+
+          karte.setView(
+            [
+              Number(stop.lat),
+              Number(stop.lon)
+            ],
+            karte.getMaxZoom(),
+            {
+              animate: false
+            }
+          );
+        }
+      },
+      350
+    );
+  }
 
   infoPanelInhalt
     .querySelector('.vab-zurueck-haltestelle')

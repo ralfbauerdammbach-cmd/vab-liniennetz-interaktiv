@@ -95,24 +95,51 @@ function vabRealtimeGetDeviation(
 }
 
 
+function vabRealtimeNormalizeStopId(value) {
+  return String(value ?? '')
+    .trim()
+    .replace(/(?:_G)+$/, '');
+}
+
+
+function vabRealtimeStopIdsMatch(
+  first,
+  second
+) {
+  const firstId =
+    vabRealtimeNormalizeStopId(first);
+
+  const secondId =
+    vabRealtimeNormalizeStopId(second);
+
+  if (!firstId || !secondId) {
+    return false;
+  }
+
+  return (
+    firstId === secondId
+    || firstId.startsWith(
+      `${secondId}:`
+    )
+    || secondId.startsWith(
+      `${firstId}:`
+    )
+  );
+}
+
+
 function vabRealtimeIsSelectedStop(
   sequenceStop,
   selectedStopId
 ) {
-  const platformId =
-    String(sequenceStop?.id ?? '');
-
-  const parentId =
-    String(sequenceStop?.parent?.id ?? '');
-
-  const selected =
-    String(selectedStopId ?? '');
-
   return (
-    parentId === selected
-    || platformId === selected
-    || platformId.startsWith(
-      `${selected}:`
+    vabRealtimeStopIdsMatch(
+      sequenceStop?.id,
+      selectedStopId
+    )
+    || vabRealtimeStopIdsMatch(
+      sequenceStop?.parent?.id,
+      selectedStopId
     )
   );
 }
@@ -125,8 +152,8 @@ function vabRealtimeCreateStopRow(
 ) {
   const stopId =
     String(
-      sequenceStop?.parent?.id
-      ?? sequenceStop?.id
+      sequenceStop?.id
+      ?? sequenceStop?.parent?.id
       ?? ''
     );
 
@@ -282,8 +309,10 @@ function vabRealtimeMarkSelectedRow(
       )
     ).find(
       row =>
-        row.dataset.vabTripStopId
-        === String(stopId)
+        vabRealtimeStopIdsMatch(
+          row.dataset.vabTripStopId,
+          stopId
+        )
     );
 
   if (!selectedRow) {
@@ -327,6 +356,160 @@ window.addEventListener(
     );
   }
 );
+
+const vabRealtimeDirectionCache =
+  new Map();
+
+
+async function vabRealtimeLoadDirectionForStop(
+  stopId,
+  line
+) {
+  const normalizedStopId =
+    vabRealtimeNormalizeStopId(
+      stopId
+    );
+
+  const cacheKey =
+    `${String(line)}|${normalizedStopId}`;
+
+  const cached =
+    vabRealtimeDirectionCache.get(
+      cacheKey
+    );
+
+  const now =
+    Date.now();
+
+  if (
+    cached
+    && now - cached.created < 30000
+  ) {
+    return cached.promise;
+  }
+
+  const promise =
+    (async () => {
+      const url =
+        `${VAB_REALTIME_LINE_TRIP_URL}`
+        + `?stop=${encodeURIComponent(stopId)}`
+        + `&line=${encodeURIComponent(line)}`;
+
+      const response =
+        await fetch(
+          url,
+          {
+            cache: 'no-store'
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data?.error
+          ?? `HTTP ${response.status}`
+        );
+      }
+
+      const destination =
+        data?.selectedTrip?.destination
+        ?? data?.tripStopTimes?.leg
+          ?.transportation
+          ?.destination
+          ?.name
+        ?? '';
+
+      return {
+        destination,
+
+        displayLine:
+          data?.displayLine
+          ?? String(line)
+      };
+    })();
+
+  vabRealtimeDirectionCache.set(
+    cacheKey,
+    {
+      created: now,
+      promise
+    }
+  );
+
+  try {
+    return await promise;
+  } catch (error) {
+    vabRealtimeDirectionCache.delete(
+      cacheKey
+    );
+
+    throw error;
+  }
+}
+
+
+window.addEventListener(
+  'vab-line-direction-request',
+  async event => {
+    const stopId =
+      String(
+        event?.detail?.stopId ?? ''
+      );
+
+    const line =
+      String(
+        event?.detail?.line ?? ''
+      );
+
+    const generation =
+      Number(
+        event?.detail?.generation ?? 0
+      );
+
+    if (!stopId || !line) {
+      return;
+    }
+
+    try {
+      const result =
+        await vabRealtimeLoadDirectionForStop(
+          stopId,
+          line
+        );
+
+      if (!result.destination) {
+        return;
+      }
+
+      window.dispatchEvent(
+        new CustomEvent(
+          'vab-line-direction-secondary',
+          {
+            detail: {
+              stopId,
+
+              line:
+                result.displayLine,
+
+              destination:
+                result.destination,
+
+              generation
+            }
+          }
+        )
+      );
+    } catch (error) {
+      console.warn(
+        'Gegenrichtung konnte nicht geladen werden:',
+        error
+      );
+    }
+  }
+);
+
 
 window.vabRealtimeShowLineTrip =
   async function(stop, line) {
@@ -420,6 +603,19 @@ window.vabRealtimeShowLineTrip =
             )
         );
 
+      const selectedSequenceStop =
+        selectedIndex >= 0
+          ? sequence[selectedIndex]
+          : null;
+
+      const selectedConcreteStopId =
+        String(
+          selectedSequenceStop?.id
+          ?? selectedSequenceStop?.parent?.id
+          ?? stop.id
+          ?? ''
+        );
+
       const lineName =
         data?.displayLine
         ?? String(line);
@@ -432,8 +628,13 @@ window.vabRealtimeShowLineTrip =
               detail: {
                 stopId:
                   String(stopId ?? ''),
+
                 line:
                   String(lineName ?? ''),
+
+                requestLine:
+                  String(line ?? ''),
+
                 destination:
                   String(destination ?? '')
               }
@@ -442,7 +643,19 @@ window.vabRealtimeShowLineTrip =
         );
       };
 
-      notifyDirection(stop.id);
+      notifyDirection(
+        selectedConcreteStopId
+      );
+
+      if (
+        selectedConcreteStopId
+        && typeof window.vabFocusStopInLine
+        === 'function'
+      ) {
+        window.vabFocusStopInLine(
+          selectedConcreteStopId
+        );
+      }
 
       header.innerHTML = `
         <div class="vab-linienfahrt-richtung">
