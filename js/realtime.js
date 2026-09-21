@@ -424,6 +424,26 @@ window.vabRealtimeShowLineTrip =
         data?.displayLine
         ?? String(line);
 
+      const notifyDirection = stopId => {
+        window.dispatchEvent(
+          new CustomEvent(
+            'vab-line-direction-focused',
+            {
+              detail: {
+                stopId:
+                  String(stopId ?? ''),
+                line:
+                  String(lineName ?? ''),
+                destination:
+                  String(destination ?? '')
+              }
+            }
+          )
+        );
+      };
+
+      notifyDirection(stop.id);
+
       header.innerHTML = `
         <div class="vab-linienfahrt-richtung">
           Linie ${vabRealtimeEscape(lineName)}
@@ -465,6 +485,8 @@ window.vabRealtimeShowLineTrip =
         const activateStop = () => {
           const stopId =
             row.dataset.vabTripStopId;
+
+          notifyDirection(stopId);
 
           vabRealtimeMarkSelectedRow(
             content,

@@ -2781,6 +2781,95 @@ function vabShowLineTripFromMapClick(
 
 let vabSichtbareHaltestellenMarker = [];
 
+function vabUpdateStopTooltipDirection(
+  stopId,
+  lineName,
+  destination
+) {
+  const selectedId =
+    String(stopId ?? '');
+
+  for (
+    const item
+    of vabSichtbareHaltestellenMarker
+  ) {
+    const stopName =
+      String(item?.vabStopName ?? '');
+
+    if (
+      stopName
+      && typeof item?.setTooltipContent === 'function'
+      && item.getTooltip()
+    ) {
+      item.setTooltipContent(
+        escapeHtml(stopName)
+      );
+    }
+  }
+
+  const marker =
+    vabSichtbareHaltestellenMarker.find(
+      item => {
+        const markerId =
+          String(item?.vabStopId ?? '');
+
+        return (
+          markerId === selectedId
+          || markerId.startsWith(
+            `${selectedId}:`
+          )
+          || selectedId.startsWith(
+            `${markerId}:`
+          )
+        );
+      }
+    );
+
+  if (
+    !marker
+    || !destination
+    || !marker.getTooltip()
+  ) {
+    return;
+  }
+
+  const stopName =
+    String(marker.vabStopName ?? '');
+
+  marker.setTooltipContent(`
+    <div>
+      ${escapeHtml(stopName)}
+    </div>
+
+    <div style="
+      margin-top: 3px;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.2;
+    ">
+      Linie ${escapeHtml(vabDisplayLineName(lineName))}
+      &middot; Richtung ${escapeHtml(destination)}
+    </div>
+  `);
+
+  if (karte.getZoom() >= 16) {
+    marker.openTooltip();
+  }
+}
+
+
+window.addEventListener(
+  'vab-line-direction-focused',
+  event => {
+    vabUpdateStopTooltipDirection(
+      event?.detail?.stopId,
+      event?.detail?.line,
+      event?.detail?.destination
+    );
+  }
+);
+
+
 
 /*
  * Darstellung der Haltestellen abhängig von der
@@ -2935,6 +3024,12 @@ function showStopsForLine(lineName, selectedLayers = null) {
     /*
      * Marker für spätere Zoomänderungen speichern.
      */
+    marker.vabStopId =
+      String(stop.stopId ?? '');
+
+    marker.vabStopName =
+      String(stop.stopName ?? '');
+
     vabSichtbareHaltestellenMarker.push(marker);
 
     if (stop.stopName) {
