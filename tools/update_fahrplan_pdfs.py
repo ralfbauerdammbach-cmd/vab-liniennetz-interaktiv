@@ -358,7 +358,7 @@ for line in all_lines:
         changes.append(
             f"NEU | Linie {line} | "
             f"{item['type']} | "
-            f"{item['valid_from'] or 'ohne Datum'} | "
+            f"{item.get('valid_from', '') or 'ohne Datum'} | "
             f"{url}"
         )
 
@@ -370,7 +370,7 @@ for line in all_lines:
         changes.append(
             f"ENTFERNT | Linie {line} | "
             f"{item['type']} | "
-            f"{item['valid_from'] or 'ohne Datum'} | "
+            f"{item.get('valid_from', '') or 'ohne Datum'} | "
             f"{url}"
         )
 
