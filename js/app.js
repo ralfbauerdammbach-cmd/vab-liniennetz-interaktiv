@@ -6749,6 +6749,19 @@ function vabShowSchedule(
         <strong>${escapeHtml(stop.name)}</strong>.
       </p>
 
+      <section
+        id="vab-stoerungen-bereich"
+        class="vab-stoerungen-bereich"
+        hidden
+      >
+        <h3>Betriebshinweise</h3>
+
+        <div
+          id="vab-stoerungen-inhalt"
+          class="vab-stoerungen-inhalt"
+        ></div>
+      </section>
+
       <section class="vab-linienfahrt-bereich">
         <div
           id="vab-linienfahrt-kopf"
@@ -6765,19 +6778,6 @@ function vabShowSchedule(
             Haltestellen und Echtzeitdaten werden geladen ...
           </div>
         </div>
-      </section>
-
-      <section
-        id="vab-stoerungen-bereich"
-        class="vab-stoerungen-bereich"
-        hidden
-      >
-        <h3>Betriebshinweise</h3>
-
-        <div
-          id="vab-stoerungen-inhalt"
-          class="vab-stoerungen-inhalt"
-        ></div>
       </section>
 
       <section class="vab-fahrplan-dokument-bereich">
