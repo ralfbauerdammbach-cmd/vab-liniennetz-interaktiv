@@ -177,3 +177,40 @@
     padding: 9px 54px 9px 18px;
   }
 }
+/*
+ * ======================================================
+ * BETRIEBSHINWEISE
+ * ======================================================
+ */
+
+.vab-stoerungen-bereich {
+  margin-top: 24px;
+}
+
+.vab-stoerungen-bereich h3 {
+  margin: 0 0 12px;
+  color: #000F47;
+  font-size: 0.9rem;
+}
+
+.vab-stoerungen-inhalt {
+  display: grid;
+  gap: 10px;
+}
+
+.vab-stoerung {
+  padding: 12px 13px;
+  border: 1px solid #E0B44C;
+  border-radius: 8px;
+  background: #FFF8E8;
+  color: #17212B;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.vab-stoerung strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #7A5200;
+  font-size: 0.76rem;
+}
