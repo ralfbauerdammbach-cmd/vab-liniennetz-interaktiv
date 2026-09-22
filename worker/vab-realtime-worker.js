@@ -307,6 +307,180 @@
       }
     }
 
+    if (url.pathname === "/stoerungen") {
+      const stoerungenHeaders = {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "public, max-age=300"
+      };
+
+      try {
+        const vabUrl = "https://www.vab-info.de/stoerungen";
+
+        const response = await fetch(vabUrl, {
+          headers: {
+            "Accept": "text/html,application/xhtml+xml"
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`VAB ${response.status}`);
+        }
+
+        const html = await response.text();
+
+        const nextDataMatch = html.match(
+          /<script[^>]+id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/i
+        );
+
+        if (!nextDataMatch) {
+          throw new Error("__NEXT_DATA__ nicht gefunden.");
+        }
+
+        const nextData = JSON.parse(nextDataMatch[1]);
+
+        const announcements = Array.isArray(
+          nextData?.props?.pageProps?.announcements
+        )
+          ? nextData.props.pageProps.announcements
+          : [];
+
+        const sourceTotal =
+          Number(nextData?.props?.pageProps?.total) ||
+          announcements.length;
+
+        function descriptionToText(value) {
+          return String(value ?? "")
+            .replace(/<[^>]+>/g, " ")
+            .replace(/&nbsp;/gi, " ")
+            .replace(/&amp;/gi, "&")
+            .replace(/&quot;/gi, '"')
+            .replace(/&#39;|&#039;/gi, "'")
+            .replace(/&lt;/gi, "<")
+            .replace(/&gt;/gi, ">")
+            .replace(/\s+/g, " ")
+            .trim();
+        }
+
+        function collectLines(announcement) {
+          const values = [
+            announcement?.lineNumber,
+            announcement?.title,
+            ...(
+              Array.isArray(announcement?.linies)
+                ? announcement.linies.map(line => line?.name)
+                : []
+            ),
+            descriptionToText(announcement?.description)
+          ];
+
+          const result = new Set();
+
+          const groupPattern =
+            /\bLinie(?:n)?\s+((?:[A-Z0-9]*\d[A-Z0-9]*)(?:\s*(?:,|und|\/|&)\s*(?:[A-Z0-9]*\d[A-Z0-9]*))*)/gi;
+
+          const tokenPattern =
+            /[A-Z0-9]*\d[A-Z0-9]*/gi;
+
+          for (const value of values) {
+            const valueText = String(value ?? "");
+
+            for (const match of valueText.matchAll(groupPattern)) {
+              const tokens = match[1].match(tokenPattern) ?? [];
+
+              for (const token of tokens) {
+                result.add(token.toUpperCase());
+              }
+            }
+          }
+
+          return [...result].sort(
+            (a, b) =>
+              a.localeCompare(
+                b,
+                "de",
+                { numeric: true }
+              )
+          );
+        }
+
+        const now = Date.now();
+
+        const activeAnnouncements = announcements
+          .filter(announcement => {
+            const startTime =
+              announcement?.startDate
+                ? Date.parse(announcement.startDate)
+                : NaN;
+
+            const endTime =
+              announcement?.endDate
+                ? Date.parse(announcement.endDate)
+                : NaN;
+
+            if (
+              Number.isFinite(startTime) &&
+              now < startTime
+            ) {
+              return false;
+            }
+
+            if (
+              Number.isFinite(endTime) &&
+              now >= endTime
+            ) {
+              return false;
+            }
+
+            return true;
+          })
+          .map(announcement => ({
+            id: announcement?.id ?? null,
+            lines: collectLines(announcement),
+            lineNumber: announcement?.lineNumber ?? null,
+            lineType: announcement?.lineType ?? null,
+            status: announcement?.status ?? null,
+            statusType: announcement?.statusType ?? null,
+            title: String(announcement?.title ?? "").trim(),
+            description: descriptionToText(
+              announcement?.description
+            ),
+            startDate: announcement?.startDate ?? null,
+            endDate: announcement?.endDate ?? null,
+            publishedAt: announcement?.publishedAt ?? null,
+            ctaLabel: announcement?.ctaLabel ?? null,
+            ctaUrl: announcement?.ctaUrl ?? null,
+            documentUrl: announcement?.dokumentUrl ?? null
+          }));
+
+        return Response.json(
+          {
+            source: vabUrl,
+            fetchedAt: new Date().toISOString(),
+            sourceTotal,
+            activeCount: activeAnnouncements.length,
+            announcements: activeAnnouncements
+          },
+          {
+            status: 200,
+            headers: stoerungenHeaders
+          }
+        );
+      } catch (error) {
+        return Response.json(
+          {
+            error:
+              "VAB-Stoerungsmeldungen konnten nicht geladen werden.",
+            detail:
+              String(error?.message ?? error)
+          },
+          {
+            status: 502,
+            headers: stoerungenHeaders
+          }
+        );
+      }
+    }
     return new Response(
       "Not found",
       {

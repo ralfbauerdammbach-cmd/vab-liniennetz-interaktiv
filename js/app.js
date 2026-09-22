@@ -6767,6 +6767,19 @@ function vabShowSchedule(
         </div>
       </section>
 
+      <section
+        id="vab-stoerungen-bereich"
+        class="vab-stoerungen-bereich"
+        hidden
+      >
+        <h3>Betriebshinweise</h3>
+
+        <div
+          id="vab-stoerungen-inhalt"
+          class="vab-stoerungen-inhalt"
+        ></div>
+      </section>
+
       <section class="vab-fahrplan-dokument-bereich">
         <h3>Fahrplandokument</h3>
 
@@ -6897,6 +6910,101 @@ function vabShowSchedule(
       stop,
       line
     );
+  }
+
+  if (
+    typeof window.vabRealtimeLoadStoerungen
+    === 'function'
+  ) {
+    window.vabRealtimeLoadStoerungen()
+      .then(data => {
+        /*
+         * Falls inzwischen eine andere Linie geÃ¶ffnet
+         * wurde, darf die Ã¤ltere Anfrage nichts mehr
+         * in das neue Panel schreiben.
+         */
+        if (
+          String(vabAktuelleLinie ?? '')
+          !== String(line ?? '')
+        ) {
+          return;
+        }
+
+        const section =
+          document.getElementById(
+            'vab-stoerungen-bereich'
+          );
+
+        const content =
+          document.getElementById(
+            'vab-stoerungen-inhalt'
+          );
+
+        if (!section || !content) {
+          return;
+        }
+
+        const normalizeLine = value =>
+          String(value ?? '')
+            .trim()
+            .toUpperCase();
+
+        const validLines = new Set([
+          normalizeLine(line),
+          normalizeLine(displayLine)
+        ]);
+
+        const announcements =
+          Array.isArray(data?.announcements)
+            ? data.announcements.filter(
+                announcement =>
+                  Array.isArray(announcement?.lines)
+                  && announcement.lines.some(
+                    announcementLine =>
+                      validLines.has(
+                        normalizeLine(
+                          announcementLine
+                        )
+                      )
+                  )
+              )
+            : [];
+
+        if (announcements.length === 0) {
+          section.hidden = true;
+          content.innerHTML = '';
+          return;
+        }
+
+        content.innerHTML =
+          announcements.map(
+            announcement => `
+              <article class="vab-stoerung">
+                <strong>
+                  ${escapeHtml(
+                    announcement?.status
+                    ?? 'Betriebshinweis'
+                  )}
+                </strong>
+
+                <div>
+                  ${escapeHtml(
+                    announcement?.title
+                    ?? ''
+                  )}
+                </div>
+              </article>
+            `
+          ).join('');
+
+        section.hidden = false;
+      })
+      .catch(error => {
+        console.warn(
+          'Stoerungsanzeige konnte nicht geladen werden:',
+          error
+        );
+      });
   }
 
   setStatus(

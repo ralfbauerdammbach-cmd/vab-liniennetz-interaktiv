@@ -3,6 +3,8 @@
 const VAB_REALTIME_LINE_TRIP_URL =
   'https://vab-realtime.bauer-48e.workers.dev/line-trip';
 
+const VAB_REALTIME_STOERUNGEN_URL =
+  'https://vab-realtime.bauer-48e.workers.dev/stoerungen';
 let vabRealtimeLineTripRequestId = 0;
 
 
@@ -773,5 +775,78 @@ window.vabRealtimeShowLineTrip =
           bleibt weiterhin verfügbar.
         </div>
       `;
+    }
+  };
+
+
+let vabRealtimeStoerungenCache = null;
+
+
+window.vabRealtimeLoadStoerungen =
+  async function() {
+    const now = Date.now();
+
+    if (
+      vabRealtimeStoerungenCache
+      && now - vabRealtimeStoerungenCache.created < 300000
+    ) {
+      return vabRealtimeStoerungenCache.data;
+    }
+
+    try {
+      const response = await fetch(
+        VAB_REALTIME_STOERUNGEN_URL,
+        {
+          cache: 'no-store'
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data?.error
+          ?? `HTTP ${response.status}`
+        );
+      }
+
+      const normalized = {
+        source:
+          String(data?.source ?? ''),
+
+        fetchedAt:
+          String(data?.fetchedAt ?? ''),
+
+        sourceTotal:
+          Number(data?.sourceTotal ?? 0),
+
+        activeCount:
+          Number(data?.activeCount ?? 0),
+
+        announcements:
+          Array.isArray(data?.announcements)
+            ? data.announcements
+            : []
+      };
+
+      vabRealtimeStoerungenCache = {
+        created: now,
+        data: normalized
+      };
+
+      return normalized;
+    } catch (error) {
+      console.warn(
+        'VAB-Stoerungsmeldungen konnten nicht geladen werden:',
+        error
+      );
+
+      return {
+        source: '',
+        fetchedAt: '',
+        sourceTotal: 0,
+        activeCount: 0,
+        announcements: []
+      };
     }
   };
