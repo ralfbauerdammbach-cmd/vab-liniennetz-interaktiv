@@ -54,6 +54,46 @@ const karte = L.map('karte', {
   zoomSnap: 0.1
 }).setView([49.97, 9.15], 9);
 
+const vabKartenLegende = L.control({
+  position: 'bottomright'
+});
+
+vabKartenLegende.onAdd = function() {
+  const div = L.DomUtil.create(
+    'div',
+    'vab-kartenlegende'
+  );
+
+  div.innerHTML = `
+    <div class="vab-kartenlegende-nord">
+      <span class="vab-nordpfeil">↑</span>
+      <strong>N</strong>
+    </div>
+
+    <div class="vab-kartenlegende-zeile">
+      <span class="vab-legende-linie vab-legende-linie-netz"></span>
+      <span>Liniennetz</span>
+    </div>
+
+    <div class="vab-kartenlegende-zeile">
+      <span class="vab-legende-linie vab-legende-linie-auswahl"></span>
+      <span>Ausgewählte Linie</span>
+    </div>
+
+    <div class="vab-kartenlegende-zeile">
+      <span class="vab-legende-h">H</span>
+      <span>Haltestelle</span>
+    </div>
+  `;
+
+  L.DomEvent.disableClickPropagation(div);
+  L.DomEvent.disableScrollPropagation(div);
+
+  return div;
+};
+
+vabKartenLegende.addTo(karte);
+
 
 /*
  * Eigenes, sehr fein abgestuftes Mausradzoomen.

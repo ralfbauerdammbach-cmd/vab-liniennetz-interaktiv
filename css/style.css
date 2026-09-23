@@ -2189,3 +2189,66 @@ main {
 .vab-status {
   display: none !important;
 }
+
+/* Kartenlegende */
+
+.vab-kartenlegende {
+  min-width: 155px;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 15, 71, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  color: #17212b;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.vab-kartenlegende-nord {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 9px;
+  color: #000f47;
+}
+
+.vab-nordpfeil {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.vab-kartenlegende-zeile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.vab-legende-linie {
+  display: inline-block;
+  width: 28px;
+  height: 4px;
+  border-radius: 4px;
+}
+
+.vab-legende-linie-netz {
+  background: #000f47;
+}
+
+.vab-legende-linie-auswahl {
+  background: #ff0090;
+}
+
+.vab-legende-h {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #000f47;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #000f47;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
