@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMINA | VAB-Liniennetz Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img
+        class="brand-logo"
+        src="assets/amina-logo.png"
+        alt="AMINA – aschaffenburg miltenberg nahverkehrs-gmbh"
+      >
+    </div>
+
+    <div class="dashboard-title">
+      <span>VAB-Liniennetz</span>
+      <strong>Dashboard</strong>
+    </div>
+  </header>
+
+  <main class="dashboard">
+
+    <section class="intro">
+      <div>
+        <p class="eyebrow">NETZ- UND ANGEBOTSANALYSE</p>
+        <h1>VAB-Liniennetz auf einen Blick</h1>
+        <p class="intro-text">
+          Kennzahlen und Strukturen des Verkehrsnetzes auf Basis der
+          vorhandenen VAB-Liniennetz-Daten.
+        </p>
+      </div>
+
+      <div class="data-status">
+        <span class="status-dot"></span>
+        Daten aus dem Liniennetz
+      </div>
+    </section>
+
+    <section class="kpi-grid">
+      <article class="kpi-card">
+        <span class="kpi-label">Linien</span>
+        <strong id="kpi-lines">–</strong>
+        <span class="kpi-info">im Datensatz</span>
+      </article>
+
+      <article class="kpi-card">
+        <span class="kpi-label">Haltestellen</span>
+        <strong id="kpi-stops">–</strong>
+        <span class="kpi-info">im VAB-Liniennetz</span>
+      </article>
+
+      <article class="kpi-card">
+        <span class="kpi-label">Orte / Ortsteile</span>
+        <strong id="kpi-places">–</strong>
+        <span class="kpi-info">mit ÖPNV-Angebot</span>
+      </article>
+
+      <article class="kpi-card">
+        <span class="kpi-label">Ø Linien</span>
+        <strong id="kpi-average-lines">–</strong>
+        <span class="kpi-info">je Haltestelle</span>
+      </article>
+    </section>
+
+    <section class="analysis-grid">
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">NETZKNOTEN</p>
+            <h2>Haltestellen mit den meisten Linien</h2>
+          </div>
+        </div>
+
+        <div id="top-stops" class="ranking">
+          <p class="loading">Daten werden geladen …</p>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">REGION</p>
+            <h2>Orte mit den meisten Haltestellen</h2>
+          </div>
+        </div>
+
+        <div id="top-places" class="ranking">
+          <p class="loading">Daten werden geladen …</p>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="panel documents-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">FAHRPLANINFORMATION</p>
+          <h2>Fahrplandokumente</h2>
+        </div>
+
+        <strong id="documents-total" class="panel-total">–</strong>
+      </div>
+
+      <div class="document-grid">
+        <div class="document-stat">
+          <span>Reguläre Fahrpläne</span>
+          <strong id="docs-regular">–</strong>
+        </div>
+
+        <div class="document-stat warning">
+          <span>Umleitungsfahrpläne</span>
+          <strong id="docs-diversion">–</strong>
+        </div>
+
+        <div class="document-stat green">
+          <span>AST-Fahrpläne</span>
+          <strong id="docs-ast">–</strong>
+        </div>
+
+        <div class="document-stat">
+          <span>Weitere Dokumente</span>
+          <strong id="docs-other">–</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel line-analysis-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">LINIENANALYSE</p>
+          <h2>Linien nach Anzahl bedienter Haltestellen</h2>
+        </div>
+
+        <input
+          id="line-search"
+          class="line-search"
+          type="search"
+          placeholder="Linie suchen …"
+        >
+      </div>
+
+      <div id="line-analysis" class="line-bars">
+        <p class="loading">Liniendaten werden geladen …</p>
+      </div>
+    </section>
+    <section class="panel network-structure-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">NETZSTRUKTUR</p>
+          <h2>Vernetzung der Haltestellen</h2>
+        </div>
+      </div>
+
+      <div class="network-structure-grid">
+
+        <div class="network-stat">
+          <strong id="network-1">–</strong>
+          <span>Haltestellen mit 1 Linie</span>
+        </div>
+
+        <div class="network-stat">
+          <strong id="network-2-3">–</strong>
+          <span>mit 2–3 Linien</span>
+        </div>
+
+        <div class="network-stat">
+          <strong id="network-4-9">–</strong>
+          <span>mit 4–9 Linien</span>
+        </div>
+
+        <div class="network-stat network-hub">
+          <strong id="network-10plus">–</strong>
+          <span>Netzknoten mit 10+ Linien</span>
+        </div>
+
+      </div>
+
+      <div class="network-bar">
+        <div id="network-bar-1" class="network-segment segment-1"></div>
+        <div id="network-bar-2" class="network-segment segment-2"></div>
+        <div id="network-bar-3" class="network-segment segment-3"></div>
+        <div id="network-bar-4" class="network-segment segment-4"></div>
+      </div>
+
+      <p class="network-caption">
+        Verteilung aller Haltestellen nach Anzahl der dort verkehrenden Linien
+      </p>
+    </section>
+    <section class="panel timetable-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">FAHRPLANANGEBOT</p>
+          <h2>Planmäßiges Verkehrsangebot</h2>
+        </div>
+
+        <select id="timetable-weekday" class="line-search">
+          <option value="0">Montag</option>
+          <option value="1">Dienstag</option>
+          <option value="2">Mittwoch</option>
+          <option value="3">Donnerstag</option>
+          <option value="4">Freitag</option>
+          <option value="5">Samstag</option>
+          <option value="6">Sonntag</option>
+        </select>
+      </div>
+
+      <div class="timetable-kpis">
+        <div class="network-stat">
+          <strong id="tt-services">–</strong>
+          <span>Servicekalender</span>
+        </div>
+
+        <div class="network-stat">
+          <strong id="tt-stations">–</strong>
+          <span>Haltestellen mit Fahrplandaten</span>
+        </div>
+
+        <div class="network-stat">
+          <strong id="tt-departures">–</strong>
+          <span>Abfahrtspositionen im Index</span>
+        </div>
+
+        <div class="network-stat">
+          <strong id="tt-lines">–</strong>
+          <span>Linien im Fahrplanindex</span>
+        </div>
+      </div>
+
+      <div class="timetable-columns">
+
+        <div>
+          <p class="eyebrow">REGELWOCHE</p>
+          <h3>Haltestellenabfahrten nach Wochentag</h3>
+
+          <div id="weekday-bars" class="weekday-bars"></div>
+
+          <p class="network-caption">
+            Regelmäßige Fahrplanabfahrten ohne Berücksichtigung einzelner
+            hinzugefügter oder entfallener Kalendertage.
+          </p>
+        </div>
+
+        <div>
+          <p class="eyebrow">LINIENANGEBOT</p>
+          <h3 id="weekday-line-title">Stärkste Linien am Montag</h3>
+
+          <div id="weekday-lines" class="line-bars"></div>
+        </div>
+
+      </div>
+
+      <div class="daily-profile">
+        <div class="daily-profile-heading">
+          <div>
+            <p class="eyebrow">TAGESPROFIL</p>
+            <h3 id="daily-profile-title">Angebotsverlauf am Montag</h3>
+          </div>
+        </div>
+
+        <div class="daypart-grid">
+          <div class="daypart-card">
+            <strong id="daypart-night">–</strong>
+            <span>Nacht · 00–04 Uhr</span>
+          </div>
+
+          <div class="daypart-card">
+            <strong id="daypart-early">–</strong>
+            <span>Früh · 04–06 Uhr</span>
+          </div>
+
+          <div class="daypart-card">
+            <strong id="daypart-morning">–</strong>
+            <span>Morgenspitze · 06–09 Uhr</span>
+          </div>
+
+          <div class="daypart-card">
+            <strong id="daypart-day">–</strong>
+            <span>Tag · 09–15 Uhr</span>
+          </div>
+
+          <div class="daypart-card">
+            <strong id="daypart-afternoon">–</strong>
+            <span>Nachmittag · 15–19 Uhr</span>
+          </div>
+
+          <div class="daypart-card">
+            <strong id="daypart-evening">–</strong>
+            <span>Abend · 19–24 Uhr</span>
+          </div>
+        </div>
+
+        <div id="hour-profile" class="hour-profile"></div>
+
+        <p class="network-caption">
+          Planmäßige Haltestellenabfahrten nach Stunde des Betriebstages.
+        </p>
+      </div>
+      <div class="line-operation">
+        <div class="line-operation-heading">
+          <div>
+            <p class="eyebrow">BETRIEBSZEITEN</p>
+            <h3 id="operation-title">Linienangebot am Montag</h3>
+          </div>
+
+          <div class="operation-controls">
+            <select id="operation-weekday" class="line-search">
+              <option value="0">Montag</option>
+              <option value="1">Dienstag</option>
+              <option value="2">Mittwoch</option>
+              <option value="3">Donnerstag</option>
+              <option value="4">Freitag</option>
+              <option value="5">Samstag</option>
+              <option value="6">Sonntag</option>
+            </select>
+
+            <input
+              id="operation-search"
+              class="line-search"
+              type="search"
+              placeholder="Linie suchen …"
+            >
+          </div>
+        </div>
+
+        <div class="operation-table-wrap">
+          <table class="operation-table">
+            <thead>
+              <tr>
+                <th>Linie</th>
+                <th>Erste Abfahrt</th>
+                <th>Letzte Abfahrt</th>
+                <th>Bedienzeitraum</th>
+                <th>Haltestellenabfahrten</th>
+              </tr>
+            </thead>
+
+            <tbody id="operation-table-body">
+            </tbody>
+          </table>
+        </div>
+
+        <p class="network-caption">
+          Erste und letzte planmäßige Haltestellenabfahrt im Fahrplanindex.
+          Zeiten nach 24:00 Uhr werden dem jeweiligen Betriebstag zugerechnet.
+        </p>
+      </div>
+      <p id="tt-validity" class="timetable-validity"></p>
+    </section>
+    <section class="future">
+      <span class="future-mark"></span>
+      <div>
+        <strong>Nächste Ausbaustufe</strong>
+        <p>
+          Fahrten, Bedienhäufigkeit, Tagesprofile sowie historische
+          Echtzeit- und Pünktlichkeitsanalysen.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>AMINA · VAB-Liniennetz Dashboard</span>
+    <span id="data-date"></span>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
