@@ -1,0 +1,10 @@
+{
+  "updated_at": "2026-09-30T14:10:29.605402+00:00",
+  "automatic_update": true,
+  "schedule": "daily",
+  "sources": {
+    "fahrplan_pdf_zuordnung": "automatic",
+    "fahrplan_index": "existing_project_data",
+    "haltestellen_suchindex": "existing_project_data"
+  }
+}
