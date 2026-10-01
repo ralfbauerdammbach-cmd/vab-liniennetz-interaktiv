@@ -1543,3 +1543,78 @@ async function loadDashboardStatus() {
 }
 
 loadDashboardStatus();
+
+async function startRealtimeAnalysis() {
+  const statusElement =
+    document.getElementById("rt-status");
+
+  try {
+    const data =
+      await loadJson("./realtime-summary.json");
+
+    const setText = (id, value) => {
+      const element =
+        document.getElementById(id);
+
+      if (element) {
+        element.textContent = value;
+      }
+    };
+
+    setText("rt-trips", formatNumber(data?.trips ?? 0));
+    setText("rt-lines", formatNumber(data?.lines ?? 0));
+    setText("rt-observations", formatNumber(data?.observations ?? 0));
+    setText("rt-delay5", formatNumber(data?.delayed_over_5min ?? 0));
+
+    const snapshot =
+      formatDataDate(data?.snapshot_observed_at);
+
+    setText("rt-snapshot", snapshot || "–");
+
+    if (statusElement) {
+      const delayCount =
+        Number(data?.delay_observations ?? 0);
+
+      const medianSeconds =
+        data?.median_delay_seconds;
+
+      const medianMinutes =
+        Number.isFinite(Number(medianSeconds))
+          ? Number(medianSeconds) / 60
+          : null;
+
+      const ignored =
+        Array.isArray(data?.ignored_lines)
+          ? data.ignored_lines.join(", ")
+          : "";
+
+      statusElement.textContent =
+        "Verspätungswerte vorhanden: "
+        + formatNumber(delayCount)
+        + (
+          medianMinutes !== null
+            ? " · Median: "
+              + formatNumber(medianMinutes, 1)
+              + " Min."
+            : ""
+        )
+        + (
+          ignored
+            ? " · Nicht berücksichtigt: " + ignored
+            : ""
+        );
+    }
+  } catch (error) {
+    console.warn(
+      "DEFAS-Echtzeitdaten konnten nicht geladen werden:",
+      error
+    );
+
+    if (statusElement) {
+      statusElement.textContent =
+        "Noch keine Dashboard-Auswertung aus den DEFAS-Daten erzeugt.";
+    }
+  }
+}
+
+startRealtimeAnalysis();

@@ -357,13 +357,43 @@
       </div>
       <p id="tt-validity" class="timetable-validity"></p>
     </section>
+    <section class="panel realtime-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">DEFAS ECHTZEIT</p>
+          <h2>Aktuelle Betriebslage aus dem letzten Messlauf</h2>
+        </div>
+        <strong id="rt-snapshot" class="panel-total">01.10.2026 11:09</strong>
+      </div>
+
+      <div class="timetable-kpis">
+        <div class="network-stat">
+          <strong id="rt-trips">300</strong>
+          <span>erfasste Fahrten</span>
+        </div>
+        <div class="network-stat">
+          <strong id="rt-lines">60</strong>
+          <span>Linien im Messlauf</span>
+        </div>
+        <div class="network-stat">
+          <strong id="rt-observations">6024</strong>
+          <span>Halte-Beobachtungen</span>
+        </div>
+        <div class="network-stat">
+          <strong id="rt-delay5">21</strong>
+          <span>Beobachtungen über 5 Min. verspätet</span>
+        </div>
+      </div>
+
+      <p id="rt-status" class="network-caption">Verspätungswerte vorhanden: 1829 · Median: 0 Min. · Nicht berücksichtigt: 40N</p>
+    </section>
     <section class="future">
       <span class="future-mark"></span>
       <div>
         <strong>Nächste Ausbaustufe</strong>
         <p>
-          Fahrten, Bedienhäufigkeit, Tagesprofile sowie historische
-          Echtzeit- und Pünktlichkeitsanalysen.
+          Historische Zeitreihen, Linienvergleich und weiterführende
+          Pünktlichkeitsanalysen.
         </p>
       </div>
     </section>
@@ -375,9 +405,13 @@
     <span id="data-date"></span>
   </footer>
 
-  <script src="dashboard.js"></script>
+  <script src="dashboard.js?v=1127"></script>
 </body>
 </html>
+
+
+
+
 
 
 
