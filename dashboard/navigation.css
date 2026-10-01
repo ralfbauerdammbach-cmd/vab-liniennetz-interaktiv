@@ -1,0 +1,59 @@
+﻿.dashboard-nav {
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 24px;
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(0, 47, 108, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 47, 108, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.dashboard-nav a {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: #eef3f8;
+  color: #003b7a;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.dashboard-nav a:hover,
+.dashboard-nav a:focus {
+  background: #dce8f4;
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#uebersicht,
+#netzstruktur,
+#fahrplanangebot,
+#betriebszeiten,
+#defas-echtzeit,
+#auffaellige-linien {
+  scroll-margin-top: 78px;
+}
+
+@media (max-width: 760px) {
+  .dashboard-nav {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .dashboard-nav a {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

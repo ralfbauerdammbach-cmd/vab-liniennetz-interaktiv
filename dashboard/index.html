@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="navigation.css?v=1206">
 </head>
 
 <body>
@@ -27,10 +28,18 @@
       <strong>Dashboard</strong>
     </div>
   </header>
+  <nav class="dashboard-nav" aria-label="Dashboard-Navigation">
+    <a href="#uebersicht">Übersicht</a>
+    <a href="#netzstruktur">Netzstruktur</a>
+    <a href="#fahrplanangebot">Fahrplanangebot</a>
+    <a href="#betriebszeiten">Betriebszeiten</a>
+    <a href="#defas-echtzeit">DEFAS Echtzeit</a>
+    <a href="#auffaellige-linien">Auffällige Linien</a>
+  </nav>
 
   <main class="dashboard">
 
-    <section class="intro">
+    <section class="intro" id="uebersicht">
       <div>
         <p class="eyebrow">NETZ- UND ANGEBOTSANALYSE</p>
         <h1>VAB-Liniennetz auf einen Blick</h1>
@@ -154,7 +163,7 @@
         <p class="loading">Liniendaten werden geladen …</p>
       </div>
     </section>
-    <section class="panel network-structure-panel">
+    <section class="panel network-structure-panel" id="netzstruktur">
       <div class="panel-heading">
         <div>
           <p class="eyebrow">NETZSTRUKTUR</p>
@@ -197,7 +206,7 @@
         Verteilung aller Haltestellen nach Anzahl der dort verkehrenden Linien
       </p>
     </section>
-    <section class="panel timetable-panel">
+    <section class="panel timetable-panel" id="fahrplanangebot">
       <div class="panel-heading">
         <div>
           <p class="eyebrow">FAHRPLANANGEBOT</p>
@@ -306,7 +315,7 @@
           Planmäßige Haltestellenabfahrten nach Stunde des Betriebstages.
         </p>
       </div>
-      <div class="line-operation">
+      <div class="line-operation" id="betriebszeiten">
         <div class="line-operation-heading">
           <div>
             <p class="eyebrow">BETRIEBSZEITEN</p>
@@ -357,7 +366,7 @@
       </div>
       <p id="tt-validity" class="timetable-validity"></p>
     </section>
-    <section class="panel realtime-panel">
+    <section class="panel realtime-panel" id="defas-echtzeit">
       <div class="panel-heading">
         <div>
           <p class="eyebrow">DEFAS ECHTZEIT</p>
@@ -407,10 +416,10 @@
           </div>
         </div>
 
-        <div class="line-operation">
+        <div class="line-operation" id="betriebszeiten">
           <div class="line-operation-heading">
             <div>
-              <p class="eyebrow">AUFFÄLLIGE LINIEN</p>
+              <span id="auffaellige-linien"></span><p class="eyebrow">AUFFÄLLIGE LINIEN</p>
               <h3>Linien im letzten DEFAS-Messlauf</h3>
             </div>
           </div>
@@ -507,6 +516,8 @@
   <script src="dashboard.js?v=1127"></script>
 </body>
 </html>
+
+
 
 
 
