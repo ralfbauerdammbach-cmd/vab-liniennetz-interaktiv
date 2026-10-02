@@ -34,6 +34,7 @@
     <a href="#fahrplanangebot">Fahrplanangebot</a>
     <a href="#betriebszeiten">Betriebszeiten</a>
     <a href="#defas-echtzeit">DEFAS Echtzeit</a>
+    <a href="#datenimport">Datenimport</a>
     <a href="#stammdaten">Stammdaten</a>
     <a href="#auffaellige-linien">Auffällige Linien</a>
   </nav>
@@ -496,13 +497,107 @@
       </div>
       <!-- DEFAS_DETAIL_END -->
     </section>
+            <section class="panel import-panel" id="datenimport">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">DATENIMPORT</p>
+          <h2>VU-Daten prüfen</h2>
+          <p class="network-caption">
+            CSV- oder Excel-Datei auswählen, Linienbündel und Verkehrsunternehmen zuordnen und den Aufbau vor dem Import prüfen.
+          </p>
+        </div>
+      </div>
+
+      <div class="import-form-grid">
+        <label class="import-field">
+          <span>Datei</span>
+          <input id="import-file" type="file" accept=".csv,.xlsx,.xlsm">
+        </label>
+
+        <label class="import-field">
+          <span>Linienbündel</span>
+          <select id="import-bundle">
+            <option value="">Bitte wählen</option>
+          </select>
+        </label>
+
+        <label class="import-field">
+          <span>Verkehrsunternehmen</span>
+          <select id="import-operator">
+            <option value="">Bitte wählen</option>
+          </select>
+        </label>
+
+        <label class="import-field">
+          <span>Datenart</span>
+          <select id="import-type">
+            <option value="">Bitte wählen</option>
+            <option value="ITCS">ITCS</option>
+            <option value="AFZS">AFZS</option>
+            <option value="FAN">FAN / Fahrt- und Haltestellendaten</option>
+            <option value="SONSTIGE">Sonstige</option>
+          </select>
+        </label>
+
+        <label class="import-field">
+          <span>Liefermonat</span>
+          <input id="import-month" type="month">
+        </label>
+
+        <div class="import-action">
+          <button id="import-preview" class="masterdata-primary" type="button">Import prüfen</button>
+        </div>
+      </div>
+
+      <div id="import-message" class="masterdata-message" role="status" aria-live="polite"></div>
+
+      <div id="import-preview-result" class="import-preview-result" hidden>
+        <div class="import-summary-grid">
+          <div class="network-stat">
+            <strong id="import-row-count">–</strong>
+            <span>Datenzeilen</span>
+          </div>
+          <div class="network-stat">
+            <strong id="import-column-count">–</strong>
+            <span>Spalten</span>
+          </div>
+          <div class="network-stat">
+            <strong id="import-sheet">–</strong>
+            <span>Datei / Tabellenblatt</span>
+          </div>
+          <div class="network-stat">
+            <strong id="import-format">–</strong>
+            <span>Format</span>
+          </div>
+        </div>
+
+        <div class="masterdata-card">
+          <div class="masterdata-card-heading">
+            <div>
+              <p class="eyebrow">VORSCHAU</p>
+              <h3>Erkannte Datenfelder</h3>
+            </div>
+          </div>
+          <div class="masterdata-table-wrap">
+            <table class="masterdata-table import-preview-table">
+              <thead id="import-preview-head"></thead>
+              <tbody id="import-preview-body"></tbody>
+            </table>
+          </div>
+          <p class="network-caption">
+            Diese Prüfung verändert noch keine Betriebsdaten. Der verbindliche Import folgt erst nach bestätigtem Feld-Mapping.
+          </p>
+        </div>
+      </div>
+    </section>
         <section class="panel masterdata-panel" id="stammdaten">
       <div class="panel-heading">
         <div>
           <p class="eyebrow">VERWALTUNG</p>
           <h2>Stammdaten</h2>
           <p class="network-caption">
-            Linienbündel, Verkehrsunternehmen und Linienzuordnungen direkt im Dashboard pflegen.
+            Erst Linienbündel und Verkehrsunternehmen pflegen, danach die Zuordnungen anlegen.
+            Eine Linie ist optional und kann später ergänzt werden.
           </p>
         </div>
         <button id="masterdata-save" class="masterdata-primary" type="button">Änderungen speichern</button>
@@ -514,8 +609,8 @@
         <div class="masterdata-card">
           <div class="masterdata-card-heading">
             <div>
-              <p class="eyebrow">LINIENBÜNDEL</p>
-              <h3>Linienbündel verwalten</h3>
+              <p class="eyebrow">1 · LINIENBÜNDEL</p>
+              <h3>Linienbündel</h3>
             </div>
             <button id="add-bundle" class="masterdata-secondary" type="button">+ Linienbündel</button>
           </div>
@@ -536,8 +631,8 @@
         <div class="masterdata-card">
           <div class="masterdata-card-heading">
             <div>
-              <p class="eyebrow">VERKEHRSUNTERNEHMEN</p>
-              <h3>Verkehrsunternehmen verwalten</h3>
+              <p class="eyebrow">2 · VERKEHRSUNTERNEHMEN</p>
+              <h3>Verkehrsunternehmen</h3>
             </div>
             <button id="add-operator" class="masterdata-secondary" type="button">+ VU</button>
           </div>
@@ -560,10 +655,14 @@
       <div class="masterdata-card masterdata-assignment-card">
         <div class="masterdata-card-heading">
           <div>
-            <p class="eyebrow">ZUORDNUNGEN</p>
-            <h3>Linien zuordnen</h3>
+            <p class="eyebrow">3 · ZUORDNUNG</p>
+            <h3>Linienbündel und Verkehrsunternehmen verbinden</h3>
+            <p class="network-caption">
+              Die Linie darf leer bleiben. Beispiel: Bachgau Mömlingen → Ehrlich.
+              Sobald die Linie bekannt ist, kann sie hier ergänzt werden.
+            </p>
           </div>
-          <button id="add-assignment" class="masterdata-secondary" type="button">+ Linie zuordnen</button>
+          <button id="add-assignment" class="masterdata-secondary" type="button">+ Zuordnung</button>
         </div>
 
         <div class="masterdata-table-wrap">
@@ -572,7 +671,7 @@
               <tr>
                 <th>Linienbündel</th>
                 <th>Verkehrsunternehmen</th>
-                <th>Linie</th>
+                <th>Linie (optional)</th>
                 <th>Gültig von</th>
                 <th>Gültig bis</th>
                 <th>Aktiv</th>
@@ -603,9 +702,15 @@
   </footer>
 
   <script src="dashboard.js?v=1127"></script>
-  <script src="stammdaten.js?v=1"></script>
+  <script src="importcenter.js?v=4"></script>
+  <script src="stammdaten.js?v=8"></script>
 </body>
 </html>
+
+
+
+
+
 
 
 

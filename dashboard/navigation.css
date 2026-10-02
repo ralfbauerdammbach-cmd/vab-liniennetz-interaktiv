@@ -193,3 +193,93 @@ html {
     grid-template-columns: 1fr;
   }
 }
+
+.import-panel {
+  scroll-margin-top: 78px;
+}
+
+.import-form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+  gap: 14px;
+  align-items: end;
+  margin-top: 20px;
+}
+
+.import-field {
+  display: grid;
+  gap: 7px;
+}
+
+.import-field > span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5f6e7d;
+}
+
+.import-field input,
+.import-field select {
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  border: 1px solid #cfd9e4;
+  border-radius: 9px;
+  background: #fff;
+  font: inherit;
+}
+
+.import-action {
+  display: flex;
+  align-items: end;
+}
+
+.import-action button {
+  min-height: 44px;
+  white-space: nowrap;
+}
+
+.import-preview-result {
+  margin-top: 20px;
+}
+
+.import-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.import-preview-table {
+  min-width: 900px;
+}
+
+.import-preview-table td {
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1250px) {
+  .import-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .import-action {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 760px) {
+  .import-form-grid,
+  .import-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.masterdata-assignment-card {
+  margin-top: 22px;
+}
