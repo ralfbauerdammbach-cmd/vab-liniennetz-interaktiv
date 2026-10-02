@@ -1,0 +1,45 @@
+﻿{
+  "version": 1,
+  "source": {
+    "title": "Leistungsbeschreibung Linienbündel Maintal-Südwest und Bachgau-Mümling",
+    "stand": "2023-02-17"
+  },
+  "bundles": [
+    {
+      "key": "bachgau-muemling",
+      "name": "Bachgau-Mümling",
+      "aliases": ["Bachgau Mömlingen", "Bachgau-Mümling"],
+      "lines": ["55", "68", "78"],
+      "contract_rule_id": "maintal-bachgau-2024"
+    },
+    {
+      "key": "maintal-suedwest",
+      "name": "Maintal-Südwest",
+      "aliases": ["Maintal Südwest", "Maintal-Südwest"],
+      "lines": ["56", "60"],
+      "contract_rule_id": "maintal-bachgau-2024"
+    }
+  ],
+  "contract_rules": {
+    "maintal-bachgau-2024": {
+      "valid_from": "2024-01-01",
+      "valid_to": "2032-07-31",
+      "punctuality_target_percent": 95,
+      "punctuality_measure": "end_stop_arrival",
+      "punctuality_threshold_minutes": null,
+      "early_departure_is_failure": true,
+      "end_arrival_over_minutes_is_failure": 25,
+      "delay_penalties_eur": [
+        {"min_inclusive": 5, "max_inclusive": 10, "amount": 10},
+        {"min_exclusive": 10, "max_inclusive": 15, "amount": 20},
+        {"min_exclusive": 15, "max_inclusive": 20, "amount": 40},
+        {"min_exclusive": 20, "max_inclusive": 25, "amount": 60}
+      ],
+      "notes": [
+        "Die 95-%-Pünktlichkeitskennzahl wird erst berechnet, wenn die Definition 'pünktliche Ankunft' eindeutig als Regel hinterlegt ist.",
+        "Planmäßig angekündigte Verspätungen sind von der Verspätungspönale ausgenommen und benötigen eine separate Kennzeichnung.",
+        "Nicht durchgeführte Fahrten und nicht angefahrene Soll-Haltestellen benötigen einen Sollfahrplan-Abgleich."
+      ]
+    }
+  }
+}

@@ -153,6 +153,182 @@
   // Alte pauschale Statusanzeige entfernen.
   intro.querySelector(".data-status")?.remove();
 
+
+  function formatSecondsHuman(value) {
+    if (value === null || value === undefined || Number.isNaN(Number(value))) return "–";
+    const sec = Number(value);
+    const sign = sec < 0 ? "−" : "";
+    const abs = Math.abs(sec);
+    if (abs < 60) return `${sign}${Math.round(abs)} s`;
+    const min = Math.floor(abs / 60);
+    const rest = Math.round(abs % 60);
+    return `${sign}${min}:${String(rest).padStart(2, "0")} min`;
+  }
+
+  function formatDateDE(value) {
+    const m = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    return m ? `${m[3]}.${m[2]}.${m[1]}` : (value || "–");
+  }
+
+  async function refreshItcsOperationStatus() {
+    const box = document.querySelector("#operation-data-status");
+    if (!box) return;
+
+    try {
+      const response = await fetch(`/api/itcs/summary?_=${Date.now()}`, { cache: "no-store" });
+      const data = await response.json();
+      if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
+
+      if (!data.available) {
+        box.innerHTML = `
+          <div class="panel-heading"><div>
+            <p class="eyebrow">BETRIEBSDATEN</p>
+            <h2>Vertragsauswertung noch nicht verfügbar</h2>
+            <p class="network-caption">Noch wurden keine ITCS-Betriebsdaten verbindlich importiert.</p>
+          </div></div>`;
+        return;
+      }
+
+      const bundles = (data.bundles || []).filter(item => Number(item.rows || 0) > 0);
+      if (!bundles.length) {
+        box.innerHTML = `<p class="network-caption">ITCS-Daten vorhanden, aber keine Linie ist einem Vertragsbündel zugeordnet.</p>`;
+        return;
+      }
+
+      box.innerHTML = `
+        <div class="panel-heading contract-heading">
+          <div>
+            <p class="eyebrow">VERTRAGSCONTROLLING · ITCS</p>
+            <h2>Liniengenaue Vertragsauswertung</h2>
+            <p class="network-caption">
+              ${Number(data.imports || data.source_files || 0).toLocaleString("de-DE")} ITCS-Datenbestand ·
+              ${data.operator_name || "Verkehrsunternehmen"} · ${data.contract_source || ""}.
+            </p>
+          </div>
+          <label class="contract-bundle-filter">
+            <span>Linienbündel</span>
+            <select id="contract-bundle-select">
+              ${bundles.map((b, i) => `<option value="${b.key}" ${i === 0 ? "selected" : ""}>${b.name}</option>`).join("")}
+            </select>
+          </label>
+        </div>
+        <div id="contract-bundle-content"></div>
+      `;
+
+      const target = box.querySelector("#contract-bundle-content");
+      const select = box.querySelector("#contract-bundle-select");
+
+      const renderBundle = (bundle) => {
+        const from = formatDateDE(bundle.date_range?.from);
+        const to = formatDateDE(bundle.date_range?.to);
+        const range = from === to ? from : `${from} – ${to}`;
+        const pc = bundle.delay_penalty_counts || {};
+
+        target.innerHTML = `
+          <div class="contract-bundle-meta">
+            <strong>${bundle.name}</strong>
+            <span>Vertragslinien ${bundle.contract_lines.join(", ")} · Datenzeitraum ${range}</span>
+          </div>
+
+          <div class="operation-kpi-grid contract-kpi-grid">
+            <article class="operation-kpi">
+              <strong>${Number(bundle.rows || 0).toLocaleString("de-DE")}</strong>
+              <span>zugeordnete Halte-/Betriebsdatensätze</span>
+            </article>
+            <article class="operation-kpi">
+              <strong>${Number(bundle.trips || 0).toLocaleString("de-DE")}</strong>
+              <span>erkannte Fahrten</span>
+            </article>
+            <article class="operation-kpi">
+              <strong>${Number(bundle.end_arrival_evaluable || 0).toLocaleString("de-DE")}</strong>
+              <span>auswertbare Endhaltestellen-Ankünfte</span>
+            </article>
+            <article class="operation-kpi contract-alert-kpi">
+              <strong>${Number(bundle.early_departure_trips || 0).toLocaleString("de-DE")}</strong>
+              <span>Fahrten mit mindestens einer Abfahrt vor Sollzeit</span>
+            </article>
+            <article class="operation-kpi contract-alert-kpi">
+              <strong>${Number(bundle.end_over_25_trips || 0).toLocaleString("de-DE")}</strong>
+              <span>Endankünfte über 25 Min. verspätet</span>
+            </article>
+            <article class="operation-kpi">
+              <strong>${Number(bundle.theoretical_delay_penalty_eur || 0).toLocaleString("de-DE", {style:"currency", currency:"EUR", maximumFractionDigits:0})}</strong>
+              <span>rechnerische Verspätungsstaffel vor Ausnahmeprüfung</span>
+            </article>
+          </div>
+
+          <div class="operation-raw-note contract-rule-note">
+            <strong>Vertragslogik aus der Leistungsbeschreibung</strong>
+            <span>
+              Gemessen wird die verspätete Ankunft an der Endhaltestelle. 5–10 Min. = 10 €,
+              &gt;10–15 = 20 €, &gt;15–20 = 40 €, &gt;20–25 = 60 €; &gt;25 Min. gilt als Ausfalltatbestand.
+              Jede zu frühe Abfahrt ist ebenfalls ein Ausfalltatbestand.
+            </span>
+            <span>
+              Die angezeigte Euro-Summe ist noch kein Abrechnungsbetrag: planmäßig angekündigte Verspätungen,
+              abgestimmte Ausfälle und mögliche Mehrfachtatbestände müssen vor einer Pönalisierung geprüft werden.
+            </span>
+          </div>
+
+          <div class="contract-delay-grid">
+            <div><strong>${Number(pc["5_10"] || 0).toLocaleString("de-DE")}</strong><span>5–10 Min.</span></div>
+            <div><strong>${Number(pc["10_15"] || 0).toLocaleString("de-DE")}</strong><span>&gt;10–15 Min.</span></div>
+            <div><strong>${Number(pc["15_20"] || 0).toLocaleString("de-DE")}</strong><span>&gt;15–20 Min.</span></div>
+            <div><strong>${Number(pc["20_25"] || 0).toLocaleString("de-DE")}</strong><span>&gt;20–25 Min.</span></div>
+          </div>
+
+          <div class="operation-line-table-wrap">
+            <table class="operation-line-table">
+              <thead>
+                <tr>
+                  <th>Linie</th>
+                  <th>Fahrten</th>
+                  <th>Halte</th>
+                  <th>Endankunft auswertbar</th>
+                  <th>zu früh abgefahren</th>
+                  <th>&gt;25 Min. Endankunft</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${(bundle.line_stats || []).map(item => `
+                  <tr>
+                    <td><strong>${item.line}</strong></td>
+                    <td>${Number(item.trips || 0).toLocaleString("de-DE")}</td>
+                    <td>${Number(item.rows || 0).toLocaleString("de-DE")}</td>
+                    <td>${Number(item.end_arrival_evaluable || 0).toLocaleString("de-DE")}</td>
+                    <td>${Number(item.early_departure_trips || 0).toLocaleString("de-DE")}</td>
+                    <td>${Number(item.end_over_25_trips || 0).toLocaleString("de-DE")}</td>
+                  </tr>`).join("")}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="contract-open-rule">
+            <strong>95-%-Pünktlichkeitswert: noch nicht automatisch klassifiziert.</strong>
+            <span>
+              Der Vertrag verlangt 95 % je Linie und Monat an der Endhaltestelle.
+              Die vorliegende Leistungsbeschreibung verknüpft die 5-Minuten-Pönalgrenze jedoch nicht ausdrücklich
+              mit der Definition „pünktliche Ankunft“. Deshalb wird diese Grenze nicht stillschweigend übernommen.
+            </span>
+          </div>
+        `;
+      };
+
+      renderBundle(bundles[0]);
+      select.addEventListener("change", () => {
+        const bundle = bundles.find(item => item.key === select.value) || bundles[0];
+        renderBundle(bundle);
+      });
+    } catch (err) {
+      console.error(err);
+      box.innerHTML = `
+        <div class="panel-heading"><div>
+          <p class="eyebrow">BETRIEBSDATEN</p>
+          <h2>ITCS-Auswertung konnte nicht geladen werden</h2>
+          <p class="network-caption">${String(err.message || err)}</p>
+        </div></div>`;
+    }
+  }
   // ---------- Betrieb & Qualität ----------
   const realtime = document.querySelector("#defas-echtzeit, .realtime-panel");
 
@@ -165,12 +341,12 @@
       <div class="panel-heading">
         <div>
           <p class="eyebrow">BETRIEBSDATEN</p>
-          <h2>Vertragsauswertung noch nicht verfügbar</h2>
-          <p class="network-caption">
-            Noch wurden keine ITCS-Betriebsdaten verbindlich importiert.
-            Pünktlichkeit, Ausfälle, Soll-Ist-Fahrleistung und Vertragsabweichungen
-            werden erst aus den originären VU-Daten und den hinterlegten Regeln berechnet.
+          <h2 id="operation-data-title">Prüfe importierte ITCS-Daten …</h2>
+          <p id="operation-data-caption" class="network-caption">
+            Der verbindlich importierte ITCS-Datenbestand wird geladen.
           </p>
+          <div id="operation-data-summary" class="operation-data-summary" hidden></div>
+          <div id="operation-contract-note" class="operation-contract-note" hidden></div>
         </div>
       </div>
     `;
@@ -181,6 +357,109 @@
     }
   }
 
+
+  function operationFormatDate(value) {
+    if (!value) return "–";
+    const m = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    return m ? `${m[3]}.${m[2]}.${m[1]}` : String(value);
+  }
+
+  function operationFormatRange(range) {
+    if (!range?.from && !range?.to) return "–";
+    if (range?.from === range?.to) return operationFormatDate(range.from);
+    return `${operationFormatDate(range?.from)} – ${operationFormatDate(range?.to)}`;
+  }
+
+  function operationEsc(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  async function refreshOperationDataStatus() {
+    const panel = document.querySelector("#operation-data-status");
+    if (!panel) return;
+
+    const title = panel.querySelector("#operation-data-title");
+    const caption = panel.querySelector("#operation-data-caption");
+    const summary = panel.querySelector("#operation-data-summary");
+    const contractNote = panel.querySelector("#operation-contract-note");
+
+    try {
+      const response = await fetch(`/api/controlling/itcs-summary?_=${Date.now()}`, {
+        cache: "no-store"
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || `HTTP ${response.status}`);
+      }
+
+      if (!data.available) {
+        title.textContent = "Vertragsauswertung noch nicht verfügbar";
+        caption.textContent =
+          "Noch wurden keine Controlling-fähigen ITCS-Betriebsdaten verbindlich importiert.";
+        summary.hidden = true;
+        contractNote.hidden = true;
+        return;
+      }
+
+      title.textContent = "ITCS-Betriebsdaten verfügbar";
+
+      const sourceParts = [];
+      if (data.operators?.length) sourceParts.push(data.operators.join(", "));
+      if (data.bundles?.length) sourceParts.push(data.bundles.join(", "));
+
+      caption.textContent =
+        `${Number(data.imports || data.source_files || 0).toLocaleString("de-DE")} verbindlicher ITCS-Datenbestand` +
+        `${Number(data.imports || 0) === 1 ? "" : "e"} · ` +
+        `${operationFormatRange(data.date_range)}` +
+        `${sourceParts.length ? " · " + sourceParts.join(" · ") : ""}.`;
+
+      summary.innerHTML = `
+        <article>
+          <strong>${Number(data.row_count || 0).toLocaleString("de-DE")}</strong>
+          <span>Betriebsdatensätze</span>
+        </article>
+        <article>
+          <strong>${Number(data.trip_count || 0).toLocaleString("de-DE")}</strong>
+          <span>Fahrten</span>
+        </article>
+        <article>
+          <strong>${Number(data.lines?.length || 0).toLocaleString("de-DE")}</strong>
+          <span>Linien</span>
+          <small>${operationEsc((data.lines || []).join(", ") || "–")}</small>
+        </article>
+        <article>
+          <strong>${operationEsc(operationFormatRange(data.date_range))}</strong>
+          <span>Datenzeitraum</span>
+        </article>
+      `;
+      summary.hidden = false;
+
+      contractNote.innerHTML = `
+        <strong>Datenbasis für das Vertragscontrolling vorhanden.</strong>
+        <span>
+          Pünktlichkeit, Ausfälle, Soll-Ist-Fahrleistung und Vertragsabweichungen werden
+          erst als Vertragskennzahlen ausgewiesen, wenn die jeweils erforderlichen
+          Berechnungs- und Vertragsregeln hinterlegt sind.
+        </span>
+      `;
+      contractNote.hidden = false;
+    } catch (err) {
+      console.error("ITCS-Datenstatus konnte nicht geladen werden:", err);
+      title.textContent = "ITCS-Datenstatus konnte nicht geladen werden";
+      caption.textContent =
+        "Der Importbestand ist vorhanden, konnte von dieser Ansicht aber nicht gelesen werden.";
+      summary.hidden = true;
+      contractNote.hidden = true;
+    }
+  }
+
+  refreshOperationDataStatus();
   if (realtime) {
     const eyebrow = realtime.querySelector(".panel-heading .eyebrow");
     const title = realtime.querySelector(".panel-heading h2");
@@ -238,6 +517,8 @@
       });
     }
   }
+
+  refreshItcsOperationStatus();
 
   // ---------- AFZS ----------
   const passenger = document.querySelector("#fahrgaeste-auslastung");
@@ -421,3 +702,7 @@
   const initial = location.hash.replace(/^#/, "");
   setActiveView(views[initial] ? initial : "uebersicht", false);
 })();
+
+
+
+
