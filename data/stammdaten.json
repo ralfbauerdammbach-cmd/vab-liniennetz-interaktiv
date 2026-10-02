@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "linienbuendel": [
+    {
+      "id": "bundle-9bc3b86c-2f49-48ac-8347-fade85af0545",
+      "name": "Hochspessart A",
+      "aktiv": true
+    }
+  ],
+  "verkehrsunternehmen": [
+    {
+      "id": "vu-2a6f500d-5a5d-4ec1-94ec-60c4f2f6f3fa",
+      "name": "Staab",
+      "kuerzel": "STA",
+      "aktiv": true
+    }
+  ],
+  "linienzuordnungen": [
+    {
+      "id": "line-954203a1-635b-4cde-aecb-a2f39070ba51",
+      "linienbuendel_id": "bundle-9bc3b86c-2f49-48ac-8347-fade85af0545",
+      "verkehrsunternehmen_id": "vu-2a6f500d-5a5d-4ec1-94ec-60c4f2f6f3fa",
+      "linie": "40",
+      "gueltig_von": "2024-10-02",
+      "gueltig_bis": "2026-10-31",
+      "aktiv": true
+    }
+  ]
+}

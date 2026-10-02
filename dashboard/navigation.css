@@ -57,3 +57,139 @@ html {
     padding: 8px 12px;
   }
 }
+
+.masterdata-panel {
+  scroll-margin-top: 78px;
+}
+
+.masterdata-panel .panel-heading {
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.masterdata-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.masterdata-card {
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid rgba(0, 47, 108, 0.12);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.masterdata-grid .masterdata-card {
+  margin-top: 0;
+}
+
+.masterdata-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.masterdata-card h3 {
+  margin: 2px 0 0;
+}
+
+.masterdata-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.masterdata-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+.masterdata-assignment-card .masterdata-table {
+  min-width: 980px;
+}
+
+.masterdata-table th,
+.masterdata-table td {
+  padding: 10px 8px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(0, 47, 108, 0.09);
+}
+
+.masterdata-table th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5f6e7d;
+}
+
+.masterdata-table input[type="text"],
+.masterdata-table input[type="date"],
+.masterdata-table select {
+  width: 100%;
+  min-width: 110px;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  border: 1px solid #cfd9e4;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+}
+
+.masterdata-table input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+.masterdata-primary,
+.masterdata-secondary,
+.masterdata-delete {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 14px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.masterdata-primary {
+  background: #003b7a;
+  color: #fff;
+}
+
+.masterdata-secondary {
+  background: #eef3f8;
+  color: #003b7a;
+}
+
+.masterdata-delete {
+  background: #f3f5f7;
+  color: #5f6e7d;
+  padding-inline: 11px;
+}
+
+.masterdata-message {
+  min-height: 24px;
+  margin-top: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.masterdata-message.is-ok {
+  color: #27613b;
+}
+
+.masterdata-message.is-error {
+  color: #9d2d2d;
+}
+
+@media (max-width: 980px) {
+  .masterdata-grid {
+    grid-template-columns: 1fr;
+  }
+}

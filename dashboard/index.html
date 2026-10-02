@@ -34,6 +34,7 @@
     <a href="#fahrplanangebot">Fahrplanangebot</a>
     <a href="#betriebszeiten">Betriebszeiten</a>
     <a href="#defas-echtzeit">DEFAS Echtzeit</a>
+    <a href="#stammdaten">Stammdaten</a>
     <a href="#auffaellige-linien">Auffällige Linien</a>
   </nav>
 
@@ -495,6 +496,94 @@
       </div>
       <!-- DEFAS_DETAIL_END -->
     </section>
+        <section class="panel masterdata-panel" id="stammdaten">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">VERWALTUNG</p>
+          <h2>Stammdaten</h2>
+          <p class="network-caption">
+            Linienbündel, Verkehrsunternehmen und Linienzuordnungen direkt im Dashboard pflegen.
+          </p>
+        </div>
+        <button id="masterdata-save" class="masterdata-primary" type="button">Änderungen speichern</button>
+      </div>
+
+      <div id="masterdata-message" class="masterdata-message" role="status" aria-live="polite"></div>
+
+      <div class="masterdata-grid">
+        <div class="masterdata-card">
+          <div class="masterdata-card-heading">
+            <div>
+              <p class="eyebrow">LINIENBÜNDEL</p>
+              <h3>Linienbündel verwalten</h3>
+            </div>
+            <button id="add-bundle" class="masterdata-secondary" type="button">+ Linienbündel</button>
+          </div>
+          <div class="masterdata-table-wrap">
+            <table class="masterdata-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Aktiv</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="bundle-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="masterdata-card">
+          <div class="masterdata-card-heading">
+            <div>
+              <p class="eyebrow">VERKEHRSUNTERNEHMEN</p>
+              <h3>Verkehrsunternehmen verwalten</h3>
+            </div>
+            <button id="add-operator" class="masterdata-secondary" type="button">+ VU</button>
+          </div>
+          <div class="masterdata-table-wrap">
+            <table class="masterdata-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Kürzel</th>
+                  <th>Aktiv</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="operator-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="masterdata-card masterdata-assignment-card">
+        <div class="masterdata-card-heading">
+          <div>
+            <p class="eyebrow">ZUORDNUNGEN</p>
+            <h3>Linien zuordnen</h3>
+          </div>
+          <button id="add-assignment" class="masterdata-secondary" type="button">+ Linie zuordnen</button>
+        </div>
+
+        <div class="masterdata-table-wrap">
+          <table class="masterdata-table">
+            <thead>
+              <tr>
+                <th>Linienbündel</th>
+                <th>Verkehrsunternehmen</th>
+                <th>Linie</th>
+                <th>Gültig von</th>
+                <th>Gültig bis</th>
+                <th>Aktiv</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="assignment-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
     <section class="future">
       <span class="future-mark"></span>
       <div>
@@ -514,8 +603,10 @@
   </footer>
 
   <script src="dashboard.js?v=1127"></script>
+  <script src="stammdaten.js?v=1"></script>
 </body>
 </html>
+
 
 
 
