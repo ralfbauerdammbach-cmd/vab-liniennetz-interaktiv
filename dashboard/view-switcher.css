@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   Fachlich konsolidierte Dashboard-Ansichten
+   AMINA Dashboard – konsolidierte Ansichtslogik
    ============================================================ */
 
 .dashboard > [data-dashboard-view] {
@@ -45,7 +45,8 @@
   display: none !important;
 }
 
-/* Übersicht */
+/* ---------- Übersicht ---------- */
+
 .overview-status {
   margin-top: 8px;
 }
@@ -112,7 +113,8 @@
   line-height: 1.5;
 }
 
-/* Betrieb */
+/* ---------- Betrieb / DEFAS ---------- */
+
 .operation-status-panel {
   margin-bottom: 16px;
 }
@@ -123,10 +125,46 @@
 
 .defas-source-note {
   margin-top: 0;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
-/* Netz & Fahrplan */
+.detail-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 4px;
+  padding: 9px 14px;
+  border: 1px solid rgba(0, 59, 122, 0.18);
+  border-radius: 999px;
+  background: #fff;
+  color: #003b7a;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.detail-toggle:hover,
+.detail-toggle:focus-visible {
+  background: #edf3f8;
+  outline: none;
+}
+
+#defas-detail[hidden] {
+  display: none !important;
+}
+
+.realtime-panel > .timetable-kpis {
+  gap: 12px !important;
+}
+
+.realtime-panel > .timetable-kpis .network-stat {
+  min-height: 94px;
+  padding: 15px 16px;
+}
+
+/* ---------- Netz & Fahrplan ---------- */
+
 .net-subnav {
   display: none;
   gap: 8px;
@@ -135,6 +173,26 @@
 }
 
 .net-subnav.is-active-view {
+  display: flex !important;
+}
+
+/*
+  Wichtig: Netz-Elemente werden nur anhand der Subview-Klasse gezeigt.
+  Keine :not(#...) Regel mit höherer Spezifität mehr.
+*/
+.dashboard > [data-dashboard-view="netz-fahrplan"].is-active-view {
+  display: none !important;
+}
+
+.dashboard > [data-dashboard-view="netz-fahrplan"].is-active-view.is-active-net-subview {
+  display: block !important;
+}
+
+.dashboard > .kpi-grid[data-dashboard-view="netz-fahrplan"].is-active-view.is-active-net-subview {
+  display: grid !important;
+}
+
+.dashboard > #net-subnav[data-dashboard-view="netz-fahrplan"].is-active-view.is-active-net-subview {
   display: flex !important;
 }
 
@@ -164,21 +222,6 @@
   color: #003b7a;
 }
 
-.dashboard > [data-dashboard-view="netz-fahrplan"].is-active-view:not(#net-subnav) {
-  display: none !important;
-}
-
-.dashboard > [data-dashboard-view="netz-fahrplan"].is-active-view.is-active-net-subview {
-  display: block !important;
-}
-
-.dashboard > .kpi-grid[data-dashboard-view="netz-fahrplan"].is-active-view.is-active-net-subview {
-  display: grid !important;
-}
-
-/* Fahrplanangebot und Betriebszeiten teilen sich aktuell ein Panel.
-   In der Angebotsansicht wird die Betriebstabelle ausgeblendet,
-   in der Betriebszeitenansicht nur die Betriebstabelle gezeigt. */
 .timetable-panel.offer-only #betriebszeiten {
   display: none !important;
 }
@@ -199,28 +242,148 @@
   padding-top: 22px;
 }
 
-/* Große Netzdarstellungen begrenzen, ohne Daten zu entfernen. */
 .line-analysis-panel #line-analysis {
-  max-height: 390px;
+  max-height: 380px;
   overflow: auto;
 }
 
 .operation-table-wrap {
-  max-height: 520px;
+  max-height: 500px;
   overflow: auto;
 }
 
-/* Keine Ampel-/Statuswirkung für fachlich unterschiedliche Datenquellen. */
-.status-card,
-.overview-note,
-.source-note {
-  border-left-width: 1px !important;
+/* ---------- Datenimport ---------- */
+
+.import-panel .import-controls,
+.import-panel .import-form,
+.import-panel form {
+  gap: 12px !important;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
+.import-panel input,
+.import-panel select,
+.import-panel button {
+  box-sizing: border-box;
+}
+
+#import-file {
+  min-width: 250px;
+}
+
+#import-bundle {
+  min-width: 180px;
+}
+
+#import-operator {
+  min-width: 220px;
+}
+
+#import-type {
+  min-width: 150px;
+}
+
+#import-month {
+  min-width: 190px;
+}
+
+/* ---------- Verwaltung ---------- */
+
+.masterdata-grid {
+  gap: 18px !important;
+}
+
+.masterdata-card {
+  min-width: 0 !important;
+}
+
+.masterdata-table-wrap {
+  max-width: 100%;
+  overflow-x: visible !important;
+}
+
+.masterdata-table {
+  width: 100% !important;
+  min-width: 0 !important;
+  table-layout: fixed;
+}
+
+.masterdata-table th,
+.masterdata-table td {
+  min-width: 0 !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  vertical-align: middle;
+}
+
+.masterdata-table input,
+.masterdata-table select {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.masterdata-table button {
+  max-width: 100%;
+  white-space: normal;
+}
+
+.assignment-table,
+.assignment-table table {
+  width: 100%;
+}
+
+#assignment-body td:nth-child(1),
+#assignment-body td:nth-child(2) {
+  width: 18%;
+}
+
+#assignment-body td:nth-child(3) {
+  width: 15%;
+}
+
+#assignment-body td:nth-child(4),
+#assignment-body td:nth-child(5) {
+  width: 15%;
+}
+
+#assignment-body td:nth-child(6) {
+  width: 8%;
+}
+
+/* ---------- Footer ---------- */
+
+/* Fachliche Datenstände gehören in die jeweilige Ansicht, nicht global in den Footer. */
+footer #data-date {
+  display: none !important;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1280px) {
   .overview-status-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .masterdata-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .import-panel .import-controls,
+  .import-panel .import-form,
+  .import-panel form {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  #import-file,
+  #import-bundle,
+  #import-operator,
+  #import-type,
+  #import-month {
+    min-width: 0;
+    width: 100%;
   }
 }
 
@@ -233,5 +396,11 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: 4px;
+  }
+
+  .import-panel .import-controls,
+  .import-panel .import-form,
+  .import-panel form {
+    grid-template-columns: 1fr !important;
   }
 }

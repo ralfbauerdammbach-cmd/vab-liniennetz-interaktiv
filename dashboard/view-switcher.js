@@ -40,198 +40,71 @@
     }
   };
 
-  function topLevelSection(node) {
+  function topSection(node) {
     if (!node) return null;
     const section = node.matches?.("section") ? node : node.closest?.("section");
     return section && section.parentElement === main ? section : null;
   }
 
-  function mark(selector, viewName) {
+  function mark(selector, viewName, netSubview = "") {
     document.querySelectorAll(selector).forEach((node) => {
-      const section = topLevelSection(node);
-      if (section && section !== intro) section.dataset.dashboardView = viewName;
+      const section = topSection(node);
+      if (!section || section === intro) return;
+      section.dataset.dashboardView = viewName;
+      if (netSubview) section.dataset.netSubview = netSubview;
     });
   }
 
-  function replaceExactText(from, to) {
-    const walker = document.createTreeWalker(
-      document.body,
-      NodeFilter.SHOW_TEXT
-    );
-    const nodes = [];
-    while (walker.nextNode()) {
-      if ((walker.currentNode.nodeValue || "").trim() === from) {
-        nodes.push(walker.currentNode);
+  function replaceLeafText(root, from, to) {
+    root.querySelectorAll("*").forEach((el) => {
+      if (el.children.length === 0 && (el.textContent || "").trim() === from) {
+        el.textContent = to;
       }
-    }
-    nodes.forEach((node) => {
-      node.nodeValue = node.nodeValue.replace(from, to);
     });
   }
 
-  function replaceContainedText(from, to) {
-    const walker = document.createTreeWalker(
-      document.body,
-      NodeFilter.SHOW_TEXT
-    );
-    const nodes = [];
-    while (walker.nextNode()) {
-      if ((walker.currentNode.nodeValue || "").includes(from)) {
-        nodes.push(walker.currentNode);
-      }
-    }
-    nodes.forEach((node) => {
-      node.nodeValue = node.nodeValue.replace(from, to);
-    });
-  }
+  // ---------- Fachtexte ----------
+  replaceLeafText(document, "Servicekalender", "Fahrplankalender");
+  replaceLeafText(document, "Abfahrtspositionen im Index", "Planmäßige Haltestellenabfahrten");
+  replaceLeafText(document, "Linien im Fahrplanindex", "Linien im Fahrplanbestand");
+  replaceLeafText(document, "LIEFERMONAT", "LIEFERPERIODE");
 
-  // ----------------------------------------------------------
-  // Fachlich korrekte Texte
-  // ----------------------------------------------------------
-
-  replaceExactText("Servicekalender", "Fahrplankalender");
-  replaceExactText("Abfahrtspositionen im Index", "Planmäßige Haltestellenabfahrten");
-  replaceExactText("Linien im Fahrplanindex", "Linien im Fahrplanbestand");
-  replaceExactText("DATEI / TABELLENBLATT", "TABELLENBLATT");
-  replaceExactText("LIEFERMONAT", "LIEFERPERIODE");
-
-  replaceContainedText(
-    "Erste und letzte planmäßige Haltestellenabfahrt im Fahrplanindex.",
-    "Erste und letzte planmäßige Haltestellenabfahrt im Fahrplanbestand."
-  );
-
-  replaceContainedText(
-    "Linienbündel, Verkehrsunternehmen und Linienzuordnungen direkt im Dashboard pflegen.",
-    "Linienbündel, Verkehrsunternehmen, Zuordnungen und Gültigkeiten direkt im Dashboard pflegen."
-  );
-
-  // DEFAS ist Vergleichsquelle, nicht Vertragsgrundlage.
-  const realtime = document.querySelector("#defas-echtzeit, .realtime-panel");
-  if (realtime) {
-    const eyebrow = realtime.querySelector(".panel-heading .eyebrow");
-    const title = realtime.querySelector(".panel-heading h2");
-
-    if (eyebrow) eyebrow.textContent = "DEFAS VERGLEICHSDATEN";
-    if (title) title.textContent = "Stichprobe des letzten DEFAS-Messlaufs";
-
-    const replacements = [
-      ["erfasste Fahrten", "Fahrten in der Stichprobe"],
-      ["Linien im Messlauf", "Linien in der Stichprobe"],
-      ["Halte-Beobachtungen", "Halte-Beobachtungen in der Stichprobe"],
-      ["Echtzeitabdeckung der erfassten Fahrten", "Anteil der Stichprobenfahrten mit Echtzeitsteuerung"],
-      ["realtime-gesteuerte Fahrten", "Fahrten mit Echtzeitsteuerung"],
-      ["Beobachtungen mit Verspätungswert", "Beobachtungen mit auswertbarem Verspätungswert"],
-      ["AUFFÄLLIGE LINIEN", "DEFAS-HINWEISE"],
-      ["Linien im letzten DEFAS-Messlauf", "Linien mit Auffälligkeiten in der Stichprobe"]
-    ];
-
-    replacements.forEach(([from, to]) => {
-      realtime.querySelectorAll("*").forEach((el) => {
-        if (el.children.length === 0 && (el.textContent || "").trim() === from) {
-          el.textContent = to;
-        }
-      });
-    });
-
-    const status = realtime.querySelector("#rt-status");
-    if (status) {
-      status.textContent = status.textContent.replace(
-        "Nicht berücksichtigt: 40N",
-        "Freizeitlinie 40N nicht berücksichtigt"
-      );
-    }
-
-    if (!realtime.querySelector(".defas-source-note")) {
-      const note = document.createElement("p");
-      note.className = "source-note defas-source-note";
-      note.textContent =
-        "DEFAS dient hier ausschließlich als ergänzende Vergleichsquelle. " +
-        "Vertragsrelevante Bewertungen erfolgen auf Basis der originären ITCS-/AFZS-Daten " +
-        "und der hinterlegten Vertragsregeln.";
-      const heading = realtime.querySelector(".panel-heading");
-      if (heading) heading.insertAdjacentElement("afterend", note);
-    }
-  }
-
-  // AFZS-Placeholder fachlich eindeutig formulieren.
-  const passenger = document.querySelector("#fahrgaeste-auslastung");
-  if (passenger) {
-    const title = passenger.querySelector("h2");
-    const caption = passenger.querySelector(".network-caption");
-    if (title) title.textContent = "Noch keine AFZS-Betriebsdaten importiert";
-    if (caption) {
-      caption.textContent =
-        "Nach dem verbindlichen Import von Fahrgastzähldaten werden hier Einsteiger, " +
-        "Aussteiger, Besetzung, Auslastung und Linienabschnitte ausgewertet.";
-    }
-  }
-
-  // ----------------------------------------------------------
-  // Hauptansichten zuordnen
-  // ----------------------------------------------------------
-
-  // Die vier bisherigen Netz-KPI-Karten gehören NICHT zur Übersicht.
+  // ---------- Hauptzuordnung ----------
   main.querySelectorAll(":scope > .kpi-grid").forEach((node) => {
     node.dataset.dashboardView = "netz-fahrplan";
     node.dataset.netSubview = "netzstruktur";
   });
 
-  mark(".documents-panel", "netz-fahrplan");
-  mark(".line-analysis-panel", "netz-fahrplan");
-  mark("#netzstruktur", "netz-fahrplan");
-  mark(".network-structure-panel", "netz-fahrplan");
-  mark("#fahrplanangebot", "netz-fahrplan");
-  mark(".timetable-panel", "netz-fahrplan");
+  mark(".documents-panel", "netz-fahrplan", "dokumente");
+  mark(".line-analysis-panel", "netz-fahrplan", "netzstruktur");
+  mark(".network-structure-panel", "netz-fahrplan", "netzstruktur");
+  mark("#netzstruktur", "netz-fahrplan", "netzstruktur");
+  mark(".timetable-panel", "netz-fahrplan", "fahrplanangebot");
+  mark("#fahrplanangebot", "netz-fahrplan", "fahrplanangebot");
 
-  main.querySelectorAll(":scope > .documents-panel").forEach((node) => {
-    node.dataset.netSubview = "dokumente";
-  });
-  main.querySelectorAll(":scope > .line-analysis-panel").forEach((node) => {
-    node.dataset.netSubview = "netzstruktur";
-  });
-  main.querySelectorAll(":scope > .network-structure-panel").forEach((node) => {
-    node.dataset.netSubview = "netzstruktur";
-  });
-  main.querySelectorAll(":scope > .timetable-panel").forEach((node) => {
-    node.dataset.netSubview = "fahrplanangebot";
-  });
-
-  mark("#defas-echtzeit", "betrieb-qualitaet");
   mark(".realtime-panel", "betrieb-qualitaet");
+  mark("#defas-echtzeit", "betrieb-qualitaet");
   mark("#fahrgaeste-auslastung", "fahrgaeste-auslastung");
-  mark("#datenimport", "datenimport");
   mark(".import-panel", "datenimport");
-  mark("#stammdaten", "stammdaten");
+  mark("#datenimport", "datenimport");
   mark(".masterdata-panel", "stammdaten");
+  mark("#stammdaten", "stammdaten");
 
-  // Sonstige noch nicht zugeordnete Top-Level-Panels gehören nicht auf die Übersicht.
+  // Fallback: Unbekannte Top-Level-Fachpanels nicht auf die Übersicht legen.
   main.querySelectorAll(":scope > section.panel:not([data-dashboard-view])").forEach((section) => {
     const txt = (section.textContent || "").toLowerCase();
 
-    if (
-      txt.includes("defas") ||
-      txt.includes("echtzeit") ||
-      txt.includes("verspät") ||
-      txt.includes("ausfall")
-    ) {
+    if (txt.includes("defas") || txt.includes("echtzeit") || txt.includes("verspät") || txt.includes("ausfall")) {
       section.dataset.dashboardView = "betrieb-qualitaet";
-    } else if (
-      txt.includes("afzs") ||
-      txt.includes("auslastung") ||
-      txt.includes("einsteiger") ||
-      txt.includes("aussteiger")
-    ) {
+    } else if (txt.includes("afzs") || txt.includes("auslastung") || txt.includes("einsteiger") || txt.includes("aussteiger")) {
       section.dataset.dashboardView = "fahrgaeste-auslastung";
     } else {
       section.dataset.dashboardView = "netz-fahrplan";
-      section.dataset.netSubview ||= "netzstruktur";
+      section.dataset.netSubview = "netzstruktur";
     }
   });
 
-  // ----------------------------------------------------------
-  // Übersicht: echter Datenstatus statt Netzstatistik
-  // ----------------------------------------------------------
-
+  // ---------- Übersicht ----------
   let overviewStatus = document.querySelector("#overview-data-status");
   if (!overviewStatus) {
     overviewStatus = document.createElement("section");
@@ -249,26 +122,23 @@
       <div class="overview-status-grid">
         <article class="status-card">
           <span>ITCS-Betriebsdaten</span>
-          <strong id="overview-itcs">Noch nicht importiert</strong>
+          <strong>Noch nicht importiert</strong>
           <small>Grundlage für Pünktlichkeit, Ausfälle und Fahrleistung</small>
         </article>
-
         <article class="status-card">
           <span>AFZS-Fahrgastdaten</span>
-          <strong id="overview-afzs">Noch nicht importiert</strong>
+          <strong>Noch nicht importiert</strong>
           <small>Grundlage für Besetzung und Auslastung</small>
         </article>
-
         <article class="status-card">
           <span>Netz-/Fahrplandaten</span>
-          <strong id="overview-plan">Vorhanden</strong>
+          <strong>Vorhanden</strong>
           <small id="overview-plan-detail">Netzstruktur und planmäßiges Angebot</small>
         </article>
-
         <article class="status-card">
           <span>DEFAS-Vergleichsdaten</span>
           <strong id="overview-defas">Prüfe Datenstand …</strong>
-          <small>Ergänzende Stichprobe, keine Vertragsgrundlage</small>
+          <small>Ergänzende Stichprobe – keine Vertragsgrundlage</small>
         </article>
       </div>
 
@@ -280,17 +150,14 @@
     intro.insertAdjacentElement("afterend", overviewStatus);
   }
 
-  // Kein pauschaler grüner "Daten aus dem Liniennetz"-Status.
-  const genericStatus = intro.querySelector(".data-status");
-  if (genericStatus) genericStatus.remove();
+  // Alte pauschale Statusanzeige entfernen.
+  intro.querySelector(".data-status")?.remove();
 
-  // ----------------------------------------------------------
-  // Betrieb & Qualität: ITCS-Status separat vor DEFAS
-  // ----------------------------------------------------------
+  // ---------- Betrieb & Qualität ----------
+  const realtime = document.querySelector("#defas-echtzeit, .realtime-panel");
 
-  let operationStatus = document.querySelector("#operation-data-status");
-  if (!operationStatus) {
-    operationStatus = document.createElement("section");
+  if (!document.querySelector("#operation-data-status")) {
+    const operationStatus = document.createElement("section");
     operationStatus.id = "operation-data-status";
     operationStatus.className = "panel operation-status-panel";
     operationStatus.dataset.dashboardView = "betrieb-qualitaet";
@@ -314,10 +181,78 @@
     }
   }
 
-  // ----------------------------------------------------------
-  // Netz & Fahrplan: Unterbereiche statt langer Gesamtseite
-  // ----------------------------------------------------------
+  if (realtime) {
+    const eyebrow = realtime.querySelector(".panel-heading .eyebrow");
+    const title = realtime.querySelector(".panel-heading h2");
+    if (eyebrow) eyebrow.textContent = "DEFAS VERGLEICHSDATEN";
+    if (title) title.textContent = "Stichprobe des letzten DEFAS-Messlaufs";
 
+    const status = realtime.querySelector("#rt-status");
+    if (status) {
+      status.textContent = status.textContent
+        .replace("Nicht berücksichtigt: 40N", "Freizeitlinie 40N nicht berücksichtigt")
+        .replace("30.4", "30,4");
+    }
+
+    replaceLeafText(realtime, "30.4 %", "30,4 %");
+    replaceLeafText(realtime, "Echtzeitabdeckung der erfassten Fahrten", "Anteil der Stichprobenfahrten mit Echtzeitsteuerung");
+    replaceLeafText(realtime, "realtime-gesteuerte Fahrten", "Fahrten mit Echtzeitsteuerung");
+    replaceLeafText(realtime, "AUFFÄLLIGE LINIEN", "DEFAS-HINWEISE");
+    replaceLeafText(realtime, "Linien im letzten DEFAS-Messlauf", "Linien mit Auffälligkeiten in der Stichprobe");
+
+    if (!realtime.querySelector(".defas-source-note")) {
+      const note = document.createElement("p");
+      note.className = "source-note defas-source-note";
+      note.textContent =
+        "DEFAS dient ausschließlich als ergänzende Vergleichsquelle. " +
+        "Vertragsrelevante Bewertungen erfolgen auf Basis der originären ITCS-/AFZS-Daten " +
+        "und der hinterlegten Vertragsregeln.";
+      realtime.querySelector(".panel-heading")?.insertAdjacentElement("afterend", note);
+    }
+
+    const detail = realtime.querySelector(".realtime-detail");
+    if (detail) {
+      detail.id = "defas-detail";
+      detail.hidden = true;
+
+      let toggle = realtime.querySelector("#defas-detail-toggle");
+      if (!toggle) {
+        toggle = document.createElement("button");
+        toggle.id = "defas-detail-toggle";
+        toggle.type = "button";
+        toggle.className = "detail-toggle";
+        toggle.textContent = "DEFAS-Details anzeigen";
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-controls", "defas-detail");
+
+        const statusLine = realtime.querySelector("#rt-status");
+        if (statusLine) statusLine.insertAdjacentElement("afterend", toggle);
+        else realtime.querySelector(".defas-source-note")?.insertAdjacentElement("afterend", toggle);
+      }
+
+      toggle.addEventListener("click", () => {
+        const open = detail.hidden;
+        detail.hidden = !open;
+        toggle.textContent = open ? "DEFAS-Details ausblenden" : "DEFAS-Details anzeigen";
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    }
+  }
+
+  // ---------- AFZS ----------
+  const passenger = document.querySelector("#fahrgaeste-auslastung");
+  if (passenger) {
+    const title = passenger.querySelector("h2");
+    const caption = passenger.querySelector(".network-caption");
+    if (title) title.textContent = "Noch keine AFZS-Betriebsdaten importiert";
+    if (caption) {
+      caption.textContent =
+        "Nach dem verbindlichen Import von Fahrgastzähldaten werden hier Einsteiger, " +
+        "Aussteiger, Besetzung, Auslastung und Linienabschnitte ausgewertet.";
+    }
+  }
+
+  // ---------- Netz & Fahrplan ----------
   let netTabs = document.querySelector("#net-subnav");
   if (!netTabs) {
     netTabs = document.createElement("div");
@@ -339,23 +274,30 @@
   function setNetSubview(name) {
     activeNetSubview = name;
 
+    // Erst alle Netz-Inhalte ausblenden.
     main.querySelectorAll(":scope > [data-dashboard-view='netz-fahrplan']").forEach((node) => {
-      if (node === netTabs) {
-        node.classList.add("is-active-view");
-        return;
-      }
-
-      if (node === timetablePanel) {
-        const shouldShow = name === "fahrplanangebot" || name === "betriebszeiten";
-        node.classList.toggle("is-active-net-subview", shouldShow);
-        node.classList.toggle("operation-only", name === "betriebszeiten");
-        node.classList.toggle("offer-only", name === "fahrplanangebot");
-        return;
-      }
-
-      const sub = node.dataset.netSubview || "netzstruktur";
-      node.classList.toggle("is-active-net-subview", sub === name);
+      node.classList.remove("is-active-net-subview", "offer-only", "operation-only");
     });
+
+    // Untermenü bleibt sichtbar.
+    netTabs.classList.add("is-active-net-subview");
+
+    if (name === "netzstruktur") {
+      main.querySelectorAll(
+        ":scope > [data-dashboard-view='netz-fahrplan'][data-net-subview='netzstruktur']"
+      ).forEach((node) => node.classList.add("is-active-net-subview"));
+    }
+
+    if (name === "dokumente") {
+      main.querySelectorAll(
+        ":scope > [data-dashboard-view='netz-fahrplan'][data-net-subview='dokumente']"
+      ).forEach((node) => node.classList.add("is-active-net-subview"));
+    }
+
+    if ((name === "fahrplanangebot" || name === "betriebszeiten") && timetablePanel) {
+      timetablePanel.classList.add("is-active-net-subview");
+      timetablePanel.classList.add(name === "betriebszeiten" ? "operation-only" : "offer-only");
+    }
 
     netTabs.querySelectorAll("button").forEach((button) => {
       const active = button.dataset.netTarget === name;
@@ -368,58 +310,56 @@
     const button = event.target.closest("button[data-net-target]");
     if (!button) return;
     setNetSubview(button.dataset.netTarget);
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   });
 
-  // ----------------------------------------------------------
-  // Datenstände / Footer eindeutig beschriften
-  // ----------------------------------------------------------
+  // ---------- Datenimport ----------
+  const importPanel = document.querySelector("#datenimport");
+  if (importPanel) {
+    replaceLeafText(importPanel, "LIEFERMONAT", "LIEFERPERIODE");
+  }
 
-  function refreshOverviewStatus() {
+  // ---------- Verwaltung ----------
+  const masterdata = document.querySelector("#stammdaten");
+  if (masterdata) {
+    masterdata.querySelectorAll(".network-caption").forEach((p) => {
+      if ((p.textContent || "").includes("Beispiel:")) {
+        p.textContent = "Die Linie kann leer bleiben und später ergänzt werden.";
+      }
+    });
+  }
+
+  // ---------- Datenstände ----------
+  function cleanDateText(text) {
+    return (text || "")
+      .replace(/^Automatischer Datenstand:\s*/i, "")
+      .replace(/^Netzdaten aktualisiert:\s*/i, "")
+      .replace(/^Datenstand:\s*/i, "")
+      .trim();
+  }
+
+  function refreshDataStatus() {
     const snapshot = document.querySelector("#rt-snapshot")?.textContent?.trim();
     const defas = document.querySelector("#overview-defas");
-    if (defas) {
-      defas.textContent = snapshot
-        ? `Messlauf ${snapshot}`
-        : "Keine Vergleichsdaten erkannt";
-    }
+    if (defas) defas.textContent = snapshot ? `Messlauf ${snapshot}` : "Keine Vergleichsdaten erkannt";
 
-    const dataDate = document.querySelector("#data-date")?.textContent?.trim() || "";
-    const detail = document.querySelector("#overview-plan-detail");
-    if (detail) {
-      const cleaned = dataDate
-        .replace(/^Automatischer Datenstand:\s*/i, "")
-        .replace(/^Datenstand:\s*/i, "")
-        .trim();
-
-      detail.textContent = cleaned
+    const footerDate = document.querySelector("#data-date");
+    const cleaned = cleanDateText(footerDate?.textContent || "");
+    const planDetail = document.querySelector("#overview-plan-detail");
+    if (planDetail) {
+      planDetail.textContent = cleaned
         ? `Netzdaten aktualisiert: ${cleaned}`
         : "Netzstruktur und planmäßiges Angebot";
     }
   }
 
-  const dataDate = document.querySelector("#data-date");
-  if (dataDate) {
-    const normalizeFooterDate = () => {
-      const txt = dataDate.textContent || "";
-      if (/^Automatischer Datenstand:/i.test(txt)) {
-        dataDate.textContent = txt.replace(
-          /^Automatischer Datenstand:/i,
-          "Netzdaten aktualisiert:"
-        );
-      }
-      refreshOverviewStatus();
-    };
-
-    const observer = new MutationObserver(normalizeFooterDate);
-    observer.observe(dataDate, { childList: true, characterData: true, subtree: true });
-    normalizeFooterDate();
+  // Der globale Footer soll keinen fachlich irreführenden Netzdatenstand zeigen.
+  const footerDate = document.querySelector("#data-date");
+  if (footerDate) {
+    const observer = new MutationObserver(refreshDataStatus);
+    observer.observe(footerDate, { childList: true, characterData: true, subtree: true });
   }
 
-  // ----------------------------------------------------------
-  // Hauptansichts-Wechsel
-  // ----------------------------------------------------------
-
+  // ---------- Hauptansicht ----------
   function updateIntro(viewName) {
     const config = views[viewName] || views.uebersicht;
     const eyebrow = intro.querySelector(".eyebrow");
@@ -435,8 +375,7 @@
     if (!views[viewName]) viewName = "uebersicht";
 
     main.querySelectorAll(":scope > [data-dashboard-view]").forEach((node) => {
-      const active = node.dataset.dashboardView === viewName;
-      node.classList.toggle("is-active-view", active);
+      node.classList.toggle("is-active-view", node.dataset.dashboardView === viewName);
     });
 
     nav.querySelectorAll("a").forEach((link) => {
@@ -453,12 +392,9 @@
       setNetSubview(activeNetSubview);
     }
 
-    refreshOverviewStatus();
+    refreshDataStatus();
 
-    if (updateHash) {
-      history.replaceState(null, "", "#" + viewName);
-    }
-
+    if (updateHash) history.replaceState(null, "", "#" + viewName);
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }
 
@@ -478,11 +414,9 @@
     setActiveView(views[viewName] ? viewName : "uebersicht", false);
   });
 
-  // Dashboard-Daten werden teilweise asynchron gesetzt.
-  setTimeout(refreshOverviewStatus, 300);
-  setTimeout(refreshOverviewStatus, 1200);
-
   setNetSubview("netzstruktur");
+  setTimeout(refreshDataStatus, 250);
+  setTimeout(refreshDataStatus, 1000);
 
   const initial = location.hash.replace(/^#/, "");
   setActiveView(views[initial] ? initial : "uebersicht", false);
