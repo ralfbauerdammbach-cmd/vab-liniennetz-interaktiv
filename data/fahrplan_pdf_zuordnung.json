@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T08:57:19+00:00",
+  "generated_at": "2026-10-02T08:32:53+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -269,11 +269,11 @@
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 05.10.26 – 06.12.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 05.10.26 – 06.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_Niedersteinbach_6bc01498d3.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_Niedersteinbach_5da0b08845.pdf"
       },
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 07.09.26 – 20.11.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 07.09.26 – 20.11.26",
+        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 07.09.26 – 04.10.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 07.09.26 – 04.10.26",
         "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_Bau_Ludwigstrasse_711e1cc66b.pdf"
       }
@@ -317,21 +317,9 @@
     "29": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 29 0.02 MB Linie 29 Krombach-Schöllkrippen Gültig 05.10.26 – 06.12.26 Bus Linie 29 0.02 MB PDF Linie 29 Krombach-Schöllkrippen Gültig 05.10.26 – 06.12.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/29_beide_2026_Bau_Niedersteinbach_304eee0d28.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 29 0.03 MB Linie 29 Krombach-Schöllkrippen Gültig 05.10.26 – 06.12.26 Bus Linie 29 0.03 MB PDF Linie 29 Krombach-Schöllkrippen Gültig 05.10.26 – 06.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/29_beide_2026_Bau_Niedersteinbach_e8b9825787.pdf"
-      },
-      {
-        "type": "Regulärer Fahrplan",
-        "title": "Linie 29 0.03 MB Linie 29 Krombach-Schöllkrippen Stand 14.12.25 Bus Linie 29 0.03 MB PDF Linie 29 Krombach-Schöllkrippen Stand 14.12.25",
-        "valid_from": "2025-12-14",
-        "url": "https://vab-cms-prod.japi.dev/uploads/29_beide_2026_c7f8911c43.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/29_beide_2026_Bau_Niedersteinbach_9d2b495f5e.pdf"
       }
     ],
     "29 S": [
@@ -339,13 +327,7 @@
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 29S 0.04 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 06.12.26 Bus Linie 29S 0.04 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 06.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_Niedersteinbach_59cad26e61.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Linie 29S 0.25 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 08.06.26 Bus Linie 29S 0.25 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 08.06.26",
-        "valid_from": "2026-06-08",
-        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_AB_19_759f5f3698.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_Niedersteinbach_d86779dc68.pdf"
       }
     ],
     "29S": [
@@ -353,13 +335,7 @@
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 29S 0.04 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 06.12.26 Bus Linie 29S 0.04 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 06.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_Niedersteinbach_59cad26e61.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Linie 29S 0.25 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 08.06.26 Bus Linie 29S 0.25 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Stand 08.06.26",
-        "valid_from": "2026-06-08",
-        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_AB_19_759f5f3698.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_Niedersteinbach_d86779dc68.pdf"
       }
     ],
     "30": [
