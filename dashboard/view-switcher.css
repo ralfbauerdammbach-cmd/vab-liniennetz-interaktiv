@@ -1,0 +1,237 @@
+﻿/* ============================================================
+   Fachlich konsolidierte Dashboard-Ansichten
+   ============================================================ */
+
+.dashboard > [data-dashboard-view] {
+  display: none !important;
+}
+
+.dashboard > [data-dashboard-view].is-active-view {
+  display: block !important;
+}
+
+.dashboard > .kpi-grid[data-dashboard-view].is-active-view {
+  display: grid !important;
+}
+
+.dashboard > .intro {
+  display: flex !important;
+  margin-bottom: 18px !important;
+}
+
+.dashboard > .section-anchor {
+  display: none !important;
+}
+
+.dashboard-sidebar .sidebar-menu a.is-active {
+  position: relative;
+  background: #eaf1f7;
+  color: #003b7a;
+  font-weight: 700;
+}
+
+.dashboard-sidebar .sidebar-menu a.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 4px;
+  height: 18px;
+  border-radius: 4px;
+  background: #003b7a;
+}
+
+.intro .data-status {
+  display: none !important;
+}
+
+/* Übersicht */
+.overview-status {
+  margin-top: 8px;
+}
+
+.overview-status-heading {
+  margin-bottom: 14px;
+}
+
+.overview-status-heading h2 {
+  margin: 3px 0 0;
+  color: #003b7a;
+  font-size: 1.35rem;
+}
+
+.overview-status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.status-card {
+  min-height: 126px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 19px 20px;
+  border: 1px solid rgba(0, 47, 108, 0.10);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 47, 108, 0.05);
+}
+
+.status-card span {
+  color: #667380;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-card strong {
+  color: #003b7a;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.status-card small {
+  margin-top: auto;
+  color: #7b8794;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.overview-note,
+.source-note {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(0, 47, 108, 0.10);
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #596775;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* Betrieb */
+.operation-status-panel {
+  margin-bottom: 16px;
+}
+
+.operation-status-panel .panel-heading {
+  margin-bottom: 0;
+}
+
+.defas-source-note {
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+/* Netz & Fahrplan */
+.net-subnav {
+  display: none;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+
+.net-subnav.is-active-view {
+  display: flex !important;
+}
+
+.net-subnav button {
+  appearance: none;
+  border: 1px solid rgba(0, 47, 108, 0.14);
+  border-radius: 999px;
+  padding: 9px 14px;
+  background: #fff;
+  color: #34495e;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.net-subnav button:hover,
+.net-subnav button:focus-visible {
+  border-color: rgba(0, 59, 122, 0.35);
+  color: #003b7a;
+  outline: none;
+}
+
+.net-subnav button.is-active {
+  background: #eaf1f7;
+  border-color: #d5e2ee;
+  color: #003b7a;
+}
+
+.dashboard > [data-dashboard-view="netz-fahrplan"].is-active-view:not(#net-subnav) {
+  display: none !important;
+}
+
+.dashboard > [data-dashboard-view="netz-fahrplan"].is-active-view.is-active-net-subview {
+  display: block !important;
+}
+
+.dashboard > .kpi-grid[data-dashboard-view="netz-fahrplan"].is-active-view.is-active-net-subview {
+  display: grid !important;
+}
+
+/* Fahrplanangebot und Betriebszeiten teilen sich aktuell ein Panel.
+   In der Angebotsansicht wird die Betriebstabelle ausgeblendet,
+   in der Betriebszeitenansicht nur die Betriebstabelle gezeigt. */
+.timetable-panel.offer-only #betriebszeiten {
+  display: none !important;
+}
+
+.timetable-panel.operation-only > .panel-heading,
+.timetable-panel.operation-only > .timetable-kpis,
+.timetable-panel.operation-only > .timetable-columns,
+.timetable-panel.operation-only > .daily-profile,
+.timetable-panel.operation-only > #tt-validity {
+  display: none !important;
+}
+
+.timetable-panel.operation-only > #betriebszeiten {
+  display: block !important;
+}
+
+.timetable-panel.operation-only {
+  padding-top: 22px;
+}
+
+/* Große Netzdarstellungen begrenzen, ohne Daten zu entfernen. */
+.line-analysis-panel #line-analysis {
+  max-height: 390px;
+  overflow: auto;
+}
+
+.operation-table-wrap {
+  max-height: 520px;
+  overflow: auto;
+}
+
+/* Keine Ampel-/Statuswirkung für fachlich unterschiedliche Datenquellen. */
+.status-card,
+.overview-note,
+.source-note {
+  border-left-width: 1px !important;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .overview-status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .overview-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .net-subnav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AMINA | VAB-Liniennetz Dashboard</title>
+  <title>AMINA | VAB Controlling Dashboard</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +11,8 @@
 
   <link rel="stylesheet" href="dashboard.css">
   <link rel="stylesheet" href="navigation.css?v=1206">
+  <link rel="stylesheet" href="layout-v2.css?v=2">
+  <link rel="stylesheet" href="view-switcher.css?v=3">
 </head>
 
 <body>
@@ -28,15 +30,28 @@
       <strong>Dashboard</strong>
     </div>
   </header>
-  <nav class="dashboard-nav" aria-label="Dashboard-Navigation">
-    <a href="#uebersicht">Übersicht</a>
-    <a href="#netzstruktur">Netzstruktur</a>
-    <a href="#fahrplanangebot">Fahrplanangebot</a>
-    <a href="#betriebszeiten">Betriebszeiten</a>
-    <a href="#defas-echtzeit">DEFAS Echtzeit</a>
-    <a href="#datenimport">Datenimport</a>
-    <a href="#stammdaten">Stammdaten</a>
-    <a href="#auffaellige-linien">Auffällige Linien</a>
+    <nav class="dashboard-nav dashboard-sidebar" aria-label="Dashboard-Navigation">
+    <div class="sidebar-brand">
+      <img src="assets/amina-logo.png" alt="AMINA">
+      <div>
+        <strong>VAB Dashboard</strong>
+        <span>Controlling</span>
+      </div>
+    </div>
+
+    <div class="sidebar-menu">
+      <a href="#uebersicht">Übersicht</a>
+      <a href="#betrieb-qualitaet">Betrieb &amp; Qualität</a>
+      <a href="#fahrgaeste-auslastung">Fahrgäste &amp; Auslastung</a>
+      <a href="#netz-fahrplan">Netz &amp; Fahrplan</a>
+      <a href="#datenimport">Datenimport</a>
+      <a href="#stammdaten">Verwaltung</a>
+    </div>
+
+    <div class="sidebar-footer">
+      <span>AMINA</span>
+      <small>ÖPNV-Controlling</small>
+    </div>
   </nav>
 
   <main class="dashboard">
@@ -44,7 +59,7 @@
     <section class="intro" id="uebersicht">
       <div>
         <p class="eyebrow">NETZ- UND ANGEBOTSANALYSE</p>
-        <h1>VAB-Liniennetz auf einen Blick</h1>
+        <h1>VAB Controlling Dashboard</h1>
         <p class="intro-text">
           Kennzahlen und Strukturen des Verkehrsnetzes auf Basis der
           vorhandenen VAB-Liniennetz-Daten.
@@ -82,36 +97,10 @@
         <span class="kpi-info">je Haltestelle</span>
       </article>
     </section>
-
-    <section class="analysis-grid">
-
-      <article class="panel">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">NETZKNOTEN</p>
-            <h2>Haltestellen mit den meisten Linien</h2>
-          </div>
-        </div>
-
-        <div id="top-stops" class="ranking">
-          <p class="loading">Daten werden geladen …</p>
-        </div>
-      </article>
-
-      <article class="panel">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">REGION</p>
-            <h2>Orte mit den meisten Haltestellen</h2>
-          </div>
-        </div>
-
-        <div id="top-places" class="ranking">
-          <p class="loading">Daten werden geladen …</p>
-        </div>
-      </article>
-
-    </section>
+    <!-- Kompatibilitätsziele für bestehende Dashboard-Logik; in der Übersicht bewusst nicht sichtbar. -->
+    <div id="top-stops" hidden></div>
+    <div id="top-places" hidden></div>
+    <span id="netz-fahrplan" class="section-anchor"></span>
 
     <section class="panel documents-panel">
       <div class="panel-heading">
@@ -368,6 +357,7 @@
       </div>
       <p id="tt-validity" class="timetable-validity"></p>
     </section>
+    <span id="betrieb-qualitaet" class="section-anchor"></span>
     <section class="panel realtime-panel" id="defas-echtzeit">
       <div class="panel-heading">
         <div>
@@ -418,7 +408,7 @@
           </div>
         </div>
 
-        <div class="line-operation" id="betriebszeiten">
+        <div class="line-operation">
           <div class="line-operation-heading">
             <div>
               <span id="auffaellige-linien"></span><p class="eyebrow">AUFFÄLLIGE LINIEN</p>
@@ -497,7 +487,19 @@
       </div>
       <!-- DEFAS_DETAIL_END -->
     </section>
-            <section class="panel import-panel" id="datenimport">
+                <section class="panel compact-placeholder-panel" id="fahrgaeste-auslastung">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">FAHRGÄSTE &amp; AUSLASTUNG</p>
+          <h2>AFZS-Auswertungen</h2>
+          <p class="network-caption">
+            Dieser Arbeitsbereich wird mit den importierten AFZS-Daten befüllt.
+            Einsteiger, Aussteiger, Belegung und Auslastung werden hier gebündelt.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="panel import-panel" id="datenimport">
       <div class="panel-heading">
         <div>
           <p class="eyebrow">DATENIMPORT</p>
@@ -683,29 +685,25 @@
         </div>
       </div>
     </section>
-    <section class="future">
-      <span class="future-mark"></span>
-      <div>
-        <strong>Nächste Ausbaustufe</strong>
-        <p>
-          Historische Zeitreihen, Linienvergleich und weiterführende
-          Pünktlichkeitsanalysen.
-        </p>
-      </div>
-    </section>
 
   </main>
 
   <footer>
-    <span>AMINA · VAB-Liniennetz Dashboard</span>
+    <span>AMINA · VAB Controlling Dashboard</span>
     <span id="data-date"></span>
   </footer>
 
   <script src="dashboard.js?v=1127"></script>
   <script src="importcenter.js?v=4"></script>
   <script src="stammdaten.js?v=8"></script>
+  <script src="view-switcher.js?v=3"></script>
 </body>
 </html>
+
+
+
+
+
 
 
 
