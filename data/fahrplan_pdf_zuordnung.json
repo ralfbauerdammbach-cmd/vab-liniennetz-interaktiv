@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T08:58:55+00:00",
+  "generated_at": "2026-10-09T09:05:49+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -607,6 +607,12 @@
       }
     ],
     "65": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 65 0.21 MB Streit-Mechenhard-Erlenbach Gültig 12.10.26 – 20.11.26 Bus Linie 65 0.21 MB PDF Streit-Mechenhard-Erlenbach Gültig 12.10.26 – 20.11.26",
+        "valid_from": "",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_65_Baustelle_Berliner_Str_12_10_20_11_2026_03dd3d7510.pdf"
+      },
       {
         "type": "Regulärer Fahrplan",
         "title": "Linie 65 0.21 MB Streit-Mechenhard-Erlenbach Stand 14.12.25 Bus Linie 65 0.21 MB PDF Streit-Mechenhard-Erlenbach Stand 14.12.25",
