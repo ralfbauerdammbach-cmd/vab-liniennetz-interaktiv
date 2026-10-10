@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T09:05:49+00:00",
+  "generated_at": "2026-10-10T08:30:31+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -318,6 +318,12 @@
     ],
     "24": [
       {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 24 0.04 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig 12.10.26 – 20.11.26 Bus Linie 24 0.04 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig 12.10.26 – 20.11.26",
+        "valid_from": "",
+        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_Bau_Dyroffstr_c0de639cc5.pdf"
+      },
+      {
         "type": "Regulärer Fahrplan",
         "title": "Linie 24 0.26 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Stand 13.04.26 Bus Linie 24 0.26 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Stand 13.04.26",
         "valid_from": "2026-04-13",
@@ -327,15 +333,15 @@
     "25": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 05.10.26 – 06.12.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 05.10.26 – 06.12.26",
+        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 05.10.26 – 11.10.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 05.10.26 – 11.10.26",
         "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_Niedersteinbach_5da0b08845.pdf"
       },
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 07.09.26 – 04.10.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 07.09.26 – 04.10.26",
+        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 12.10.26 – 20.11.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 12.10.26 – 20.11.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_Bau_Ludwigstrasse_711e1cc66b.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_N_stb_Dyroff_db89a6401b.pdf"
       }
     ],
     "26": [
