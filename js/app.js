@@ -2925,100 +2925,165 @@ function vabGetOrderedPatternStops(layer) {
   return result;
 }
 
-function vabCreateOrderedStopsHtml(layer) {
-  const stops = vabGetOrderedPatternStops(layer);
-  if (!stops.length) {
-    return '<p>Für diesen Fahrweg ist keine Haltestellenfolge hinterlegt.</p>';
+/*
+ * Kompakter Haltestellenfinder: eine Suchliste mit begrenzter
+ * Höhe und genau einer Aktionsgruppe für die gewählte Haltestelle.
+ * Keine unendliche Liste und keine DB-Schaltfläche je Haltestelle.
+ */
+function vabMountStopFinder(host, layers, preferredStop = null) {
+  if (!host) return;
+  const entries = [];
+  const seen = new Set();
+  for (const layer of layers) {
+    for (const stop of vabGetOrderedPatternStops(layer)) {
+      const key = String(stop.id || stop.name).replace(/(?:_G)+$/, '');
+      if (seen.has(key)) continue;
+      seen.add(key);
+      entries.push(stop);
+    }
   }
+  if (preferredStop?.name && !entries.some(stop =>
+    (preferredStop.id && stop.id === preferredStop.id)
+    || stop.name === preferredStop.name
+  )) {
+    entries.unshift({
+      name: preferredStop.name,
+      id: String(preferredStop.id || ''),
+      lat: Number(preferredStop.lat),
+      lon: Number(preferredStop.lon)
+    });
+  }
+  let chosen = preferredStop
+    ? entries.find(stop =>
+        (preferredStop.id && stop.id === preferredStop.id)
+        || stop.name === preferredStop.name
+      ) ?? entries[0]
+    : entries[0];
+  host.innerHTML = `
+    <div class="vab-finder">
+      <label class="vab-finder-label" for="vab-finder-search">Haltestelle suchen</label>
+      <input id="vab-finder-search" class="vab-finder-search"
+        type="search" placeholder="Name der Haltestelle …" autocomplete="off">
+      <div class="vab-finder-count" aria-live="polite"></div>
+      <div class="vab-finder-results" role="listbox"
+        aria-label="Haltestellen des gewählten Fahrwegs"></div>
+      <div class="vab-finder-selected" aria-live="polite"></div>
+    </div>`;
+  const input = host.querySelector('.vab-finder-search');
+  const results = host.querySelector('.vab-finder-results');
+  const selected = host.querySelector('.vab-finder-selected');
+  const count = host.querySelector('.vab-finder-count');
 
-  return `
-    <ol class="vab-fahrweg-haltestellen">
-      ${stops.map(stop => `
-        <li>
-          <span class="vab-fahrweg-stopname">${escapeHtml(stop.name)}</span>
-          <span class="vab-fahrweg-db-links">
-            <button type="button" class="vab-db-stop-action"
-              data-stop-name="${escapeHtml(stop.name)}" data-db-role="start"
-              aria-label="${escapeHtml(stop.name)} kopieren und DB-Suche für Start öffnen">
-              ↗ Start kopieren &amp; DB öffnen
-            </button>
-            <button type="button" class="vab-db-stop-action"
-              data-stop-name="${escapeHtml(stop.name)}" data-db-role="ziel"
-              aria-label="${escapeHtml(stop.name)} kopieren und DB-Suche für Ziel öffnen">
-              ↗ Ziel kopieren &amp; DB öffnen
-            </button>
-          </span>
-        </li>
-      `).join('')}
-    </ol>
-  `;
+  function showChosen() {
+    if (!chosen) {
+      selected.innerHTML = '<p>Keine Haltestelle verfügbar.</p>';
+      return;
+    }
+    selected.innerHTML = `
+      <div class="vab-finder-overline">Ausgewählte Haltestelle</div>
+      <strong class="vab-finder-selected-name">${escapeHtml(chosen.name)}</strong>
+      <div class="vab-finder-actions">
+        <a class="vab-finder-db-link" target="_blank" rel="noopener noreferrer"
+          href="https://www.bahn.de/buchung/start#?SO=${encodeURIComponent(chosen.name)}">
+          ↗ Von hier fahren
+        </a>
+        <a class="vab-finder-db-link" target="_blank" rel="noopener noreferrer"
+          href="https://www.bahn.de/buchung/start#?ZO=${encodeURIComponent(chosen.name)}">
+          ↗ Hierhin fahren
+        </a>
+      </div>
+      <p class="vab-finder-note">DB-Verbindungssuche: Bitte prüfen, ob die
+      Haltestelle dort korrekt übernommen wird.</p>`;
+  }
+  function showResults() {
+    const query = input.value.trim().toLocaleLowerCase('de');
+    const matches = entries.filter(stop =>
+      stop.name.toLocaleLowerCase('de').includes(query)
+    );
+    count.textContent = matches.length + ' Haltestellen';
+    results.replaceChildren();
+    if (!matches.length) {
+      const empty = document.createElement('p');
+      empty.className = 'vab-finder-empty';
+      empty.textContent = 'Keine passende Haltestelle.';
+      results.appendChild(empty);
+    }
+    for (const stop of matches) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'vab-finder-stop' +
+        (stop === chosen ? ' aktiv' : '');
+      button.setAttribute('role', 'option');
+      button.setAttribute('aria-selected', String(stop === chosen));
+      button.textContent = stop.name;
+      button.addEventListener('click', () => {
+        chosen = stop;
+        showChosen();
+        showResults();
+        // Karte bleibt auf dem gewählten Fahrweg, kein Hineinzoomen.
+      });
+      results.appendChild(button);
+    }
+  }
+  input.addEventListener('input', showResults);
+  showChosen();
+  showResults();
 }
 
-function vabShowLineStopsWithoutVariants(lineName) {
+function vabShowLineStopsWithoutVariants(lineName, preferredStop = null) {
   const layers = linienNachName.get(String(lineName)) ?? [];
   if (!layers.length) {
     setStatus('Für diese Linie ist kein Fahrweg hinterlegt', 'fehler');
     return;
   }
-
-  // Auch Linien ohne Variantendatei erhalten eine Fahrwegauswahl.
-  const buttons = layers.map((layer, index) => {
+  const options = layers.map((layer, index) => {
     const stops = vabGetOrderedPatternStops(layer);
     const first = stops[0]?.name ?? 'Start';
     const last = stops[stops.length - 1]?.name ?? 'Ziel';
-    return `<button type="button" class="vab-fahrweg-pattern"
-      data-pattern-index="${index}">
-      ${escapeHtml(first)} → ${escapeHtml(last)}
-    </button>`;
+    return `<option value="${index}">${escapeHtml(first)} → ${escapeHtml(last)}</option>`;
   }).join('');
-
   infoPanelInhalt.innerHTML = `
-    <div class="seitenleisten-inhalt linien-information">
-      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
-      <h3>Abfahrtstafel / Haltestellen</h3>
-      <p>Fahrweg auswählen. Haltestellen in Fahrtreihenfolge,
-         keine Echtzeit-Abfahrten.</p>
-      <div class="vab-fahrweg-pattern-liste">${buttons}</div>
-      <div class="vab-fahrweg-stops">
-        ${vabCreateOrderedStopsHtml(layers[0])}
-      </div>
-      <button type="button" class="vab-popup-pdf">PDF-Fahrplan</button>
-    </div>
-  `;
+    <div class="seitenleisten-inhalt linien-information vab-board-dialog">
+      <div class="vab-dialog-eyebrow">Linie ${escapeHtml(vabDisplayLineName(lineName))} · VAB</div>
+      <h2>Haltestellenfinder</h2>
+      <label class="vab-finder-label" for="vab-pattern-select">Fahrweg</label>
+      <select id="vab-pattern-select" class="vab-finder-select">${options}</select>
+      <div class="vab-finder-host"></div>
+      <button type="button" class="vab-popup-pdf vab-finder-pdf">PDF-Fahrplan ansehen</button>
+    </div>`;
   vabOpenLineDialog();
-
-  function activate(index) {
+  const selector = infoPanelInhalt.querySelector('#vab-pattern-select');
+  function activate(index, focus = null) {
     const layer = layers[index];
     if (!layer) return;
-    if (fixierteLinie && fixierteLinie !== lineName) {
-      resetLineStyle(fixierteLinie);
-    }
+    if (fixierteLinie && fixierteLinie !== lineName) resetLineStyle(fixierteLinie);
     fixierteLinie = lineName;
     removeSelection();
     resetLineStyle(lineName);
     layer.setStyle({ color: '#FF009B', weight: 7, opacity: 1 });
     showStopsForLine(lineName, [layer]);
-    infoPanelInhalt.querySelector('.vab-fahrweg-stops').innerHTML =
-      vabCreateOrderedStopsHtml(layer);
-    for (const button of infoPanelInhalt.querySelectorAll('.vab-fahrweg-pattern')) {
-      button.classList.toggle(
-        'aktiv', Number(button.dataset.patternIndex) === index
-      );
-    }
-    const bounds = getBoundsForLayers([layer]);
-    if (bounds.isValid()) karte.fitBounds(bounds, {
-      padding: [30, 30], maxZoom: 15
-    });
-  }
-
-  for (const button of infoPanelInhalt.querySelectorAll('.vab-fahrweg-pattern')) {
-    button.addEventListener('click', () =>
-      activate(Number(button.dataset.patternIndex))
+    vabMountStopFinder(
+      infoPanelInhalt.querySelector('.vab-finder-host'),
+      [layer], focus
     );
+    const bounds = getBoundsForLayers([layer]);
+    if (bounds.isValid()) window.setTimeout(() => {
+      karte.invalidateSize();
+      karte.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
+    }, 240);
   }
+  selector.addEventListener('change', () => activate(Number(selector.value)));
   infoPanelInhalt.querySelector('.vab-popup-pdf')
-    ?.addEventListener('click', () => vabShowLinePdfDocuments(lineName));
-  activate(0);
+    .addEventListener('click', () => vabShowLinePdfDocuments(lineName));
+  const matchingIndex = preferredStop
+    ? layers.findIndex(layer => vabGetOrderedPatternStops(layer).some(stop =>
+        (preferredStop.id && stop.id === preferredStop.id)
+        || stop.name === preferredStop.name
+      ))
+    : -1;
+  const firstIndex = matchingIndex >= 0 ? matchingIndex : 0;
+  selector.value = String(firstIndex);
+  activate(firstIndex, preferredStop);
 }
 
 function vabShowLineTripFromMapClick(
@@ -3496,12 +3561,12 @@ function showStopsForLine(lineName, selectedLayers = null) {
         };
 
         if (fixierteLinie) {
-          vabShowSchedule(
-            selectedStop,
-            fixierteLinie,
-            'map'
-          );
-
+          const group = getVariantGroup(fixierteLinie, vabAktuellesPatternId);
+          if (group) {
+            selectVariant(fixierteLinie, group.id, vabAktuellesPatternId, selectedStop);
+          } else {
+            vabShowLineStopsWithoutVariants(fixierteLinie, selectedStop);
+          }
           return;
         }
 
@@ -3619,167 +3684,72 @@ function styleVariantLayers(
 
 let vabAktuellesPatternId = '';
 
-function renderVariants(
-  lineName,
-  activeGroup
-) {
-  const configuration =
-    getVariantConfiguration(lineName);
-
-  const groups =
-    configuration?.groups ?? [];
-
-  const hasMultipleVariants =
-    groups.length > 1;
-
-  const buttons = groups
-    .map(group => {
-      const active =
-        group.id === activeGroup?.id;
-
-      const description = group.description
-        ? `
-          <span class="varianten-beschreibung">
-            ${escapeHtml(group.description)}
-          </span>
-        `
-        : '';
-
-      const typeLabel =
-        group.type === 'schulverkehr'
-          ? 'Schulverkehr'
-          : 'Regelverkehr';
-
-      return `
-        <button
-          type="button"
-          class="varianten-button${active ? ' aktiv' : ''}"
-          data-variant-id="${escapeHtml(group.id)}"
-          aria-pressed="${active ? 'true' : 'false'}"
-        >
-          <span class="varianten-titel">
-            ${escapeHtml(group.label)}
-          </span>
-
-          ${description}
-
-          <span class="varianten-typ">
-            ${escapeHtml(typeLabel)}
-          </span>
-        </button>
-      `;
-    })
-    .join('');
-
-  const hintHtml =
-    hasMultipleVariants
-      ? `
-        <p class="varianten-hinweis">
-          Diese Linie besitzt mehrere Fahrwege.
-          Wählen Sie die gewünschte Variante.
-        </p>
-      `
-      : `
-        <p class="varianten-hinweis">
-          Fahrweg der Linie
-          ${escapeHtml(vabDisplayLineName(lineName))}.
-        </p>
-      `;
-
-  const pdfHtml =
-    vabCreateSchedulePdfHtml(lineName);
-
-  const activeLayers = getLayersForVariant(lineName, activeGroup);
-  const selectedPatternLayer = activeLayers.find(layer =>
-    getPatternIdFromLayer(layer) === vabAktuellesPatternId
-  ) ?? activeLayers[0];
-  const orderedStopsHtml = selectedPatternLayer
-    ? vabCreateOrderedStopsHtml(selectedPatternLayer)
-    : '<p>Keine Haltestellenfolge vorhanden.</p>';
-
+function renderVariants(lineName, activeGroup, preferredStop = null) {
+  const groups = getVariantConfiguration(lineName)?.groups ?? [];
+  const options = groups.map(group => `
+    <option value="${escapeHtml(group.id)}"
+      ${group.id === activeGroup?.id ? 'selected' : ''}>
+      ${escapeHtml(group.label)}
+      ${group.type === 'schulverkehr' ? ' · Schulverkehr' : ''}
+    </option>`).join('');
+  const layers = getLayersForVariant(lineName, activeGroup);
+  const directionOptions = layers.map((layer, index) => {
+    const stops = vabGetOrderedPatternStops(layer);
+    const first = stops[0]?.name ?? 'Start';
+    const last = stops[stops.length - 1]?.name ?? 'Ziel';
+    return `<option value="${index}">${escapeHtml(first)} → ${escapeHtml(last)}</option>`;
+  }).join('');
   infoPanelInhalt.innerHTML = `
-    <div class="seitenleisten-inhalt linien-information">
-      <div class="liniennummer-gross">
-        ${escapeHtml(vabDisplayLineName(lineName))}
-      </div>
-
-      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
-
-      ${hintHtml}
-
-      <h3>Linienweg und Fahrwegvarianten</h3>
-
-      <div class="varianten-liste">
-        ${buttons}
-      </div>
-
-      <section class="vab-suche-panel-bereich">
-        <h3>Haltestellen in Fahrtreihenfolge</h3>
-        ${orderedStopsHtml}
-      </section>
-
-      <section class="vab-suche-panel-bereich">
-        <h3>Fahrplandokumente der Linie</h3>
-        <p class="varianten-hinweis">
-          Alle hier aufgeführten Fahrplan-PDFs gehören
-          zu dieser Linie. Die Fahrwegvarianten können
-          unabhängig davon auf der Karte gewählt werden.
-        </p>
-
-        <div class="vab-fahrplan-pdf-bereich">
-          ${pdfHtml}
-        </div>
-      </section>
-
-      <button
-        type="button"
-        class="vab-zurueck-rob"
-      >
-        Fenster schließen
-      </button>
-    </div>
-  `;
-
+    <div class="seitenleisten-inhalt linien-information vab-board-dialog">
+      <div class="vab-dialog-eyebrow">Linie ${escapeHtml(vabDisplayLineName(lineName))} · VAB</div>
+      <h2>Haltestellenfinder</h2>
+      <label class="vab-finder-label" for="vab-variant-select">Linienvariante</label>
+      <select id="vab-variant-select" class="vab-finder-select">${options}</select>
+      <label class="vab-finder-label" for="vab-direction-select">Fahrtrichtung</label>
+      <select id="vab-direction-select" class="vab-finder-select">${directionOptions}</select>
+      <div class="vab-finder-host"></div>
+      <button type="button" class="vab-finder-pdf">PDF-Fahrplan ansehen</button>
+    </div>`;
   vabOpenLineDialog();
-
-  for (
-    const button
-    of infoPanelInhalt.querySelectorAll(
-      '.varianten-button'
-    )
-  ) {
-    button.addEventListener(
-      'click',
-      event => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        selectVariant(
-          lineName,
-          button.dataset.variantId
-        );
-      }
+  const direction = infoPanelInhalt.querySelector('#vab-direction-select');
+  const firstIndex = Math.max(0, layers.findIndex(layer =>
+    (vabAktuellesPatternId && getPatternIdFromLayer(layer) === vabAktuellesPatternId)
+    || (preferredStop && vabGetOrderedPatternStops(layer).some(stop =>
+      (preferredStop.id && stop.id === preferredStop.id)
+      || stop.name === preferredStop.name
+    ))
+  ));
+  direction.value = String(firstIndex);
+  function updateDirection(index, focus = null) {
+    const layer = layers[index];
+    if (!layer) return;
+    vabAktuellesPatternId = getPatternIdFromLayer(layer);
+    styleVariantLayers(lineName, [layer]);
+    showStopsForLine(lineName, [layer]);
+    vabMountStopFinder(
+      infoPanelInhalt.querySelector('.vab-finder-host'), [layer], focus
     );
+    const bounds = getBoundsForLayers([layer]);
+    if (bounds.isValid()) window.setTimeout(() => {
+      karte.invalidateSize();
+      karte.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
+    }, 240);
   }
-
-  infoPanelInhalt
-    .querySelector('.vab-zurueck-rob')
-    ?.addEventListener(
-      'click',
-      () => {
-        infoPanelSchliessen.click();
-      }
-    );
-
-  window.setTimeout(() => {
-    karte.invalidateSize();
-  }, 230);
+  infoPanelInhalt.querySelector('#vab-variant-select')
+    .addEventListener('change', event => selectVariant(lineName, event.target.value));
+  direction.addEventListener('change', () =>
+    updateDirection(Number(direction.value))
+  );
+  infoPanelInhalt.querySelector('.vab-finder-pdf')
+    .addEventListener('click', () => vabShowLinePdfDocuments(lineName));
+  updateDirection(firstIndex, preferredStop);
 }
 
 function selectVariant(
   lineName,
   variantId,
-  patternId = ''
+  patternId = '',
+  preferredStop = null
 ) {
   vabAktuellesPatternId = patternId;
   const configuration =
@@ -3834,7 +3804,8 @@ function selectVariant(
 
   renderVariants(
     lineName,
-    group
+    group,
+    preferredStop
   );
 
   const bounds =
