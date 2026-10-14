@@ -2799,8 +2799,18 @@ function vabFindNearestStopForLineClick(
 function vabShowLineTripFromMapClick(
   lineName,
   latlng,
-  selectedLayers = null
+  selectedLayers = null,
+  patternId = ''
 ) {
+  // Variantenbezogene Kartenansicht vor Fahrplandokumenten.
+  if (getVariantConfiguration(lineName)) {
+    const group = getVariantGroup(lineName, patternId);
+    if (group) {
+      selectVariant(lineName, group.id);
+      return true;
+    }
+  }
+
   const stop =
     vabFindNearestStopForLineClick(
       lineName,
@@ -3514,12 +3524,19 @@ function renderVariants(
 
       ${hintHtml}
 
+      <h3>Linienweg und Fahrwegvarianten</h3>
+
       <div class="varianten-liste">
         ${buttons}
       </div>
 
       <section class="vab-suche-panel-bereich">
-        <h3>Fahrplandokumente</h3>
+        <h3>Fahrplandokumente der Linie</h3>
+        <p class="varianten-hinweis">
+          Die PDFs sind derzeit der gesamten Linie zugeordnet.
+          Eine genaue Zuordnung zur gewählten Variante
+          wird noch geprüft.
+        </p>
 
         <div class="vab-fahrplan-pdf-bereich">
           ${pdfHtml}
@@ -4092,7 +4109,9 @@ function addLineInteraction(feature, layer) {
        */
       vabShowLineTripFromMapClick(
         lineName,
-        event.latlng
+        event.latlng,
+        null,
+        getPatternIdFromLayer(layer)
       );
     }
   });
