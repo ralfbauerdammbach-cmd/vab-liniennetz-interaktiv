@@ -2871,18 +2871,35 @@ function vabShowLinePdfDocuments(lineName) {
  * als Start oder Ziel. Es wird kein App-Start versprochen:
  * das Betriebssystem entscheidet, ob eine App übernimmt.
  */
-function vabDbNavigatorUrl(stopName, asOrigin = false) {
-  const stop = String(stopName ?? '').trim();
-  const params = asOrigin
-    ? 'so=' + encodeURIComponent(stop)
-      + '&soid=' + encodeURIComponent('O=' + stop)
-    : 'zo=' + encodeURIComponent(stop)
-      + '&zoid=' + encodeURIComponent('O=' + stop);
-
-  // Kein automatischer Suchlauf: Start oder Ziel fehlt noch.
-  // Die DB-Seite soll zuerst die Eingabe ergänzen lassen.
-  return 'https://www.bahn.de/buchung/fahrplan/suche#sts=false&' + params;
+/*
+ * DB akzeptiert für lokale Haltestellen nicht zuverlässig einen
+ * aus dem Namen konstruierten Deep Link. Daher wird die Haltestelle
+ * kopiert und die reguläre DB-Verbindungssuche geöffnet.
+ */
+function vabOpenDbSearchForStop(stopName, asOrigin = false) {
+  const name = String(stopName ?? '').trim();
+  if (!name) return;
+  // Synchron im Klickhandler öffnen, damit Popup-Blocker nicht greifen.
+  window.open('https://www.bahn.de/', '_blank', 'noopener,noreferrer');
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(name).catch(() => {});
+  }
+  setStatus(
+    'Haltestelle „' + name + '“ kopieren und bei der DB als '
+    + (asOrigin ? 'Start' : 'Ziel') + ' einfügen.',
+    'erfolg'
+  );
 }
+
+document.addEventListener('click', event => {
+  const button = event.target.closest?.('.vab-db-stop-action');
+  if (!button) return;
+  event.preventDefault();
+  vabOpenDbSearchForStop(
+    button.dataset.stopName,
+    button.dataset.dbRole === 'start'
+  );
+});
 
 function vabGetOrderedPatternStops(layer) {
   const raw = layer?.feature?.properties?.stops ?? [];
@@ -2920,16 +2937,16 @@ function vabCreateOrderedStopsHtml(layer) {
         <li>
           <span class="vab-fahrweg-stopname">${escapeHtml(stop.name)}</span>
           <span class="vab-fahrweg-db-links">
-            <a href="${escapeHtml(vabDbNavigatorUrl(stop.name, true))}"
-               target="_blank" rel="noopener noreferrer"
-               aria-label="${escapeHtml(stop.name)} als Start im DB Navigator">
-              Als Start
-            </a>
-            <a href="${escapeHtml(vabDbNavigatorUrl(stop.name, false))}"
-               target="_blank" rel="noopener noreferrer"
-               aria-label="${escapeHtml(stop.name)} als Ziel im DB Navigator">
-              Als Ziel
-            </a>
+            <button type="button" class="vab-db-stop-action"
+              data-stop-name="${escapeHtml(stop.name)}" data-db-role="start"
+              aria-label="${escapeHtml(stop.name)} kopieren und DB-Suche für Start öffnen">
+              ↗ Start kopieren &amp; DB öffnen
+            </button>
+            <button type="button" class="vab-db-stop-action"
+              data-stop-name="${escapeHtml(stop.name)}" data-db-role="ziel"
+              aria-label="${escapeHtml(stop.name)} kopieren und DB-Suche für Ziel öffnen">
+              ↗ Ziel kopieren &amp; DB öffnen
+            </button>
           </span>
         </li>
       `).join('')}
