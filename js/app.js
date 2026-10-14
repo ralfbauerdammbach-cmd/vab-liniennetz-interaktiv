@@ -2854,7 +2854,7 @@ function vabShowLinePdfDocuments(lineName) {
       </button>
     </div>
   `;
-  vabOpenInfoPanel();
+  vabOpenLineDialog();
   infoPanelInhalt.querySelector('.vab-popup-zurueck')
     ?.addEventListener('click', () => {
       const group = getVariantGroup(lineName);
@@ -2966,7 +2966,7 @@ function vabShowLineStopsWithoutVariants(lineName) {
       <button type="button" class="vab-popup-pdf">PDF-Fahrplan</button>
     </div>
   `;
-  vabOpenInfoPanel();
+  vabOpenLineDialog();
 
   function activate(index) {
     const layer = layers[index];
@@ -3716,17 +3716,12 @@ function renderVariants(
         type="button"
         class="vab-zurueck-rob"
       >
-        Zurück zum ROB
+        Fenster schließen
       </button>
     </div>
   `;
 
-  infoPanel.classList.add('sichtbar');
-
-  infoPanel.setAttribute(
-    'aria-hidden',
-    'false'
-  );
+  vabOpenLineDialog();
 
   for (
     const button
@@ -3753,11 +3748,7 @@ function renderVariants(
     ?.addEventListener(
       'click',
       () => {
-        if (robConfigurationAktuell) {
-          showRobSelection(
-            robConfigurationAktuell
-          );
-        }
+        infoPanelSchliessen.click();
       }
     );
 
@@ -5982,6 +5973,7 @@ function refreshMapAfterPanelChange() {
 }
 
 infoPanelSchliessen.addEventListener('click', event => {
+  infoPanel.classList.remove('vab-dialog-mode');
   event.preventDefault();
   event.stopPropagation();
   L.DomEvent.stopPropagation(event);
@@ -6409,7 +6401,15 @@ function vabGetPlaceByName(placeName) {
 }
 
 
+function vabOpenLineDialog() {
+  karte.closePopup();
+  infoPanel.classList.add('sichtbar', 'vab-dialog-mode');
+  infoPanel.setAttribute('aria-hidden', 'false');
+  window.setTimeout(() => karte.invalidateSize(), 250);
+}
+
 function vabOpenInfoPanel() {
+  infoPanel.classList.remove('vab-dialog-mode');
   infoPanel.classList.add('sichtbar');
 
   infoPanel.setAttribute(
