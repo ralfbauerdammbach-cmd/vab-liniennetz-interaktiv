@@ -5727,7 +5727,11 @@ async function loadMapData() {
   const robPositionConfiguration =
     await robPositionResponse.json();
 
-  createRobMarker(robConfiguration);
+  // Die große ROB-Schaltfläche entfällt. Einzelne Bussteige bleiben erhalten.
+  if (robMarker) {
+    karte.removeLayer(robMarker);
+    robMarker = null;
+  }
 
   createRobBussteige(
     robPositionConfiguration,
