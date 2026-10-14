@@ -2411,3 +2411,26 @@ main {
 .vab-finder-db-link:hover { background: #dcecff; }
 .vab-finder-note { margin: 12px 0 0; font-size: .72rem; color: #63758a; }
 .vab-finder-pdf { width: 100%; margin-top: 17px; min-height: 43px; border: 1px solid #cbd7e5; border-radius: 10px; background: #fff; color: #173b6b; font-weight: 700; cursor: pointer; }
+
+/* Zweistufige, fahrgastfreundliche Bedienung */
+.vab-board-dialog { display: flex; flex-direction: column; gap: 0; }
+.vab-board-dialog h2 { margin-bottom: 14px; }
+.vab-route-section, .vab-stop-section { padding: 14px; border: 1px solid #dce5ef; border-radius: 14px; background: #fff; margin: 0 0 13px; }
+.vab-step-heading { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 12px; }
+.vab-step-number { display: inline-flex; flex: 0 0 27px; width: 27px; height: 27px; align-items: center; justify-content: center; border-radius: 50%; background: #001b69; color: white; font-size: .85rem; font-weight: 800; }
+.vab-step-heading h3 { font-size: 1.02rem; margin: 1px 0 4px; color: #082e59; }
+.vab-step-heading p { margin: 0; font-size: .8rem; color: #66798e; line-height: 1.4; }
+.vab-route-section .vab-finder-label { margin-top: 10px; }
+.vab-route-hint { font-size: .75rem; color: #526d87; margin: 10px 0 0; }
+.vab-stop-section .vab-finder-selected { margin: 0; padding: 13px; }
+.vab-finder-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: 10px; padding: 12px 13px; background: #fff; border: 1px solid #c8d8e9; border-radius: 10px; color: #123f78; font: inherit; font-size: .88rem; font-weight: 700; cursor: pointer; }
+.vab-finder-toggle:hover { background: #edf4fc; }
+.vab-finder-picker { margin-top: 11px; }
+.vab-finder-picker[hidden] { display: none !important; }
+.vab-finder-picker .vab-finder-results { max-height: 205px; }
+.vab-board-dialog .vab-finder-pdf { margin-top: 2px; }
+@media (max-width: 600px) {
+  .vab-route-section, .vab-stop-section { padding: 11px; }
+  .vab-finder-actions { gap: 6px; }
+  .vab-finder-db-link { font-size: .78rem; padding: 8px 5px; }
+}
