@@ -2959,72 +2959,100 @@ function vabMountStopFinder(host, layers, preferredStop = null) {
         || stop.name === preferredStop.name
       ) ?? entries[0]
     : entries[0];
+
   host.innerHTML = `
-    <div class="vab-finder">
-      <label class="vab-finder-label" for="vab-finder-search">Haltestelle suchen</label>
-      <input id="vab-finder-search" class="vab-finder-search"
-        type="search" placeholder="Name der Haltestelle …" autocomplete="off">
-      <div class="vab-finder-count" aria-live="polite"></div>
-      <div class="vab-finder-results" role="listbox"
-        aria-label="Haltestellen des gewählten Fahrwegs"></div>
+    <section class="vab-finder vab-stop-section" aria-label="Haltestelle auswählen">
+      <div class="vab-step-heading">
+        <span class="vab-step-number">2</span>
+        <div><h3>Deine Haltestelle</h3>
+        <p>Hier kannst du ein- oder aussteigen.</p></div>
+      </div>
       <div class="vab-finder-selected" aria-live="polite"></div>
-    </div>`;
+      <button type="button" class="vab-finder-toggle"
+        aria-expanded="false" aria-controls="vab-finder-picker">
+        <span>Andere Haltestelle wählen</span><span aria-hidden="true">⌄</span>
+      </button>
+      <div class="vab-finder-picker" id="vab-finder-picker" hidden>
+        <label class="vab-finder-label" for="vab-finder-search">Haltestelle suchen</label>
+        <input id="vab-finder-search" class="vab-finder-search"
+          type="search" placeholder="Haltestellenname eingeben" autocomplete="off">
+        <div class="vab-finder-count" aria-live="polite"></div>
+        <div class="vab-finder-results" aria-label="Haltestellen des Fahrwegs"></div>
+      </div>
+    </section>`;
   const input = host.querySelector('.vab-finder-search');
   const results = host.querySelector('.vab-finder-results');
   const selected = host.querySelector('.vab-finder-selected');
   const count = host.querySelector('.vab-finder-count');
+  const toggle = host.querySelector('.vab-finder-toggle');
+  const picker = host.querySelector('.vab-finder-picker');
 
   function showChosen() {
     if (!chosen) {
-      selected.innerHTML = '<p>Keine Haltestelle verfügbar.</p>';
+      selected.innerHTML = '<p>Für diesen Fahrweg sind keine Haltestellen hinterlegt.</p>';
       return;
     }
     selected.innerHTML = `
-      <div class="vab-finder-overline">Ausgewählte Haltestelle</div>
+      <div class="vab-finder-overline">Ausgewählt</div>
       <strong class="vab-finder-selected-name">${escapeHtml(chosen.name)}</strong>
       <div class="vab-finder-actions">
         <a class="vab-finder-db-link" target="_blank" rel="noopener noreferrer"
           href="https://www.bahn.de/buchung/start#?SO=${encodeURIComponent(chosen.name)}">
-          ↗ Von hier fahren
+          ↗ Hier starten
         </a>
         <a class="vab-finder-db-link" target="_blank" rel="noopener noreferrer"
           href="https://www.bahn.de/buchung/start#?ZO=${encodeURIComponent(chosen.name)}">
-          ↗ Hierhin fahren
+          ↗ Hier ankommen
         </a>
       </div>
-      <p class="vab-finder-note">DB-Verbindungssuche: Bitte prüfen, ob die
-      Haltestelle dort korrekt übernommen wird.</p>`;
+      <p class="vab-finder-note">DB-Verbindungssuche (Test): Übernahme der
+      Haltestelle bitte prüfen.</p>`;
   }
   function showResults() {
     const query = input.value.trim().toLocaleLowerCase('de');
     const matches = entries.filter(stop =>
       stop.name.toLocaleLowerCase('de').includes(query)
     );
-    count.textContent = matches.length + ' Haltestellen';
+    count.textContent = matches.length + ' Haltestellen auf diesem Fahrweg';
     results.replaceChildren();
     if (!matches.length) {
       const empty = document.createElement('p');
       empty.className = 'vab-finder-empty';
-      empty.textContent = 'Keine passende Haltestelle.';
+      empty.textContent = 'Keine passende Haltestelle gefunden.';
       results.appendChild(empty);
     }
     for (const stop of matches) {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'vab-finder-stop' +
-        (stop === chosen ? ' aktiv' : '');
-      button.setAttribute('role', 'option');
-      button.setAttribute('aria-selected', String(stop === chosen));
+      button.className = 'vab-finder-stop' + (stop === chosen ? ' aktiv' : '');
+      button.setAttribute('aria-pressed', String(stop === chosen));
       button.textContent = stop.name;
       button.addEventListener('click', () => {
         chosen = stop;
         showChosen();
+        picker.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.querySelector('span').textContent = 'Andere Haltestelle wählen';
+        input.value = '';
         showResults();
-        // Karte bleibt auf dem gewählten Fahrweg, kein Hineinzoomen.
+        toggle.focus();
       });
       results.appendChild(button);
     }
   }
+  toggle.addEventListener('click', () => {
+    const open = picker.hidden;
+    picker.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.querySelector('span').textContent = open
+      ? 'Haltestellenliste schließen'
+      : 'Andere Haltestelle wählen';
+    if (open) {
+      showResults();
+      input.focus();
+      results.querySelector('.aktiv')?.scrollIntoView({ block: 'nearest' });
+    }
+  });
   input.addEventListener('input', showResults);
   showChosen();
   showResults();
@@ -3045,11 +3073,18 @@ function vabShowLineStopsWithoutVariants(lineName, preferredStop = null) {
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt linien-information vab-board-dialog">
       <div class="vab-dialog-eyebrow">Linie ${escapeHtml(vabDisplayLineName(lineName))} · VAB</div>
-      <h2>Haltestellenfinder</h2>
-      <label class="vab-finder-label" for="vab-pattern-select">Fahrweg</label>
-      <select id="vab-pattern-select" class="vab-finder-select">${options}</select>
+      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
+      <section class="vab-route-section" aria-label="Linienweg auf der Karte">
+        <div class="vab-step-heading"><span class="vab-step-number">1</span>
+          <div><h3>Fahrweg auf der Karte</h3>
+          <p>Wähle den Verlauf, den du sehen möchtest.</p></div>
+        </div>
+        <label class="vab-finder-label" for="vab-pattern-select">Fahrtrichtung / Fahrweg</label>
+        <select id="vab-pattern-select" class="vab-finder-select">${options}</select>
+        <p class="vab-route-hint">Der gewählte Linienweg wird pink auf der Karte angezeigt.</p>
+      </section>
       <div class="vab-finder-host"></div>
-      <button type="button" class="vab-popup-pdf vab-finder-pdf">PDF-Fahrplan ansehen</button>
+      <button type="button" class="vab-popup-pdf vab-finder-pdf">▤ PDF-Fahrplan ansehen</button>
     </div>`;
   vabOpenLineDialog();
   const selector = infoPanelInhalt.querySelector('#vab-pattern-select');
@@ -3702,13 +3737,20 @@ function renderVariants(lineName, activeGroup, preferredStop = null) {
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt linien-information vab-board-dialog">
       <div class="vab-dialog-eyebrow">Linie ${escapeHtml(vabDisplayLineName(lineName))} · VAB</div>
-      <h2>Haltestellenfinder</h2>
-      <label class="vab-finder-label" for="vab-variant-select">Linienvariante</label>
-      <select id="vab-variant-select" class="vab-finder-select">${options}</select>
-      <label class="vab-finder-label" for="vab-direction-select">Fahrtrichtung</label>
-      <select id="vab-direction-select" class="vab-finder-select">${directionOptions}</select>
+      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
+      <section class="vab-route-section" aria-label="Linienweg auf der Karte">
+        <div class="vab-step-heading"><span class="vab-step-number">1</span>
+          <div><h3>Fahrweg auf der Karte</h3>
+          <p>Wähle Variante und Fahrtrichtung.</p></div>
+        </div>
+        <label class="vab-finder-label" for="vab-variant-select">Linienvariante</label>
+        <select id="vab-variant-select" class="vab-finder-select">${options}</select>
+        <label class="vab-finder-label" for="vab-direction-select">Fahrtrichtung</label>
+        <select id="vab-direction-select" class="vab-finder-select">${directionOptions}</select>
+        <p class="vab-route-hint">Der gewählte Linienweg wird pink auf der Karte angezeigt.</p>
+      </section>
       <div class="vab-finder-host"></div>
-      <button type="button" class="vab-finder-pdf">PDF-Fahrplan ansehen</button>
+      <button type="button" class="vab-finder-pdf">▤ PDF-Fahrplan ansehen</button>
     </div>`;
   vabOpenLineDialog();
   const direction = infoPanelInhalt.querySelector('#vab-direction-select');
