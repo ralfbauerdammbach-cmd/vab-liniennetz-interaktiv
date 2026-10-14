@@ -2794,7 +2794,7 @@ function vabFindNearestStopForLineClick(
  * Klick auf einen Linienverlauf:
  * nächstgelegene Haltestelle bestimmen und unmittelbar
  * die nächste konkrete Fahrt einschließlich
- * Haltestellenfolge und Echtzeit öffnen.
+ * Haltestellenfolge und Fahrplandokumente öffnen.
  */
 function vabShowLineTripFromMapClick(
   lineName,
@@ -4011,7 +4011,7 @@ function addLineInteraction(feature, layer) {
        * Klick auf einen Linienverlauf.
        *
        * Eindeutige Linie:
-       * direkt Fahrt, Haltestellenfolge und Echtzeit.
+       * direkt Fahrt, Haltestellenfolge und Fahrplandokument.
        *
        * Mehrere Linien auf demselben Abschnitt:
        * zunächst Linie auswählen.
@@ -4401,7 +4401,7 @@ function showRobSelection(configuration) {
        * den Linienverlauf markieren, sondern - genau wie
        * bei einer normalen Haltestelle - die nächste
        * konkrete Fahrt mit Haltestellenfolge und
-       * Echtzeitdaten öffnen.
+       * Fahrplandokumente öffnen.
        */
       const robStop =
         vabGetStopById('de:09661:5100')
@@ -6785,40 +6785,9 @@ function vabShowSchedule(
       <h2>Linie ${escapeHtml(displayLine)}</h2>
 
       <p class="gemeinsame-auswahl-hinweis">
-        Nächste Fahrt ab
+        Fahrplandokumente für die Haltestelle
         <strong>${escapeHtml(stop.name)}</strong>.
       </p>
-
-      <section
-        id="vab-stoerungen-bereich"
-        class="vab-stoerungen-bereich"
-        hidden
-      >
-        <h3>Betriebshinweise</h3>
-
-        <div
-          id="vab-stoerungen-inhalt"
-          class="vab-stoerungen-inhalt"
-        ></div>
-      </section>
-
-      <section class="vab-linienfahrt-bereich">
-        <div
-          id="vab-linienfahrt-kopf"
-          class="vab-linienfahrt-kopf"
-        >
-          Fahrtdaten werden geladen ...
-        </div>
-
-        <div
-          id="vab-linienfahrt-inhalt"
-          class="vab-linienfahrt-inhalt"
-        >
-          <div class="vab-linienfahrt-laden">
-            Haltestellen und Echtzeitdaten werden geladen ...
-          </div>
-        </div>
-      </section>
 
       <section class="vab-fahrplan-dokument-bereich">
         <h3>Fahrplandokument</h3>
@@ -6892,12 +6861,8 @@ function vabShowSchedule(
     );
 
   /*
-   * Wenn eine Parent-Haltestelle mehrere konkrete
-   * Plattformen besitzt, nicht auf deren kuenstliche
-   * Mittelkoordinate springen.
-   *
-   * Nach Laden der konkreten DEFAS-Fahrt wird auf
-   * die tatsaechlich verwendete Plattform fokussiert.
+   * Die Kartenposition wird anhand der gewählten Haltestelle gesetzt.
+   * Eine dynamische Fahrt- oder Plattformabfrage findet nicht statt.
    */
   const visiblePlatformsForParent =
     vabSichtbareHaltestellenMarker.filter(
@@ -6942,113 +6907,8 @@ function vabShowSchedule(
       handleScheduleBack
     );
 
-  if (
-    typeof window.vabRealtimeShowLineTrip
-    === 'function'
-  ) {
-    window.vabRealtimeShowLineTrip(
-      stop,
-      line
-    );
-  }
-
-  if (
-    typeof window.vabRealtimeLoadStoerungen
-    === 'function'
-  ) {
-    window.vabRealtimeLoadStoerungen()
-      .then(data => {
-        /*
-         * Falls inzwischen eine andere Linie geÃ¶ffnet
-         * wurde, darf die Ã¤ltere Anfrage nichts mehr
-         * in das neue Panel schreiben.
-         */
-        if (
-          String(vabAktuelleLinie ?? '')
-          !== String(line ?? '')
-        ) {
-          return;
-        }
-
-        const section =
-          document.getElementById(
-            'vab-stoerungen-bereich'
-          );
-
-        const content =
-          document.getElementById(
-            'vab-stoerungen-inhalt'
-          );
-
-        if (!section || !content) {
-          return;
-        }
-
-        const normalizeLine = value =>
-          String(value ?? '')
-            .trim()
-            .toUpperCase();
-
-        const validLines = new Set([
-          normalizeLine(line),
-          normalizeLine(displayLine)
-        ]);
-
-        const announcements =
-          Array.isArray(data?.announcements)
-            ? data.announcements.filter(
-                announcement =>
-                  Array.isArray(announcement?.lines)
-                  && announcement.lines.some(
-                    announcementLine =>
-                      validLines.has(
-                        normalizeLine(
-                          announcementLine
-                        )
-                      )
-                  )
-              )
-            : [];
-
-        if (announcements.length === 0) {
-          section.hidden = true;
-          content.innerHTML = '';
-          return;
-        }
-
-        content.innerHTML =
-          announcements.map(
-            announcement => `
-              <article class="vab-stoerung">
-                <strong>
-                  ${escapeHtml(
-                    announcement?.status
-                    ?? 'Betriebshinweis'
-                  )}
-                </strong>
-
-                <div>
-                  ${escapeHtml(
-                    announcement?.title
-                    ?? ''
-                  )}
-                </div>
-              </article>
-            `
-          ).join('');
-
-        section.hidden = false;
-      })
-      .catch(error => {
-        console.warn(
-          'Stoerungsanzeige konnte nicht geladen werden:',
-          error
-        );
-      });
-  }
-
   setStatus(
-    `Linie ${displayLine}: Fahrtverlauf`,
+    `Linie ${displayLine}: Fahrplandokument`,
     'erfolg'
   );
 }
