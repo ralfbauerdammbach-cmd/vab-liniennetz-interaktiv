@@ -2390,3 +2390,24 @@ main {
     flex: 1 1 54%;
   }
 }
+
+/* Kompakter Haltestellenfinder */
+.vab-board-dialog .liniennummer-gross { margin-bottom: 10px; }
+.vab-dialog-eyebrow { font-size: .78rem; font-weight: 700; color: #64758a; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 8px; }
+.vab-board-dialog h2 { margin: 0 35px 20px 0; }
+.vab-finder-label { display: block; margin: 12px 0 7px; font-size: .83rem; font-weight: 700; color: #344e6c; }
+.vab-finder-select, .vab-finder-search { width: 100%; min-height: 44px; border: 1px solid #cbd7e5; border-radius: 10px; background: #fff; padding: 10px 12px; color: #17345a; font: inherit; }
+.vab-finder-search:focus, .vab-finder-select:focus { outline: 2px solid #7aaee4; outline-offset: 1px; }
+.vab-finder-count { margin: 10px 0 5px; font-size: .76rem; color: #687a90; }
+.vab-finder-results { max-height: 190px; overflow-y: auto; border: 1px solid #e0e7f0; border-radius: 12px; background: #fff; }
+.vab-finder-stop { display: block; width: 100%; padding: 11px 13px; border: 0; border-bottom: 1px solid #eef1f5; background: transparent; color: #203e60; text-align: left; font: inherit; cursor: pointer; }
+.vab-finder-stop:hover, .vab-finder-stop.aktiv { background: #eaf3ff; color: #063a7c; font-weight: 700; }
+.vab-finder-empty { padding: 12px; color: #687a90; }
+.vab-finder-selected { margin-top: 16px; padding: 15px; border-radius: 13px; background: #edf3fb; }
+.vab-finder-overline { color: #64758a; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+.vab-finder-selected-name { display: block; color: #112f57; font-size: 1.03rem; margin-bottom: 13px; }
+.vab-finder-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.vab-finder-db-link { display: flex; align-items: center; justify-content: center; min-height: 43px; padding: 9px; border-radius: 9px; background: #fff; border: 1px solid #b7cbe4; text-decoration: none; text-align: center; color: #123f78; font-size: .84rem; font-weight: 700; }
+.vab-finder-db-link:hover { background: #dcecff; }
+.vab-finder-note { margin: 12px 0 0; font-size: .72rem; color: #63758a; }
+.vab-finder-pdf { width: 100%; margin-top: 17px; min-height: 43px; border: 1px solid #cbd7e5; border-radius: 10px; background: #fff; color: #173b6b; font-weight: 700; cursor: pointer; }
