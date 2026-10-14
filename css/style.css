@@ -2254,3 +2254,139 @@ main {
 }
 
 @media (max-width:700px){.vab-kartenlegende{display:none}.kopfbereich{padding:8px;gap:5px}.kopfbereich h1{font-size:1rem}.kopfbereich p{margin-top:3px;font-size:.75rem}.vab-suche-eingabe,.vab-suche-button{min-height:46px}.vab-suche-button{padding:0 18px}.info-panel{padding:10px 16px}.info-panel h2{font-size:1.1rem}.info-panel p{font-size:.9rem}.info-panel-schliessen{font-size:1.6rem}#info-panel-inhalt{margin-top:0}}
+
+
+/* Linieninformation: eigener Bereich neben der Karte, niemals darüber. */
+.info-panel.vab-dialog-mode.sichtbar {
+  width: clamp(370px, 36vw, 540px);
+  min-width: clamp(370px, 36vw, 540px);
+  z-index: 900;
+  background: #f8fafc;
+}
+.info-panel.vab-dialog-mode #info-panel-inhalt {
+  width: 100%;
+  padding: 28px 22px 30px;
+}
+.vab-dialog-mode .linien-information {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.vab-dialog-mode .linien-information h2 {
+  font-size: 1.4rem;
+  color: #112b50;
+}
+.vab-dialog-mode .varianten-liste {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0 24px;
+}
+.vab-dialog-mode .varianten-button,
+.vab-dialog-mode .vab-fahrweg-pattern {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #d7e0eb;
+  border-radius: 13px;
+  background: white;
+  padding: 13px 15px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(20,42,68,.06);
+  cursor: pointer;
+}
+.vab-dialog-mode .varianten-button.aktiv,
+.vab-dialog-mode .vab-fahrweg-pattern.aktiv {
+  border: 2px solid #df007f;
+  background: #fff4fa;
+}
+.vab-dialog-mode .vab-fahrweg-haltestellen {
+  list-style: none;
+  padding: 0 0 0 13px;
+  margin: 12px 0 24px;
+}
+.vab-dialog-mode .vab-fahrweg-haltestellen li {
+  position: relative;
+  padding: 12px 10px 15px 24px;
+  border-left: 3px solid #b8c8dc;
+  border-bottom: 1px solid #edf0f5;
+  line-height: 1.4;
+}
+.vab-dialog-mode .vab-fahrweg-haltestellen li::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 17px;
+  width: 11px;
+  height: 11px;
+  background: #fff;
+  border: 3px solid #123d75;
+  border-radius: 50%;
+}
+.vab-dialog-mode .vab-fahrweg-stopname {
+  display: block;
+  font-weight: 650;
+  color: #102e50;
+  margin-bottom: 9px;
+}
+.vab-dialog-mode .vab-fahrweg-db-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.vab-dialog-mode .vab-fahrweg-db-links a {
+  display: inline-flex;
+  text-decoration: none;
+  color: #174a87;
+  font-weight: 600;
+  font-size: .84rem;
+  padding: 7px 10px;
+  background: #eaf2fc;
+  border-radius: 8px;
+}
+.vab-line-leaflet-popup .leaflet-popup-content { width: 315px !important; margin: 15px; }
+.vab-linien-aktionspopup { font-family: Arial, Helvetica, sans-serif; }
+.vab-linien-aktionspopup h3 { margin: 0 0 14px; color: #122d50; }
+.vab-linien-aktionspopup .vab-aktionspopup-button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 14px 16px;
+  text-align: left;
+  border: 1px solid #d9e2ec;
+  border-radius: 12px;
+  background: #f6f9fc;
+  color: #15385e;
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.vab-linien-aktionspopup .vab-aktionspopup-button:hover {
+  background: #eaf3fc;
+  border-color: #8eb4d7;
+}
+@media (max-width: 700px) {
+  .kartenlayout:has(.info-panel.vab-dialog-mode.sichtbar) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .info-panel.vab-dialog-mode.sichtbar {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-width: 0;
+    height: 46%;
+    max-height: 46%;
+    flex: 0 0 46%;
+    border-top: 1px solid #d7dde3;
+    box-shadow: 0 -3px 14px rgba(0,0,0,.12);
+  }
+  .info-panel.vab-dialog-mode #info-panel-inhalt {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 20px 18px;
+  }
+  .kartenlayout:has(.info-panel.vab-dialog-mode.sichtbar) #karte {
+    height: 54%;
+    min-height: 0;
+    flex: 1 1 54%;
+  }
+}
