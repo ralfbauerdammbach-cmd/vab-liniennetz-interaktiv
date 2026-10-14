@@ -2879,7 +2879,9 @@ function vabDbNavigatorUrl(stopName, asOrigin = false) {
     : 'zo=' + encodeURIComponent(stop)
       + '&zoid=' + encodeURIComponent('O=' + stop);
 
-  return 'https://www.bahn.de/buchung/fahrplan/suche#' + params;
+  // Kein automatischer Suchlauf: Start oder Ziel fehlt noch.
+  // Die DB-Seite soll zuerst die Eingabe ergänzen lassen.
+  return 'https://www.bahn.de/buchung/fahrplan/suche#sts=false&' + params;
 }
 
 function vabGetOrderedPatternStops(layer) {
