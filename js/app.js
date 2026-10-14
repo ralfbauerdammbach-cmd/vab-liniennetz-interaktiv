@@ -2796,65 +2796,219 @@ function vabFindNearestStopForLineClick(
  * die nächste konkrete Fahrt einschließlich
  * Haltestellenfolge und Fahrplandokumente öffnen.
  */
+/*
+ * Linienklick: zunächst die zwei vom Fahrgast gewünschten
+ * Aktionen anbieten. Das Leaflet-Popup bleibt an der Karte.
+ */
+function vabOpenLineActionPopup(lineName, latlng, patternId = '') {
+  const content = document.createElement('div');
+  content.className = 'vab-linien-aktionspopup';
+
+  const heading = document.createElement('h3');
+  heading.textContent = 'Linie ' + vabDisplayLineName(lineName);
+  content.appendChild(heading);
+
+  const pdfButton = document.createElement('button');
+  pdfButton.type = 'button';
+  pdfButton.textContent = 'PDF-Fahrplan';
+  pdfButton.className = 'vab-aktionspopup-button';
+
+  const stopsButton = document.createElement('button');
+  stopsButton.type = 'button';
+  stopsButton.textContent = 'Abfahrtstafel / Haltestellen';
+  stopsButton.className = 'vab-aktionspopup-button';
+
+  content.append(pdfButton, stopsButton);
+
+  pdfButton.addEventListener('click', () => {
+    karte.closePopup();
+    vabShowLinePdfDocuments(lineName);
+  });
+
+  stopsButton.addEventListener('click', () => {
+    karte.closePopup();
+    const group = getVariantGroup(lineName, patternId);
+    if (group) {
+      selectVariant(lineName, group.id, patternId);
+    } else {
+      vabShowLineStopsWithoutVariants(lineName);
+    }
+  });
+
+  L.popup({ maxWidth: 340, minWidth: 250 })
+    .setLatLng(latlng)
+    .setContent(content)
+    .openOn(karte);
+}
+
+function vabShowLinePdfDocuments(lineName) {
+  infoPanelInhalt.innerHTML = `
+    <div class="seitenleisten-inhalt linien-information">
+      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
+      <h3>PDF-Fahrplan</h3>
+      <div class="vab-fahrplan-pdf-bereich">
+        ${vabCreateSchedulePdfHtml(lineName)}
+      </div>
+      <button type="button" class="vab-popup-zurueck">
+        Zurück zur Linienauswahl
+      </button>
+    </div>
+  `;
+  vabOpenInfoPanel();
+  infoPanelInhalt.querySelector('.vab-popup-zurueck')
+    ?.addEventListener('click', () => {
+      const group = getVariantGroup(lineName);
+      if (group) {
+        selectVariant(lineName, group.id);
+      } else {
+        vabShowLineStopsWithoutVariants(lineName);
+      }
+    });
+}
+
+/*
+ * Die bahn.de-Verbindungssuche erhält die Haltestelle
+ * als Start oder Ziel. Es wird kein App-Start versprochen:
+ * das Betriebssystem entscheidet, ob eine App übernimmt.
+ */
+function vabDbNavigatorUrl(stopName, asOrigin = false) {
+  const stop = String(stopName ?? '').trim();
+  const params = asOrigin
+    ? 'so=' + encodeURIComponent(stop)
+      + '&soid=' + encodeURIComponent('O=' + stop)
+    : 'zo=' + encodeURIComponent(stop)
+      + '&zoid=' + encodeURIComponent('O=' + stop);
+
+  return 'https://www.bahn.de/buchung/fahrplan/suche#' + params;
+}
+
+function vabGetOrderedPatternStops(layer) {
+  const raw = layer?.feature?.properties?.stops ?? [];
+  const result = [];
+
+  for (const stop of raw) {
+    const name = String(stop.stop_name ?? '').trim();
+    if (!name) continue;
+
+    // Nur direkt aufeinanderfolgende identische Halte entfernen.
+    if (result.length && result[result.length - 1].name === name) {
+      continue;
+    }
+
+    result.push({
+      name,
+      id: String(stop.stop_id ?? ''),
+      lat: Number(stop.lat),
+      lon: Number(stop.lon)
+    });
+  }
+
+  return result;
+}
+
+function vabCreateOrderedStopsHtml(layer) {
+  const stops = vabGetOrderedPatternStops(layer);
+  if (!stops.length) {
+    return '<p>Für diesen Fahrweg ist keine Haltestellenfolge hinterlegt.</p>';
+  }
+
+  return `
+    <ol class="vab-fahrweg-haltestellen">
+      ${stops.map(stop => `
+        <li>
+          <span class="vab-fahrweg-stopname">${escapeHtml(stop.name)}</span>
+          <span class="vab-fahrweg-db-links">
+            <a href="${escapeHtml(vabDbNavigatorUrl(stop.name, true))}"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="${escapeHtml(stop.name)} als Start im DB Navigator">
+              Als Start
+            </a>
+            <a href="${escapeHtml(vabDbNavigatorUrl(stop.name, false))}"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="${escapeHtml(stop.name)} als Ziel im DB Navigator">
+              Als Ziel
+            </a>
+          </span>
+        </li>
+      `).join('')}
+    </ol>
+  `;
+}
+
+function vabShowLineStopsWithoutVariants(lineName) {
+  const layers = linienNachName.get(String(lineName)) ?? [];
+  if (!layers.length) {
+    setStatus('Für diese Linie ist kein Fahrweg hinterlegt', 'fehler');
+    return;
+  }
+
+  // Auch Linien ohne Variantendatei erhalten eine Fahrwegauswahl.
+  const buttons = layers.map((layer, index) => {
+    const stops = vabGetOrderedPatternStops(layer);
+    const first = stops[0]?.name ?? 'Start';
+    const last = stops[stops.length - 1]?.name ?? 'Ziel';
+    return `<button type="button" class="vab-fahrweg-pattern"
+      data-pattern-index="${index}">
+      ${escapeHtml(first)} → ${escapeHtml(last)}
+    </button>`;
+  }).join('');
+
+  infoPanelInhalt.innerHTML = `
+    <div class="seitenleisten-inhalt linien-information">
+      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
+      <h3>Abfahrtstafel / Haltestellen</h3>
+      <p>Fahrweg auswählen. Haltestellen in Fahrtreihenfolge,
+         keine Echtzeit-Abfahrten.</p>
+      <div class="vab-fahrweg-pattern-liste">${buttons}</div>
+      <div class="vab-fahrweg-stops">
+        ${vabCreateOrderedStopsHtml(layers[0])}
+      </div>
+      <button type="button" class="vab-popup-pdf">PDF-Fahrplan</button>
+    </div>
+  `;
+  vabOpenInfoPanel();
+
+  function activate(index) {
+    const layer = layers[index];
+    if (!layer) return;
+    if (fixierteLinie && fixierteLinie !== lineName) {
+      resetLineStyle(fixierteLinie);
+    }
+    fixierteLinie = lineName;
+    removeSelection();
+    resetLineStyle(lineName);
+    layer.setStyle({ color: '#FF009B', weight: 7, opacity: 1 });
+    showStopsForLine(lineName, [layer]);
+    infoPanelInhalt.querySelector('.vab-fahrweg-stops').innerHTML =
+      vabCreateOrderedStopsHtml(layer);
+    for (const button of infoPanelInhalt.querySelectorAll('.vab-fahrweg-pattern')) {
+      button.classList.toggle(
+        'aktiv', Number(button.dataset.patternIndex) === index
+      );
+    }
+    const bounds = getBoundsForLayers([layer]);
+    if (bounds.isValid()) karte.fitBounds(bounds, {
+      padding: [30, 30], maxZoom: 15
+    });
+  }
+
+  for (const button of infoPanelInhalt.querySelectorAll('.vab-fahrweg-pattern')) {
+    button.addEventListener('click', () =>
+      activate(Number(button.dataset.patternIndex))
+    );
+  }
+  infoPanelInhalt.querySelector('.vab-popup-pdf')
+    ?.addEventListener('click', () => vabShowLinePdfDocuments(lineName));
+  activate(0);
+}
+
 function vabShowLineTripFromMapClick(
   lineName,
   latlng,
   selectedLayers = null,
   patternId = ''
 ) {
-  // Variantenbezogene Kartenansicht vor Fahrplandokumenten.
-  if (getVariantConfiguration(lineName)) {
-    const group = getVariantGroup(lineName, patternId);
-    if (group) {
-      selectVariant(lineName, group.id);
-      return true;
-    }
-  }
-
-  const stop =
-    vabFindNearestStopForLineClick(
-      lineName,
-      latlng,
-      selectedLayers
-    );
-
-  if (!stop) {
-    console.warn(
-      'Keine Haltestelle für Linienklick gefunden',
-      {
-        lineName,
-        latlng
-      }
-    );
-
-    setStatus(
-      `Linie ${vabDisplayLineName(lineName)}: keine passende Haltestelle gefunden`,
-      'fehler'
-    );
-
-    return false;
-  }
-
-  console.log(
-    'Linienklick öffnet Fahrt',
-    {
-      line:
-        lineName,
-
-      stopId:
-        stop.id,
-
-      stopName:
-        stop.name
-    }
-  );
-
-  vabShowSchedule(
-    stop,
-    lineName,
-    'map'
-  );
-
+  vabOpenLineActionPopup(lineName, latlng, patternId);
   return true;
 }
 
