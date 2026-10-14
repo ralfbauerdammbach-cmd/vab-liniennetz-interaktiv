@@ -3533,9 +3533,9 @@ function renderVariants(
       <section class="vab-suche-panel-bereich">
         <h3>Fahrplandokumente der Linie</h3>
         <p class="varianten-hinweis">
-          Die PDFs sind derzeit der gesamten Linie zugeordnet.
-          Eine genaue Zuordnung zur gewählten Variante
-          wird noch geprüft.
+          Alle hier aufgeführten Fahrplan-PDFs gehören
+          zu dieser Linie. Die Fahrwegvarianten können
+          unabhängig davon auf der Karte gewählt werden.
         </p>
 
         <div class="vab-fahrplan-pdf-bereich">
