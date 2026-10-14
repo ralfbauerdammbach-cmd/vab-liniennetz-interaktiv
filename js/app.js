@@ -3598,6 +3598,8 @@ function styleVariantLayers(
   }
 }
 
+let vabAktuellesPatternId = '';
+
 function renderVariants(
   lineName,
   activeGroup
@@ -3668,6 +3670,14 @@ function renderVariants(
   const pdfHtml =
     vabCreateSchedulePdfHtml(lineName);
 
+  const activeLayers = getLayersForVariant(lineName, activeGroup);
+  const selectedPatternLayer = activeLayers.find(layer =>
+    getPatternIdFromLayer(layer) === vabAktuellesPatternId
+  ) ?? activeLayers[0];
+  const orderedStopsHtml = selectedPatternLayer
+    ? vabCreateOrderedStopsHtml(selectedPatternLayer)
+    : '<p>Keine Haltestellenfolge vorhanden.</p>';
+
   infoPanelInhalt.innerHTML = `
     <div class="seitenleisten-inhalt linien-information">
       <div class="liniennummer-gross">
@@ -3683,6 +3693,11 @@ function renderVariants(
       <div class="varianten-liste">
         ${buttons}
       </div>
+
+      <section class="vab-suche-panel-bereich">
+        <h3>Haltestellen in Fahrtreihenfolge</h3>
+        ${orderedStopsHtml}
+      </section>
 
       <section class="vab-suche-panel-bereich">
         <h3>Fahrplandokumente der Linie</h3>
@@ -3753,8 +3768,10 @@ function renderVariants(
 
 function selectVariant(
   lineName,
-  variantId
+  variantId,
+  patternId = ''
 ) {
+  vabAktuellesPatternId = patternId;
   const configuration =
     getVariantConfiguration(lineName);
 
