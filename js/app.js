@@ -205,6 +205,30 @@ L.control.scale({
   position: 'bottomleft'
 }).addTo(karte);
 
+/*
+ * VAB-Kerngebiet aus amtlichen ALKIS-Verwaltungsgrenzen,
+ * Bayerische Vermessungsverwaltung, CC BY 4.0.
+ * Stadt Aschaffenburg (09661), LK Aschaffenburg (09671),
+ * LK Miltenberg (09676). Stand 30.09.2026.
+ * Vereinigt und fuer die Kartenanzeige auf 75 m vereinfacht.
+ * Die vollstaendige Originalgeometrie wurde vom Nutzer geliefert.
+ */
+karte.createPane('vabGebietPane');
+karte.getPane('vabGebietPane').style.zIndex = 390;
+karte.getPane('vabGebietPane').style.pointerEvents = 'none';
+const vabGebiet = {"type":"Feature","properties":{"name":"VAB-Gebiet","source":"Bayerische Vermessungsverwaltung, CC BY 4.0","stand":"2026-09-30"},"geometry":{"type":"Polygon","coordinates":[[[9.10206,49.58025],[9.09175,49.58887],[9.08837,49.59688],[9.08316,49.60179],[9.07406,49.60067],[9.06649,49.60231],[9.06841,49.61095],[9.06483,49.6167],[9.06876,49.62262],[9.0797,49.62923],[9.08084,49.63257],[9.08601,49.63568],[9.09238,49.63536],[9.10219,49.6426],[9.09928,49.64567],[9.10089,49.64905],[9.09955,49.65343],[9.10381,49.66003],[9.08869,49.66897],[9.08824,49.6903],[9.08965,49.69317],[9.0952,49.6961],[9.11626,49.69756],[9.12772,49.70035],[9.1273,49.70672],[9.12376,49.70641],[9.12123,49.71464],[9.13156,49.71463],[9.13464,49.71638],[9.1361,49.72409],[9.14083,49.72905],[9.14381,49.73699],[9.15058,49.74268],[9.14374,49.74514],[9.14497,49.74747],[9.12773,49.75524],[9.11196,49.75667],[9.10689,49.75874],[9.11059,49.76626],[9.11352,49.76724],[9.11204,49.76944],[9.11326,49.77379],[9.11733,49.77374],[9.12325,49.77673],[9.12779,49.7764],[9.13457,49.7823],[9.12908,49.78773],[9.12945,49.79298],[9.13215,49.79419],[9.12784,49.79581],[9.1082,49.798],[9.09428,49.79008],[9.09062,49.79075],[9.09033,49.79603],[9.08703,49.79942],[9.08631,49.80658],[9.07717,49.81836],[9.0819,49.82412],[9.08691,49.82662],[9.08564,49.82911],[9.08297,49.82953],[9.08306,49.83266],[9.07782,49.83463],[9.08246,49.83904],[9.08984,49.84113],[9.08526,49.84768],[9.0713,49.83637],[9.07033,49.83333],[9.06518,49.83184],[9.05843,49.83272],[9.05614,49.83456],[9.05931,49.83871],[9.05929,49.84101],[9.05385,49.83924],[9.05312,49.83986],[9.0544,49.84031],[9.05399,49.84276],[9.06063,49.84552],[9.06011,49.84617],[9.05406,49.84554],[9.05018,49.84209],[9.0455,49.8422],[9.04339,49.84403],[9.04157,49.83993],[9.0378,49.84262],[9.03612,49.84638],[9.04062,49.84735],[9.04319,49.85008],[9.04373,49.85549],[9.03379,49.8604],[9.03322,49.86658],[9.03668,49.86722],[9.03817,49.86555],[9.04211,49.86632],[9.04355,49.86794],[9.04798,49.86618],[9.05031,49.86624],[9.05052,49.86729],[9.04586,49.86968],[9.03761,49.8781],[9.03782,49.89218],[9.03569,49.89938],[9.0336,49.89935],[9.0314,49.90131],[9.03276,49.90139],[9.03103,49.90396],[9.03267,49.9044],[9.02999,49.90583],[9.03203,49.90948],[9.02458,49.90934],[9.02337,49.91014],[9.03223,49.92459],[9.02916,49.92749],[9.02963,49.93153],[9.02626,49.9363],[9.02543,49.94565],[9.01907,49.94684],[9.02669,49.95509],[9.02414,49.9586],[9.02323,49.96567],[9.01894,49.97465],[9.02009,49.98541],[9.01416,49.99138],[9.02291,49.99703],[9.02956,49.99249],[9.03115,49.98856],[9.04517,49.98805],[9.05137,49.99305],[9.0511,49.99462],[9.04653,49.99862],[9.03806,50.00018],[9.03521,50.00433],[9.03504,50.00639],[9.03945,50.01037],[9.03271,50.01707],[9.0305,50.02173],[9.02977,50.02645],[9.03251,50.03656],[9.02954,50.04086],[9.02416,50.04364],[9.01098,50.04576],[9.00163,50.04486],[8.99042,50.0417],[8.98553,50.04176],[8.97785,50.0459],[8.97673,50.05211],[8.98298,50.05676],[8.99143,50.06836],[8.99331,50.06718],[8.99567,50.069],[8.9993,50.06934],[8.99769,50.09273],[9.00911,50.10519],[9.01837,50.11154],[9.04675,50.11571],[9.06568,50.11704],[9.07151,50.11947],[9.07714,50.11594],[9.08931,50.11705],[9.09284,50.12015],[9.09457,50.12012],[9.09735,50.12493],[9.11852,50.12662],[9.14284,50.11465],[9.14588,50.11433],[9.15376,50.11771],[9.15591,50.11135],[9.15399,50.10707],[9.15056,50.10502],[9.14209,50.09542],[9.14872,50.09026],[9.1552,50.09507],[9.1594,50.09529],[9.15983,50.09701],[9.16251,50.09823],[9.15917,50.09999],[9.16031,50.10217],[9.16339,50.10561],[9.16587,50.1064],[9.16761,50.10992],[9.1748,50.11408],[9.17295,50.11618],[9.1742,50.11938],[9.18678,50.12396],[9.18991,50.12628],[9.19029,50.12871],[9.18854,50.13139],[9.18509,50.13323],[9.18316,50.138],[9.19474,50.13858],[9.19868,50.14118],[9.21023,50.14282],[9.21181,50.14669],[9.21873,50.14653],[9.2215,50.14945],[9.2273,50.14713],[9.23614,50.14616],[9.25314,50.13939],[9.25929,50.1386],[9.26643,50.13948],[9.27072,50.14216],[9.27401,50.14274],[9.28578,50.14157],[9.29414,50.13944],[9.30744,50.13332],[9.31618,50.13589],[9.3234,50.14062],[9.32727,50.14117],[9.33653,50.13689],[9.34009,50.13227],[9.34231,50.13137],[9.35178,50.13061],[9.3697,50.13165],[9.37642,50.13052],[9.37587,50.12602],[9.38293,50.11926],[9.39459,50.09759],[9.40465,50.08759],[9.3965,50.08367],[9.3948,50.08584],[9.39025,50.08634],[9.37283,50.08291],[9.38967,50.08586],[9.39391,50.08517],[9.39425,50.08289],[9.40269,50.07684],[9.40237,50.07395],[9.40685,50.07124],[9.41182,50.06517],[9.41227,50.06104],[9.40922,50.0609],[9.40967,50.06575],[9.40239,50.07152],[9.39092,50.07118],[9.3926,50.06859],[9.39013,50.06423],[9.38804,50.06481],[9.38417,50.06308],[9.38561,50.06324],[9.38786,50.0607],[9.38531,50.05366],[9.38743,50.05278],[9.38843,50.04969],[9.39928,50.0489],[9.40163,50.05218],[9.40829,50.05216],[9.40967,50.05491],[9.40888,50.05836],[9.41209,50.0591],[9.41354,50.05336],[9.41673,50.05237],[9.42238,50.04681],[9.41668,50.04686],[9.40632,50.0498],[9.40389,50.04931],[9.40557,50.04581],[9.40907,50.04412],[9.40571,50.04109],[9.39672,50.04622],[9.39534,50.04548],[9.40298,50.03637],[9.40541,50.035],[9.41675,50.03385],[9.41883,50.03187],[9.41603,50.0307],[9.40259,50.03191],[9.40251,50.02787],[9.40482,50.02351],[9.40977,50.02192],[9.41302,50.01865],[9.42157,50.02337],[9.43526,50.01924],[9.42891,50.01757],[9.42888,50.01674],[9.4221,50.01634],[9.41408,50.01209],[9.40801,50.01242],[9.40369,50.01536],[9.39894,50.01473],[9.39933,50.01282],[9.39475,50.01184],[9.39627,50.00149],[9.39602,50],[9.39399,49.99949],[9.3962,49.9993],[9.39703,49.99667],[9.39472,49.99582],[9.40022,49.99526],[9.39688,49.99791],[9.39575,50.00854],[9.39775,50.01109],[9.40768,50.01061],[9.41295,50.0091],[9.41153,50.00732],[9.41387,50.00329],[9.40924,50.00124],[9.40808,49.9969],[9.41086,49.99341],[9.41708,49.99172],[9.41748,49.99062],[9.41757,49.99183],[9.42353,49.99208],[9.43074,49.99104],[9.43821,49.98034],[9.4439,49.97575],[9.44137,49.96221],[9.44889,49.95129],[9.45241,49.94908],[9.467,49.9501],[9.4757,49.94608],[9.48337,49.94976],[9.48606,49.94928],[9.4842,49.94507],[9.48597,49.94369],[9.48249,49.94531],[9.48209,49.94384],[9.4754,49.94137],[9.46859,49.93609],[9.46762,49.93102],[9.46365,49.92797],[9.46589,49.92436],[9.4639,49.92091],[9.46502,49.91691],[9.45988,49.92259],[9.45374,49.92654],[9.43942,49.91941],[9.42489,49.91691],[9.42233,49.91769],[9.43101,49.9117],[9.43115,49.90834],[9.42673,49.89979],[9.43495,49.89042],[9.43371,49.88718],[9.43476,49.88395],[9.4262,49.88185],[9.43543,49.87973],[9.43667,49.87841],[9.43764,49.87243],[9.43589,49.87319],[9.44039,49.86851],[9.43918,49.8659],[9.45018,49.85057],[9.45914,49.84541],[9.46588,49.84317],[9.46562,49.84225],[9.47766,49.84],[9.47975,49.83849],[9.47755,49.8388],[9.47615,49.8365],[9.46421,49.8394],[9.45101,49.84501],[9.44232,49.85226],[9.43808,49.85147],[9.43585,49.84867],[9.43326,49.84782],[9.43465,49.84454],[9.44113,49.84146],[9.44415,49.83766],[9.45159,49.83405],[9.45417,49.83099],[9.45373,49.827],[9.44656,49.82108],[9.44744,49.81603],[9.4532,49.81066],[9.4669,49.80723],[9.46997,49.79952],[9.46871,49.79424],[9.47025,49.78875],[9.46536,49.7812],[9.47017,49.78056],[9.46922,49.77743],[9.46699,49.77485],[9.46198,49.77249],[9.46217,49.77049],[9.4585,49.76952],[9.45397,49.76993],[9.44422,49.77413],[9.43527,49.78712],[9.43074,49.78893],[9.42346,49.78959],[9.41803,49.7873],[9.4043,49.77668],[9.39067,49.77024],[9.38417,49.77202],[9.37693,49.77766],[9.37039,49.7792],[9.368,49.77872],[9.36178,49.77345],[9.35129,49.76916],[9.34138,49.76845],[9.3248,49.76944],[9.31724,49.76859],[9.31352,49.76605],[9.31344,49.76004],[9.32286,49.74933],[9.32292,49.74367],[9.31983,49.74123],[9.31613,49.74022],[9.29567,49.74046],[9.29604,49.7386],[9.30494,49.73634],[9.3123,49.73468],[9.31647,49.73525],[9.32298,49.73106],[9.33104,49.73219],[9.33579,49.73401],[9.34153,49.73417],[9.35745,49.73093],[9.3637,49.73159],[9.374,49.72804],[9.36648,49.72605],[9.36357,49.72375],[9.34973,49.7216],[9.34423,49.71868],[9.34411,49.71714],[9.34586,49.71653],[9.35252,49.71664],[9.35329,49.70729],[9.3576,49.70414],[9.36884,49.70351],[9.38069,49.7054],[9.38006,49.70627],[9.38281,49.70881],[9.38289,49.71893],[9.38034,49.72614],[9.38645,49.72829],[9.38568,49.73193],[9.39984,49.72965],[9.40141,49.7207],[9.40352,49.72027],[9.40777,49.72191],[9.4096,49.71775],[9.41561,49.71245],[9.41869,49.71178],[9.42042,49.70664],[9.41764,49.7058],[9.41676,49.70217],[9.41845,49.6974],[9.42232,49.69614],[9.41929,49.69393],[9.42071,49.69091],[9.41931,49.68927],[9.41301,49.68314],[9.40625,49.67942],[9.41301,49.67743],[9.41215,49.67549],[9.40295,49.67523],[9.39694,49.67191],[9.40652,49.66531],[9.41277,49.66285],[9.41191,49.66087],[9.41948,49.65887],[9.41643,49.65376],[9.4061,49.64546],[9.39269,49.64587],[9.38229,49.64295],[9.36741,49.65524],[9.36676,49.65839],[9.3634,49.65525],[9.35355,49.65061],[9.3487,49.64966],[9.34308,49.64424],[9.3355,49.64469],[9.33043,49.64724],[9.31846,49.65018],[9.31358,49.6537],[9.30405,49.65492],[9.3065,49.65074],[9.29929,49.64847],[9.29757,49.64667],[9.29083,49.64404],[9.28538,49.63579],[9.27816,49.63772],[9.2718,49.63476],[9.27544,49.63145],[9.27044,49.62643],[9.27572,49.62437],[9.27777,49.62022],[9.28352,49.61751],[9.28512,49.61481],[9.26462,49.6068],[9.2648,49.60181],[9.26039,49.59833],[9.25927,49.59323],[9.25514,49.59432],[9.25026,49.59394],[9.24621,49.58981],[9.24888,49.58784],[9.24914,49.58466],[9.24496,49.5845],[9.2412,49.58296],[9.24044,49.58146],[9.23347,49.58121],[9.23305,49.58016],[9.23,49.58047],[9.22284,49.5779],[9.22,49.57818],[9.21401,49.57653],[9.21092,49.57792],[9.20582,49.57606],[9.20069,49.57659],[9.19456,49.5739],[9.18733,49.57688],[9.18074,49.57375],[9.17379,49.57788],[9.16487,49.57541],[9.15915,49.57964],[9.15273,49.57969],[9.1525,49.57864],[9.14415,49.57816],[9.1436,49.57638],[9.14161,49.57725],[9.13717,49.57561],[9.13125,49.57575],[9.12053,49.5735],[9.11478,49.57481],[9.10835,49.57922],[9.10273,49.57749],[9.10206,49.58025]]]}};
+L.geoJSON(vabGebiet, {
+  pane: 'vabGebietPane',
+  interactive: false,
+  style: {
+    color: '#12366c',
+    weight: 1.5,
+    opacity: 1,
+    fillColor: '#77b9ee',
+    fillOpacity: 0.24
+  }
+}).addTo(karte);
+
 karte.createPane('linienRenderPane');
 karte.getPane('linienRenderPane').style.zIndex = 405;
 karte.getPane('linienRenderPane').style.pointerEvents = 'none';
@@ -404,11 +428,12 @@ function clearAllSelection() {
 }
 
 function renderLineStyle() {
+  const uebersicht = karte.getZoom() < 11;
   return {
     pane: 'linienRenderPane',
-    color: '#000F47',
-    weight: 3,
-    opacity: 0.72,
+    color: '#000000',
+    weight: uebersicht ? 1 : 2,
+    opacity: 1,
     lineCap: 'round',
     lineJoin: 'round'
   };
@@ -2794,57 +2819,340 @@ function vabFindNearestStopForLineClick(
  * Klick auf einen Linienverlauf:
  * nächstgelegene Haltestelle bestimmen und unmittelbar
  * die nächste konkrete Fahrt einschließlich
- * Haltestellenfolge und Echtzeit öffnen.
+ * Haltestellenfolge und Fahrplandokumente öffnen.
  */
+/*
+ * Linienklick: zunächst die zwei vom Fahrgast gewünschten
+ * Aktionen anbieten. Das Leaflet-Popup bleibt an der Karte.
+ */
+function vabOpenLineActionPopup(lineName, latlng, patternId = '') {
+  const content = document.createElement('div');
+  content.className = 'vab-linien-aktionspopup';
+
+  const heading = document.createElement('h3');
+  heading.textContent = 'Linie ' + vabDisplayLineName(lineName);
+  content.appendChild(heading);
+
+  const pdfButton = document.createElement('button');
+  pdfButton.type = 'button';
+  pdfButton.textContent = 'PDF-Fahrplan';
+  pdfButton.className = 'vab-aktionspopup-button';
+
+  const stopsButton = document.createElement('button');
+  stopsButton.type = 'button';
+  stopsButton.textContent = 'Abfahrtstafel / Haltestellen';
+  stopsButton.className = 'vab-aktionspopup-button';
+
+  content.append(pdfButton, stopsButton);
+
+  pdfButton.addEventListener('click', () => {
+    karte.closePopup();
+    vabShowLinePdfDocuments(lineName);
+  });
+
+  stopsButton.addEventListener('click', () => {
+    karte.closePopup();
+    const group = getVariantGroup(lineName, patternId);
+    if (group) {
+      selectVariant(lineName, group.id, patternId);
+    } else {
+      vabShowLineStopsWithoutVariants(lineName);
+    }
+  });
+
+  L.popup({ maxWidth: 340, minWidth: 250 })
+    .setLatLng(latlng)
+    .setContent(content)
+    .openOn(karte);
+}
+
+function vabShowLinePdfDocuments(lineName) {
+  infoPanelInhalt.innerHTML = `
+    <div class="seitenleisten-inhalt linien-information">
+      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
+      <h3>PDF-Fahrplan</h3>
+      <div class="vab-fahrplan-pdf-bereich">
+        ${vabCreateSchedulePdfHtml(lineName)}
+      </div>
+      <button type="button" class="vab-popup-zurueck">
+        Zurück zur Linienauswahl
+      </button>
+    </div>
+  `;
+  vabOpenLineDialog();
+  infoPanelInhalt.querySelector('.vab-popup-zurueck')
+    ?.addEventListener('click', () => {
+      const group = getVariantGroup(lineName);
+      if (group) {
+        selectVariant(lineName, group.id);
+      } else {
+        vabShowLineStopsWithoutVariants(lineName);
+      }
+    });
+}
+
+/*
+ * Die bahn.de-Verbindungssuche erhält die Haltestelle
+ * als Start oder Ziel. Es wird kein App-Start versprochen:
+ * das Betriebssystem entscheidet, ob eine App übernimmt.
+ */
+/*
+ * DB akzeptiert für lokale Haltestellen nicht zuverlässig einen
+ * aus dem Namen konstruierten Deep Link. Daher wird die Haltestelle
+ * kopiert und die reguläre DB-Verbindungssuche geöffnet.
+ */
+function vabOpenDbSearchForStop(stopName, asOrigin = false) {
+  const name = String(stopName ?? '').trim();
+  if (!name) return;
+  // Synchron im Klickhandler öffnen, damit Popup-Blocker nicht greifen.
+  window.open('https://www.bahn.de/', '_blank', 'noopener,noreferrer');
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(name).catch(() => {});
+  }
+  setStatus(
+    'Haltestelle „' + name + '“ kopieren und bei der DB als '
+    + (asOrigin ? 'Start' : 'Ziel') + ' einfügen.',
+    'erfolg'
+  );
+}
+
+document.addEventListener('click', event => {
+  const button = event.target.closest?.('.vab-db-stop-action');
+  if (!button) return;
+  event.preventDefault();
+  vabOpenDbSearchForStop(
+    button.dataset.stopName,
+    button.dataset.dbRole === 'start'
+  );
+});
+
+function vabGetOrderedPatternStops(layer) {
+  const raw = layer?.feature?.properties?.stops ?? [];
+  const result = [];
+
+  for (const stop of raw) {
+    const name = String(stop.stop_name ?? '').trim();
+    if (!name) continue;
+
+    // Nur direkt aufeinanderfolgende identische Halte entfernen.
+    if (result.length && result[result.length - 1].name === name) {
+      continue;
+    }
+
+    result.push({
+      name,
+      id: String(stop.stop_id ?? ''),
+      lat: Number(stop.lat),
+      lon: Number(stop.lon)
+    });
+  }
+
+  return result;
+}
+
+/*
+ * Kompakter Haltestellenfinder: eine Suchliste mit begrenzter
+ * Höhe und genau einer Aktionsgruppe für die gewählte Haltestelle.
+ * Keine unendliche Liste und keine DB-Schaltfläche je Haltestelle.
+ */
+function vabMountStopFinder(host, layers, preferredStop = null) {
+  if (!host) return;
+  const entries = [];
+  const seen = new Set();
+  for (const layer of layers) {
+    for (const stop of vabGetOrderedPatternStops(layer)) {
+      const key = String(stop.id || stop.name).replace(/(?:_G)+$/, '');
+      if (seen.has(key)) continue;
+      seen.add(key);
+      entries.push(stop);
+    }
+  }
+  if (preferredStop?.name && !entries.some(stop =>
+    (preferredStop.id && stop.id === preferredStop.id)
+    || stop.name === preferredStop.name
+  )) {
+    entries.unshift({
+      name: preferredStop.name,
+      id: String(preferredStop.id || ''),
+      lat: Number(preferredStop.lat),
+      lon: Number(preferredStop.lon)
+    });
+  }
+  let chosen = preferredStop
+    ? entries.find(stop =>
+        (preferredStop.id && stop.id === preferredStop.id)
+        || stop.name === preferredStop.name
+      ) ?? entries[0]
+    : entries[0];
+
+  host.innerHTML = `
+    <section class="vab-finder vab-stop-section" aria-label="Haltestelle auswählen">
+      <div class="vab-step-heading">
+        <span class="vab-step-number">2</span>
+        <div><h3>Deine Haltestelle</h3>
+        <p>Hier kannst du ein- oder aussteigen.</p></div>
+      </div>
+      <div class="vab-finder-selected" aria-live="polite"></div>
+      <button type="button" class="vab-finder-toggle"
+        aria-expanded="false" aria-controls="vab-finder-picker">
+        <span>Andere Haltestelle wählen</span><span aria-hidden="true">⌄</span>
+      </button>
+      <div class="vab-finder-picker" id="vab-finder-picker" hidden>
+        <label class="vab-finder-label" for="vab-finder-search">Haltestelle suchen</label>
+        <input id="vab-finder-search" class="vab-finder-search"
+          type="search" placeholder="Haltestellenname eingeben" autocomplete="off">
+        <div class="vab-finder-count" aria-live="polite"></div>
+        <div class="vab-finder-results" aria-label="Haltestellen des Fahrwegs"></div>
+      </div>
+    </section>`;
+  const input = host.querySelector('.vab-finder-search');
+  const results = host.querySelector('.vab-finder-results');
+  const selected = host.querySelector('.vab-finder-selected');
+  const count = host.querySelector('.vab-finder-count');
+  const toggle = host.querySelector('.vab-finder-toggle');
+  const picker = host.querySelector('.vab-finder-picker');
+
+  function showChosen() {
+    if (!chosen) {
+      selected.innerHTML = '<p>Für diesen Fahrweg sind keine Haltestellen hinterlegt.</p>';
+      return;
+    }
+    selected.innerHTML = `
+      <div class="vab-finder-overline">Ausgewählt</div>
+      <strong class="vab-finder-selected-name">${escapeHtml(chosen.name)}</strong>
+      <div class="vab-finder-actions">
+        <a class="vab-finder-db-link" target="_blank" rel="noopener noreferrer"
+          href="https://www.bahn.de/buchung/start#?SO=${encodeURIComponent(chosen.name)}">
+          ↗ Hier starten
+        </a>
+        <a class="vab-finder-db-link" target="_blank" rel="noopener noreferrer"
+          href="https://www.bahn.de/buchung/start#?ZO=${encodeURIComponent(chosen.name)}">
+          ↗ Hier ankommen
+        </a>
+      </div>
+      <p class="vab-finder-note">DB-Verbindungssuche (Test): Übernahme der
+      Haltestelle bitte prüfen.</p>`;
+  }
+  function showResults() {
+    const query = input.value.trim().toLocaleLowerCase('de');
+    const matches = entries.filter(stop =>
+      stop.name.toLocaleLowerCase('de').includes(query)
+    );
+    count.textContent = matches.length + ' Haltestellen auf diesem Fahrweg';
+    results.replaceChildren();
+    if (!matches.length) {
+      const empty = document.createElement('p');
+      empty.className = 'vab-finder-empty';
+      empty.textContent = 'Keine passende Haltestelle gefunden.';
+      results.appendChild(empty);
+    }
+    for (const stop of matches) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'vab-finder-stop' + (stop === chosen ? ' aktiv' : '');
+      button.setAttribute('aria-pressed', String(stop === chosen));
+      button.textContent = stop.name;
+      button.addEventListener('click', () => {
+        chosen = stop;
+        showChosen();
+        picker.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.querySelector('span').textContent = 'Andere Haltestelle wählen';
+        input.value = '';
+        showResults();
+        toggle.focus();
+      });
+      results.appendChild(button);
+    }
+  }
+  toggle.addEventListener('click', () => {
+    const open = picker.hidden;
+    picker.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.querySelector('span').textContent = open
+      ? 'Haltestellenliste schließen'
+      : 'Andere Haltestelle wählen';
+    if (open) {
+      showResults();
+      input.focus();
+      results.querySelector('.aktiv')?.scrollIntoView({ block: 'nearest' });
+    }
+  });
+  input.addEventListener('input', showResults);
+  showChosen();
+  showResults();
+}
+
+function vabShowLineStopsWithoutVariants(lineName, preferredStop = null) {
+  const layers = linienNachName.get(String(lineName)) ?? [];
+  if (!layers.length) {
+    setStatus('Für diese Linie ist kein Fahrweg hinterlegt', 'fehler');
+    return;
+  }
+  const options = layers.map((layer, index) => {
+    const stops = vabGetOrderedPatternStops(layer);
+    const first = stops[0]?.name ?? 'Start';
+    const last = stops[stops.length - 1]?.name ?? 'Ziel';
+    return `<option value="${index}">${escapeHtml(first)} → ${escapeHtml(last)}</option>`;
+  }).join('');
+  infoPanelInhalt.innerHTML = `
+    <div class="seitenleisten-inhalt linien-information vab-board-dialog">
+      <div class="vab-dialog-eyebrow">Linie ${escapeHtml(vabDisplayLineName(lineName))} · VAB</div>
+      <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
+      <section class="vab-route-section" aria-label="Linienweg auf der Karte">
+        <div class="vab-step-heading"><span class="vab-step-number">1</span>
+          <div><h3>Fahrweg auf der Karte</h3>
+          <p>Wähle den Verlauf, den du sehen möchtest.</p></div>
+        </div>
+        <label class="vab-finder-label" for="vab-pattern-select">Fahrtrichtung / Fahrweg</label>
+        <select id="vab-pattern-select" class="vab-finder-select">${options}</select>
+        <p class="vab-route-hint">Der gewählte Linienweg wird pink auf der Karte angezeigt.</p>
+      </section>
+      <div class="vab-finder-host"></div>
+      <button type="button" class="vab-popup-pdf vab-finder-pdf">▤ PDF-Fahrplan ansehen</button>
+    </div>`;
+  vabOpenLineDialog();
+  const selector = infoPanelInhalt.querySelector('#vab-pattern-select');
+  function activate(index, focus = null) {
+    const layer = layers[index];
+    if (!layer) return;
+    if (fixierteLinie && fixierteLinie !== lineName) resetLineStyle(fixierteLinie);
+    fixierteLinie = lineName;
+    removeSelection();
+    resetLineStyle(lineName);
+    layer.setStyle({ color: '#FF009B', weight: 7, opacity: 1 });
+    showStopsForLine(lineName, [layer]);
+    vabMountStopFinder(
+      infoPanelInhalt.querySelector('.vab-finder-host'),
+      [layer], focus
+    );
+    const bounds = getBoundsForLayers([layer]);
+    if (bounds.isValid()) window.setTimeout(() => {
+      karte.invalidateSize();
+      karte.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
+    }, 240);
+  }
+  selector.addEventListener('change', () => activate(Number(selector.value)));
+  infoPanelInhalt.querySelector('.vab-popup-pdf')
+    .addEventListener('click', () => vabShowLinePdfDocuments(lineName));
+  const matchingIndex = preferredStop
+    ? layers.findIndex(layer => vabGetOrderedPatternStops(layer).some(stop =>
+        (preferredStop.id && stop.id === preferredStop.id)
+        || stop.name === preferredStop.name
+      ))
+    : -1;
+  const firstIndex = matchingIndex >= 0 ? matchingIndex : 0;
+  selector.value = String(firstIndex);
+  activate(firstIndex, preferredStop);
+}
+
 function vabShowLineTripFromMapClick(
   lineName,
   latlng,
-  selectedLayers = null
+  selectedLayers = null,
+  patternId = ''
 ) {
-  const stop =
-    vabFindNearestStopForLineClick(
-      lineName,
-      latlng,
-      selectedLayers
-    );
-
-  if (!stop) {
-    console.warn(
-      'Keine Haltestelle für Linienklick gefunden',
-      {
-        lineName,
-        latlng
-      }
-    );
-
-    setStatus(
-      `Linie ${vabDisplayLineName(lineName)}: keine passende Haltestelle gefunden`,
-      'fehler'
-    );
-
-    return false;
-  }
-
-  console.log(
-    'Linienklick öffnet Fahrt',
-    {
-      line:
-        lineName,
-
-      stopId:
-        stop.id,
-
-      stopName:
-        stop.name
-    }
-  );
-
-  vabShowSchedule(
-    stop,
-    lineName,
-    'map'
-  );
-
+  vabOpenLineActionPopup(lineName, latlng, patternId);
   return true;
 }
 
@@ -3313,12 +3621,12 @@ function showStopsForLine(lineName, selectedLayers = null) {
         };
 
         if (fixierteLinie) {
-          vabShowSchedule(
-            selectedStop,
-            fixierteLinie,
-            'map'
-          );
-
+          const group = getVariantGroup(fixierteLinie, vabAktuellesPatternId);
+          if (group) {
+            selectVariant(fixierteLinie, group.id, vabAktuellesPatternId, selectedStop);
+          } else {
+            vabShowLineStopsWithoutVariants(fixierteLinie, selectedStop);
+          }
           return;
         }
 
@@ -3434,156 +3742,83 @@ function styleVariantLayers(
   }
 }
 
-function renderVariants(
-  lineName,
-  activeGroup
-) {
-  const configuration =
-    getVariantConfiguration(lineName);
+let vabAktuellesPatternId = '';
 
-  const groups =
-    configuration?.groups ?? [];
-
-  const hasMultipleVariants =
-    groups.length > 1;
-
-  const buttons = groups
-    .map(group => {
-      const active =
-        group.id === activeGroup?.id;
-
-      const description = group.description
-        ? `
-          <span class="varianten-beschreibung">
-            ${escapeHtml(group.description)}
-          </span>
-        `
-        : '';
-
-      const typeLabel =
-        group.type === 'schulverkehr'
-          ? 'Schulverkehr'
-          : 'Regelverkehr';
-
-      return `
-        <button
-          type="button"
-          class="varianten-button${active ? ' aktiv' : ''}"
-          data-variant-id="${escapeHtml(group.id)}"
-          aria-pressed="${active ? 'true' : 'false'}"
-        >
-          <span class="varianten-titel">
-            ${escapeHtml(group.label)}
-          </span>
-
-          ${description}
-
-          <span class="varianten-typ">
-            ${escapeHtml(typeLabel)}
-          </span>
-        </button>
-      `;
-    })
-    .join('');
-
-  const hintHtml =
-    hasMultipleVariants
-      ? `
-        <p class="varianten-hinweis">
-          Diese Linie besitzt mehrere Fahrwege.
-          Wählen Sie die gewünschte Variante.
-        </p>
-      `
-      : `
-        <p class="varianten-hinweis">
-          Fahrweg der Linie
-          ${escapeHtml(vabDisplayLineName(lineName))}.
-        </p>
-      `;
-
-  const pdfHtml =
-    vabCreateSchedulePdfHtml(lineName);
-
+function renderVariants(lineName, activeGroup, preferredStop = null) {
+  const groups = getVariantConfiguration(lineName)?.groups ?? [];
+  const options = groups.map(group => `
+    <option value="${escapeHtml(group.id)}"
+      ${group.id === activeGroup?.id ? 'selected' : ''}>
+      ${escapeHtml(group.label)}
+      ${group.type === 'schulverkehr' ? ' · Schulverkehr' : ''}
+    </option>`).join('');
+  const layers = getLayersForVariant(lineName, activeGroup);
+  const directionOptions = layers.map((layer, index) => {
+    const stops = vabGetOrderedPatternStops(layer);
+    const first = stops[0]?.name ?? 'Start';
+    const last = stops[stops.length - 1]?.name ?? 'Ziel';
+    return `<option value="${index}">${escapeHtml(first)} → ${escapeHtml(last)}</option>`;
+  }).join('');
   infoPanelInhalt.innerHTML = `
-    <div class="seitenleisten-inhalt linien-information">
-      <div class="liniennummer-gross">
-        ${escapeHtml(vabDisplayLineName(lineName))}
-      </div>
-
+    <div class="seitenleisten-inhalt linien-information vab-board-dialog">
+      <div class="vab-dialog-eyebrow">Linie ${escapeHtml(vabDisplayLineName(lineName))} · VAB</div>
       <h2>Linie ${escapeHtml(vabDisplayLineName(lineName))}</h2>
-
-      ${hintHtml}
-
-      <div class="varianten-liste">
-        ${buttons}
-      </div>
-
-      <section class="vab-suche-panel-bereich">
-        <h3>Fahrplandokumente</h3>
-
-        <div class="vab-fahrplan-pdf-bereich">
-          ${pdfHtml}
+      <section class="vab-route-section" aria-label="Linienweg auf der Karte">
+        <div class="vab-step-heading"><span class="vab-step-number">1</span>
+          <div><h3>Fahrweg auf der Karte</h3>
+          <p>Wähle Variante und Fahrtrichtung.</p></div>
         </div>
+        <label class="vab-finder-label" for="vab-variant-select">Linienvariante</label>
+        <select id="vab-variant-select" class="vab-finder-select">${options}</select>
+        <label class="vab-finder-label" for="vab-direction-select">Fahrtrichtung</label>
+        <select id="vab-direction-select" class="vab-finder-select">${directionOptions}</select>
+        <p class="vab-route-hint">Der gewählte Linienweg wird pink auf der Karte angezeigt.</p>
       </section>
-
-      <button
-        type="button"
-        class="vab-zurueck-rob"
-      >
-        Zurück zum ROB
-      </button>
-    </div>
-  `;
-
-  infoPanel.classList.add('sichtbar');
-
-  infoPanel.setAttribute(
-    'aria-hidden',
-    'false'
-  );
-
-  for (
-    const button
-    of infoPanelInhalt.querySelectorAll(
-      '.varianten-button'
-    )
-  ) {
-    button.addEventListener(
-      'click',
-      event => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        selectVariant(
-          lineName,
-          button.dataset.variantId
-        );
-      }
+      <div class="vab-finder-host"></div>
+      <button type="button" class="vab-finder-pdf">▤ PDF-Fahrplan ansehen</button>
+    </div>`;
+  vabOpenLineDialog();
+  const direction = infoPanelInhalt.querySelector('#vab-direction-select');
+  const firstIndex = Math.max(0, layers.findIndex(layer =>
+    (vabAktuellesPatternId && getPatternIdFromLayer(layer) === vabAktuellesPatternId)
+    || (preferredStop && vabGetOrderedPatternStops(layer).some(stop =>
+      (preferredStop.id && stop.id === preferredStop.id)
+      || stop.name === preferredStop.name
+    ))
+  ));
+  direction.value = String(firstIndex);
+  function updateDirection(index, focus = null) {
+    const layer = layers[index];
+    if (!layer) return;
+    vabAktuellesPatternId = getPatternIdFromLayer(layer);
+    styleVariantLayers(lineName, [layer]);
+    showStopsForLine(lineName, [layer]);
+    vabMountStopFinder(
+      infoPanelInhalt.querySelector('.vab-finder-host'), [layer], focus
     );
+    const bounds = getBoundsForLayers([layer]);
+    if (bounds.isValid()) window.setTimeout(() => {
+      karte.invalidateSize();
+      karte.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
+    }, 240);
   }
-
-  infoPanelInhalt
-    .querySelector('.vab-zurueck-rob')
-    ?.addEventListener(
-      'click',
-      () => {
-        if (robConfigurationAktuell) {
-          showRobSelection(
-            robConfigurationAktuell
-          );
-        }
-      }
-    );
-
-  window.setTimeout(() => {
-    karte.invalidateSize();
-  }, 230);
+  infoPanelInhalt.querySelector('#vab-variant-select')
+    .addEventListener('change', event => selectVariant(lineName, event.target.value));
+  direction.addEventListener('change', () =>
+    updateDirection(Number(direction.value))
+  );
+  infoPanelInhalt.querySelector('.vab-finder-pdf')
+    .addEventListener('click', () => vabShowLinePdfDocuments(lineName));
+  updateDirection(firstIndex, preferredStop);
 }
 
 function selectVariant(
   lineName,
-  variantId
+  variantId,
+  patternId = '',
+  preferredStop = null
 ) {
+  vabAktuellesPatternId = patternId;
   const configuration =
     getVariantConfiguration(lineName);
 
@@ -3636,7 +3871,8 @@ function selectVariant(
 
   renderVariants(
     lineName,
-    group
+    group,
+    preferredStop
   );
 
   const bounds =
@@ -4011,7 +4247,7 @@ function addLineInteraction(feature, layer) {
        * Klick auf einen Linienverlauf.
        *
        * Eindeutige Linie:
-       * direkt Fahrt, Haltestellenfolge und Echtzeit.
+       * direkt Fahrt, Haltestellenfolge und Fahrplandokument.
        *
        * Mehrere Linien auf demselben Abschnitt:
        * zunächst Linie auswählen.
@@ -4092,7 +4328,9 @@ function addLineInteraction(feature, layer) {
        */
       vabShowLineTripFromMapClick(
         lineName,
-        event.latlng
+        event.latlng,
+        null,
+        getPatternIdFromLayer(layer)
       );
     }
   });
@@ -4401,7 +4639,7 @@ function showRobSelection(configuration) {
        * den Linienverlauf markieren, sondern - genau wie
        * bei einer normalen Haltestelle - die nächste
        * konkrete Fahrt mit Haltestellenfolge und
-       * Echtzeitdaten öffnen.
+       * Fahrplandokumente öffnen.
        */
       const robStop =
         vabGetStopById('de:09661:5100')
@@ -5423,6 +5661,13 @@ async function loadMapData() {
     }
   ).addTo(karte);
 
+  // In der Gesamtuebersicht bleiben die Linien dezent; beim Hineinzoomen normal.
+  karte.on('zoomend', () => {
+    if (linienRenderLayer) {
+      linienRenderLayer.setStyle(renderLineStyle);
+    }
+  });
+
   const linienGeoJSON = await loadGeoJSON(
     'data/linien_routed.geojson',
     'Linien'
@@ -5514,7 +5759,11 @@ async function loadMapData() {
   const robPositionConfiguration =
     await robPositionResponse.json();
 
-  createRobMarker(robConfiguration);
+  // Die große ROB-Schaltfläche entfällt. Einzelne Bussteige bleiben erhalten.
+  if (robMarker) {
+    karte.removeLayer(robMarker);
+    robMarker = null;
+  }
 
   createRobBussteige(
     robPositionConfiguration,
@@ -5792,6 +6041,7 @@ function refreshMapAfterPanelChange() {
 }
 
 infoPanelSchliessen.addEventListener('click', event => {
+  infoPanel.classList.remove('vab-dialog-mode');
   event.preventDefault();
   event.stopPropagation();
   L.DomEvent.stopPropagation(event);
@@ -6219,7 +6469,15 @@ function vabGetPlaceByName(placeName) {
 }
 
 
+function vabOpenLineDialog() {
+  karte.closePopup();
+  infoPanel.classList.add('sichtbar', 'vab-dialog-mode');
+  infoPanel.setAttribute('aria-hidden', 'false');
+  window.setTimeout(() => karte.invalidateSize(), 250);
+}
+
 function vabOpenInfoPanel() {
+  infoPanel.classList.remove('vab-dialog-mode');
   infoPanel.classList.add('sichtbar');
 
   infoPanel.setAttribute(
@@ -6785,40 +7043,9 @@ function vabShowSchedule(
       <h2>Linie ${escapeHtml(displayLine)}</h2>
 
       <p class="gemeinsame-auswahl-hinweis">
-        Nächste Fahrt ab
+        Fahrplandokumente für die Haltestelle
         <strong>${escapeHtml(stop.name)}</strong>.
       </p>
-
-      <section
-        id="vab-stoerungen-bereich"
-        class="vab-stoerungen-bereich"
-        hidden
-      >
-        <h3>Betriebshinweise</h3>
-
-        <div
-          id="vab-stoerungen-inhalt"
-          class="vab-stoerungen-inhalt"
-        ></div>
-      </section>
-
-      <section class="vab-linienfahrt-bereich">
-        <div
-          id="vab-linienfahrt-kopf"
-          class="vab-linienfahrt-kopf"
-        >
-          Fahrtdaten werden geladen ...
-        </div>
-
-        <div
-          id="vab-linienfahrt-inhalt"
-          class="vab-linienfahrt-inhalt"
-        >
-          <div class="vab-linienfahrt-laden">
-            Haltestellen und Echtzeitdaten werden geladen ...
-          </div>
-        </div>
-      </section>
 
       <section class="vab-fahrplan-dokument-bereich">
         <h3>Fahrplandokument</h3>
@@ -6892,12 +7119,8 @@ function vabShowSchedule(
     );
 
   /*
-   * Wenn eine Parent-Haltestelle mehrere konkrete
-   * Plattformen besitzt, nicht auf deren kuenstliche
-   * Mittelkoordinate springen.
-   *
-   * Nach Laden der konkreten DEFAS-Fahrt wird auf
-   * die tatsaechlich verwendete Plattform fokussiert.
+   * Die Kartenposition wird anhand der gewählten Haltestelle gesetzt.
+   * Eine dynamische Fahrt- oder Plattformabfrage findet nicht statt.
    */
   const visiblePlatformsForParent =
     vabSichtbareHaltestellenMarker.filter(
@@ -6942,113 +7165,8 @@ function vabShowSchedule(
       handleScheduleBack
     );
 
-  if (
-    typeof window.vabRealtimeShowLineTrip
-    === 'function'
-  ) {
-    window.vabRealtimeShowLineTrip(
-      stop,
-      line
-    );
-  }
-
-  if (
-    typeof window.vabRealtimeLoadStoerungen
-    === 'function'
-  ) {
-    window.vabRealtimeLoadStoerungen()
-      .then(data => {
-        /*
-         * Falls inzwischen eine andere Linie geÃ¶ffnet
-         * wurde, darf die Ã¤ltere Anfrage nichts mehr
-         * in das neue Panel schreiben.
-         */
-        if (
-          String(vabAktuelleLinie ?? '')
-          !== String(line ?? '')
-        ) {
-          return;
-        }
-
-        const section =
-          document.getElementById(
-            'vab-stoerungen-bereich'
-          );
-
-        const content =
-          document.getElementById(
-            'vab-stoerungen-inhalt'
-          );
-
-        if (!section || !content) {
-          return;
-        }
-
-        const normalizeLine = value =>
-          String(value ?? '')
-            .trim()
-            .toUpperCase();
-
-        const validLines = new Set([
-          normalizeLine(line),
-          normalizeLine(displayLine)
-        ]);
-
-        const announcements =
-          Array.isArray(data?.announcements)
-            ? data.announcements.filter(
-                announcement =>
-                  Array.isArray(announcement?.lines)
-                  && announcement.lines.some(
-                    announcementLine =>
-                      validLines.has(
-                        normalizeLine(
-                          announcementLine
-                        )
-                      )
-                  )
-              )
-            : [];
-
-        if (announcements.length === 0) {
-          section.hidden = true;
-          content.innerHTML = '';
-          return;
-        }
-
-        content.innerHTML =
-          announcements.map(
-            announcement => `
-              <article class="vab-stoerung">
-                <strong>
-                  ${escapeHtml(
-                    announcement?.status
-                    ?? 'Betriebshinweis'
-                  )}
-                </strong>
-
-                <div>
-                  ${escapeHtml(
-                    announcement?.title
-                    ?? ''
-                  )}
-                </div>
-              </article>
-            `
-          ).join('');
-
-        section.hidden = false;
-      })
-      .catch(error => {
-        console.warn(
-          'Stoerungsanzeige konnte nicht geladen werden:',
-          error
-        );
-      });
-  }
-
   setStatus(
-    `Linie ${displayLine}: Fahrtverlauf`,
+    `Linie ${displayLine}: Fahrplandokument`,
     'erfolg'
   );
 }
