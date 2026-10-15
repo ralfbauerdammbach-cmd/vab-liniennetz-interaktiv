@@ -489,6 +489,18 @@ function resetLineStyle(lineName) {
   }
 }
 
+// Gemeinsame Begrenzung der ausgewaehlten Fahrweg-Geometrien.
+// Wird sowohl fuer Linienvarianten als auch fuer einzelne Fahrwege gebraucht.
+function getBoundsForLayers(layers = []) {
+  const bounds = L.latLngBounds([]);
+  for (const layer of layers) {
+    if (!layer || typeof layer.getBounds !== 'function') continue;
+    const layerBounds = layer.getBounds();
+    if (layerBounds?.isValid()) bounds.extend(layerBounds);
+  }
+  return bounds;
+}
+
 function getLineBounds(lineName) {
   const layers = linienNachName.get(lineName) ?? [];
   const bounds = L.latLngBounds([]);
