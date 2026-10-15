@@ -279,6 +279,62 @@ async function vabLadeGebietsgrenze() {
 // Die Grenze wird unabhaengig von den Linien geladen.
 vabLadeGebietsgrenze();
 
+/*
+ * Umschaltbare Kartenansicht: Im Gebietsmodus werden die
+ * Linienebenen ausgeblendet, nicht geloescht. Die Auswahl
+ * und alle Linienfunktionen bleiben dadurch erhalten.
+ */
+let vabKartenmodus = 'liniennetz';
+const vabModusPaneNamen = [
+  'linienRenderPane',
+  'linienPane',
+  'auswahlPane',
+  'haltestellenPane',
+  'klickPane',
+  'linienLabelPane',
+  'robBussteigPane'
+];
+
+function vabSetzeKartenmodus(modus) {
+  vabKartenmodus = modus === 'gebiet' ? 'gebiet' : 'liniennetz';
+  for (const name of vabModusPaneNamen) {
+    const pane = karte.getPane(name);
+    if (pane) {
+      pane.style.display = vabKartenmodus === 'gebiet' ? 'none' : '';
+    }
+  }
+  document.querySelectorAll('[data-vab-modus]').forEach(button => {
+    const aktiv = button.dataset.vabModus === vabKartenmodus;
+    button.classList.toggle('aktiv', aktiv);
+    button.setAttribute('aria-pressed', String(aktiv));
+  });
+}
+
+const vabModusSteuerung = L.control({ position: 'topright' });
+vabModusSteuerung.onAdd = function() {
+  const container = L.DomUtil.create('div', 'vab-modus-steuerung');
+  container.setAttribute('role', 'group');
+  container.setAttribute('aria-label', 'Kartenansicht');
+  for (const [modus, titel] of [
+    ['liniennetz', 'Liniennetz'],
+    ['gebiet', 'VAB-Gebiet']
+  ]) {
+    const button = L.DomUtil.create('button', '', container);
+    button.type = 'button';
+    button.textContent = titel;
+    button.dataset.vabModus = modus;
+    L.DomEvent.on(button, 'click', event => {
+      L.DomEvent.stop(event);
+      vabSetzeKartenmodus(modus);
+    });
+  }
+  L.DomEvent.disableClickPropagation(container);
+  L.DomEvent.disableScrollPropagation(container);
+  return container;
+};
+vabModusSteuerung.addTo(karte);
+vabSetzeKartenmodus('liniennetz');
+
 karte.createPane('linienRenderPane');
 karte.getPane('linienRenderPane').style.zIndex = 405;
 karte.getPane('linienRenderPane').style.pointerEvents = 'none';
