@@ -2435,14 +2435,15 @@ main {
   .vab-finder-db-link { font-size: .78rem; padding: 8px 5px; }
 }
 
-/* VAB CI: dezente Beschriftung direkt in der Karte */
-#karte { position: relative; }
-#karte .vab-gebiets-hinweis {
+/* Leaflet-Kartenbeschriftung: oben mittig, ohne Balken */
+#karte .leaflet-top.leaflet-left { width: 100%; pointer-events: none; }
+#karte .leaflet-top.leaflet-left .vab-gebiets-hinweis {
+  float: none;
   position: absolute;
-  top: 14px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 800;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2451,15 +2452,16 @@ main {
   max-width: calc(100% - 150px);
   padding: 7px 13px;
   border: 0;
-  border-radius: 7px;
-  background: #ffffff;
-  color: #000000;
+  border-radius: 6px;
+  background: #fff;
+  color: #000;
   text-align: center;
   font-family: "Museo","Museo Sans",Arial,sans-serif;
   pointer-events: none;
+  box-shadow: 0 1px 5px rgba(0,0,0,.14);
 }
-#karte .vab-gebiets-hinweis strong { font-size: clamp(15px,1.6vw,21px); font-weight: 700; line-height:1.2; }
+#karte .vab-gebiets-hinweis strong { font-size: clamp(15px,1.6vw,21px); font-weight:700; line-height:1.2; }
 #karte .vab-gebiets-hinweis span { font-size: clamp(10px,1.05vw,14px); font-weight:500; line-height:1.25; }
 @media (max-width:700px) {
-  #karte .vab-gebiets-hinweis { top: 55px; max-width:calc(100% - 24px); padding:6px 9px; }
+  #karte .leaflet-top.leaflet-left .vab-gebiets-hinweis { top:55px; max-width:calc(100% - 24px); padding:6px 9px; }
 }
