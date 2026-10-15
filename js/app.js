@@ -3119,6 +3119,8 @@ function vabShowLineStopsWithoutVariants(lineName, preferredStop = null) {
     if (fixierteLinie && fixierteLinie !== lineName) resetLineStyle(fixierteLinie);
     fixierteLinie = lineName;
     removeSelection();
+    // removeSelection blendet das Panel aus: nach dem Wechsel wieder oeffnen.
+    vabOpenLineDialog();
     resetLineStyle(lineName);
     layer.setStyle({ color: '#FF009B', weight: 7, opacity: 1 });
     showStopsForLine(lineName, [layer]);
