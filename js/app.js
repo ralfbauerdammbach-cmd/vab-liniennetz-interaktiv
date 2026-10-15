@@ -54,21 +54,6 @@ const karte = L.map('karte', {
   zoomSnap: 0.1
 }).setView([49.97, 9.15], 9);
 
-// Gebietsbezeichnung als Leaflet-Control: bleibt sicher ueber der Kartenebene.
-const vabGebietsTitelControl = L.control({ position: 'topleft' });
-vabGebietsTitelControl.onAdd = function() {
-  const div = L.DomUtil.create('div', 'vab-gebiets-hinweis');
-  const titel = document.createElement('strong');
-  titel.textContent = 'Das Gebiet der VAB';
-  const untertitel = document.createElement('span');
-  untertitel.textContent = 'Verkehrs- und Tarifgemeinschaft am Bayerischen Untermain';
-  div.append(titel, untertitel);
-  L.DomEvent.disableClickPropagation(div);
-  L.DomEvent.disableScrollPropagation(div);
-  return div;
-};
-vabGebietsTitelControl.addTo(karte);
-
 const vabKartenLegende = L.control({
   position: 'bottomright'
 });
