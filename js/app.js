@@ -205,6 +205,80 @@ L.control.scale({
   position: 'bottomleft'
 }).addTo(karte);
 
+/*
+ * VAB-Verbundgebiet: gemeinsame Aussengrenze aus den drei
+ * Verwaltungseinheiten (AGS 09661, 09671 und 09676).
+ * Externe Grenzdaten werden nur fuer diese Darstellung geladen.
+ * Fehler duerfen das eigentliche Liniennetz nicht blockieren.
+ */
+karte.createPane('vabGebietPane');
+karte.getPane('vabGebietPane').style.zIndex = 390;
+karte.getPane('vabGebietPane').style.pointerEvents = 'none';
+
+async function vabLadeGebietsgrenze() {
+  const datenUrl =
+    'https://raw.githubusercontent.com/m-ad/geofeatures-ags-germany/master/geojson/counties.json';
+  const turfUrl =
+    'https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js';
+
+  try {
+    const [antwort] = await Promise.all([
+      fetch(datenUrl),
+      new Promise((resolve, reject) => {
+        if (window.turf?.union) {
+          resolve();
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = turfUrl;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error('Turf konnte nicht geladen werden'));
+        document.head.appendChild(script);
+      })
+    ]);
+
+    if (!antwort.ok) {
+      throw new Error('Grenzdaten HTTP ' + antwort.status);
+    }
+    const daten = await antwort.json();
+    const gesuchteIds = new Set(['09661', '09671', '09676']);
+    const gebiete = (daten.features || []).filter(feature => {
+      const id = String(feature.id ?? feature.properties?.id ??
+        feature.properties?.AGS ?? '').padStart(5, '0');
+      return gesuchteIds.has(id);
+    });
+
+    if (gebiete.length !== 3) {
+      throw new Error('Erwartet: 3 Verwaltungsgebiete, gefunden: ' + gebiete.length);
+    }
+
+    let gesamtgebiet = gebiete[0];
+    for (const gebiet of gebiete.slice(1)) {
+      gesamtgebiet = window.turf.union(gesamtgebiet, gebiet);
+      if (!gesamtgebiet) {
+        throw new Error('Vereinigung der Gebiete fehlgeschlagen');
+      }
+    }
+
+    L.geoJSON(gesamtgebiet, {
+      pane: 'vabGebietPane',
+      interactive: false,
+      style: {
+        color: '#12366c',
+        weight: 3,
+        opacity: 0.95,
+        fillColor: '#77b9ee',
+        fillOpacity: 0.10
+      }
+    }).addTo(karte);
+  } catch (fehler) {
+    console.warn('VAB-Gebietsgrenze konnte nicht dargestellt werden:', fehler);
+  }
+}
+
+// Die Grenze wird unabhaengig von den Linien geladen.
+vabLadeGebietsgrenze();
+
 karte.createPane('linienRenderPane');
 karte.getPane('linienRenderPane').style.zIndex = 405;
 karte.getPane('linienRenderPane').style.pointerEvents = 'none';
