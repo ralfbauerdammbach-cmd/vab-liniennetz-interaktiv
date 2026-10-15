@@ -222,7 +222,7 @@ L.geoJSON(vabGebiet, {
   interactive: false,
   style: {
     color: '#12366c',
-    weight: 4,
+    weight: 1.5,
     opacity: 1,
     fillColor: '#77b9ee',
     fillOpacity: 0.24
@@ -431,9 +431,9 @@ function renderLineStyle() {
   const uebersicht = karte.getZoom() < 11;
   return {
     pane: 'linienRenderPane',
-    color: '#000F47',
-    weight: uebersicht ? 2 : 3,
-    opacity: uebersicht ? 0.32 : 0.72,
+    color: '#000000',
+    weight: uebersicht ? 1 : 2,
+    opacity: 1,
     lineCap: 'round',
     lineJoin: 'round'
   };
