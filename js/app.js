@@ -54,6 +54,9 @@ const karte = L.map('karte', {
   zoomSnap: 0.1
 }).setView([49.97, 9.15], 9);
 
+// Zoom-Schaltflaechen unten links, damit die verschiebbare Gebietsueberschrift sie nicht verdeckt.
+karte.zoomControl.setPosition('bottomleft');
+
 const vabKartenLegende = L.control({
   position: 'bottomright'
 });
