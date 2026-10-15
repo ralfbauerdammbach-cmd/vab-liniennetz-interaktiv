@@ -2875,7 +2875,16 @@ function vabOpenLineActionPopup(lineName, latlng, patternId = '') {
     }
   });
 
-  L.popup({ maxWidth: 340, minWidth: 250 })
+  // Oberhalb des Popups genug Platz lassen: bei Klicks nahe am oberen
+  // Kartenrand darf das Menue nicht unter den Seitenkopf rutschen.
+  L.popup({
+    maxWidth: 340,
+    minWidth: 250,
+    autoPan: true,
+    keepInView: true,
+    autoPanPaddingTopLeft: L.point(24, 115),
+    autoPanPaddingBottomRight: L.point(24, 30)
+  })
     .setLatLng(latlng)
     .setContent(content)
     .openOn(karte);
