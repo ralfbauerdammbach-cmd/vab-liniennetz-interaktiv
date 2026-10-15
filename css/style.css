@@ -2434,3 +2434,10 @@ main {
   .vab-finder-actions { gap: 6px; }
   .vab-finder-db-link { font-size: .78rem; padding: 8px 5px; }
 }
+
+/* Kartenmodus: Umschaltung zwischen Liniennetz und VAB-Gebiet */
+.vab-modus-steuerung { display: flex; gap: 3px; padding: 5px; background: #fff; border: 1px solid #c9d5e4; border-radius: 12px; box-shadow: 0 2px 10px rgba(0, 15, 71, .16); }
+.vab-modus-steuerung button { border: 0; border-radius: 8px; padding: 10px 13px; background: transparent; color: #000f47; font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.vab-modus-steuerung button.aktiv { background: #000f47; color: #fff; }
+.vab-modus-steuerung button:not(.aktiv):hover { background: #edf3fb; }
+@media (max-width: 550px) { .vab-modus-steuerung button { padding: 8px 9px; font-size: .75rem; } }
