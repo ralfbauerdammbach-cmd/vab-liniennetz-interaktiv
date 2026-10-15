@@ -2840,6 +2840,24 @@ function vabFindNearestStopForLineClick(
  * Linienklick: zunächst die zwei vom Fahrgast gewünschten
  * Aktionen anbieten. Das Leaflet-Popup bleibt an der Karte.
  */
+// Popup nach jeder Layoutaenderung innerhalb der sichtbaren Karte halten.
+function vabKeepActionPopupInMap(popup) {
+  if (!popup || !karte.hasLayer(popup)) return;
+  const element = popup.getElement();
+  const mapElement = karte.getContainer();
+  if (!element || !mapElement) return;
+  const box = element.getBoundingClientRect();
+  const mapBox = mapElement.getBoundingClientRect();
+  const margin = 12;
+  let dx = 0;
+  let dy = 0;
+  if (box.left < mapBox.left + margin) dx = box.left - mapBox.left - margin;
+  else if (box.right > mapBox.right - margin) dx = box.right - mapBox.right + margin;
+  if (box.top < mapBox.top + margin) dy = box.top - mapBox.top - margin;
+  else if (box.bottom > mapBox.bottom - margin) dy = box.bottom - mapBox.bottom + margin;
+  if (dx || dy) karte.panBy([dx, dy], { animate: false });
+}
+
 function vabOpenLineActionPopup(lineName, latlng, patternId = '') {
   const content = document.createElement('div');
   content.className = 'vab-linien-aktionspopup';
@@ -2877,17 +2895,26 @@ function vabOpenLineActionPopup(lineName, latlng, patternId = '') {
 
   // Oberhalb des Popups genug Platz lassen: bei Klicks nahe am oberen
   // Kartenrand darf das Menue nicht unter den Seitenkopf rutschen.
-  L.popup({
+  const popup = L.popup({
     maxWidth: 340,
     minWidth: 250,
     autoPan: true,
     keepInView: true,
-    autoPanPaddingTopLeft: L.point(24, 115),
-    autoPanPaddingBottomRight: L.point(24, 30)
+    autoPanPaddingTopLeft: L.point(14, 14),
+    autoPanPaddingBottomRight: L.point(14, 14)
   })
     .setLatLng(latlng)
     .setContent(content)
     .openOn(karte);
+
+  // Leaflet berechnet die Position manchmal vor der Aenderung
+  // der Kartenbreite (Seitenleiste). Danach erneut kontrollieren.
+  requestAnimationFrame(() => vabKeepActionPopupInMap(popup));
+  window.setTimeout(() => {
+    if (!karte.hasLayer(popup)) return;
+    karte.invalidateSize();
+    vabKeepActionPopupInMap(popup);
+  }, 260);
 }
 
 function vabShowLinePdfDocuments(lineName) {
