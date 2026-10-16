@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T07:27:39+00:00",
+  "generated_at": "2026-10-16T07:10:52+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -367,12 +367,6 @@
       }
     ],
     "28": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 28 0.04 MB Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Gültig ab 15.09.26 Bus Linie 28 0.04 MB PDF Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Gültig ab 15.09.26",
-        "valid_from": "2026-09-15",
-        "url": "https://vab-cms-prod.japi.dev/uploads/28_beide_2026_Bau_AB_19_ab_260915_853c3de76d.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 28 0.04 MB Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Gültig ab 05.10.26 Bus Linie 28 0.04 MB PDF Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Gültig ab 05.10.26",
