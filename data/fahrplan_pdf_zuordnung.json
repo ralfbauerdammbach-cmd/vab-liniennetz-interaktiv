@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T07:10:52+00:00",
+  "generated_at": "2026-10-17T06:58:05+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -333,12 +333,6 @@
     "25": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 05.10.26 – 11.10.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 05.10.26 – 11.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_Niedersteinbach_5da0b08845.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 12.10.26 – 20.11.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 12.10.26 – 20.11.26",
         "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_N_stb_Dyroff_db89a6401b.pdf"
@@ -369,9 +363,9 @@
     "28": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 28 0.04 MB Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Gültig ab 05.10.26 Bus Linie 28 0.04 MB PDF Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Gültig ab 05.10.26",
-        "valid_from": "2026-10-05",
-        "url": "https://vab-cms-prod.japi.dev/uploads/28_beide_2026_Bau_AB_19_ab_261005_84f376dd06.pdf"
+        "title": "Umleitungsfahrplan Linie 28 0.04 MB Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Gültig ab 16.10.26 Bus Linie 28 0.04 MB PDF Heigenbrücken - Heinrichsthal/Jakobsthal - Wiesen - Schöllkrippen Gültig ab 16.10.26",
+        "valid_from": "2026-10-16",
+        "url": "https://vab-cms-prod.japi.dev/uploads/28_beide_2026_Bau_AB_19_ab_261016_f3af3d42c6.pdf"
       }
     ],
     "29": [
