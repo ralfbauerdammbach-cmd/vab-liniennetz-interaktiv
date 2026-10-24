@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-23T07:33:20+00:00",
+  "generated_at": "2026-10-24T07:18:07+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 1 0.29 MB Aschaffenburg ROB - Obernau - Sulzbach Gültig ab 12.10.20 Bus Linie 1 0.29 MB PDF Aschaffenburg ROB - Obernau - Sulzbach Gültig ab 12.10.20",
-        "valid_from": "2020-10-12",
+        "title": "Umleitungsfahrplan Linie 1 0.29 MB Aschaffenburg ROB - Obernau - Sulzbach Gültig ab 12.10.26 Bus Linie 1 0.29 MB PDF Aschaffenburg ROB - Obernau - Sulzbach Gültig ab 12.10.26",
+        "valid_from": "2026-10-12",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_01_ab_2026_10_12_Umleitung_ffc120627b.pdf"
       },
       {
@@ -59,18 +59,6 @@
     "4": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 4 0.27 MB Aschaffenburg ROB - Schweinheim Gültig 14.09.26 – 09.10.26 Bus Linie 4 0.27 MB PDF Aschaffenburg ROB - Schweinheim Gültig 14.09.26 – 09.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_09_14_Umleitung_cb2c1ed02a.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 4 0.28 MB Aschaffenburg ROB - Schweinheim Gültig 10.10.26 – 11.10.26 Bus Linie 4 0.28 MB PDF Aschaffenburg ROB - Schweinheim Gültig 10.10.26 – 11.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_08_05_Umleitung_9d99a2f845.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 4 0.28 MB Aschaffenburg ROB - Schweinheim Gültig ab 12.10.26 Bus Linie 4 0.28 MB PDF Aschaffenburg ROB - Schweinheim Gültig ab 12.10.26",
         "valid_from": "2026-10-12",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_10_12_Umleitung_f1a17bcd42.pdf"
@@ -83,12 +71,6 @@
       }
     ],
     "5": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 5 0.31 MB Aschaffenburg ROB - Gailbach - Dörrmorsbach Gültig 15.09.26 – 12.10.26 Bus Linie 5 0.31 MB PDF Aschaffenburg ROB - Gailbach - Dörrmorsbach Gültig 15.09.26 – 12.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_05_ab_2026_09_14_Umleitung_31d49b7e8c.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 5 0.30 MB Aschaffenburg ROB - Gailbach - Dörrmorsbach Gültig ab 13.10.26 Bus Linie 5 0.30 MB PDF Aschaffenburg ROB - Gailbach - Dörrmorsbach Gültig ab 13.10.26",
@@ -109,12 +91,6 @@
       }
     ],
     "6": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 6 0.31 MB Aschaffenburg ROB - Nilkheim Gültig 15.09.26 – 11.10.26 Bus Linie 6 0.31 MB PDF Aschaffenburg ROB - Nilkheim Gültig 15.09.26 – 11.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_06_ab_2026_09_15_Umleitung_8f9d0e6671.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 6 0.31 MB Aschaffenburg ROB - Nilkheim Gültig ab 12.10.26 Bus Linie 6 0.31 MB PDF Aschaffenburg ROB - Nilkheim Gültig ab 12.10.26",
@@ -145,12 +121,6 @@
     "8": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 8 0.23 MB Aschaffenburg ROB - Damm Gültig 07.09.26 – 22.10.26 Bus Linie 8 0.23 MB PDF Aschaffenburg ROB - Damm Gültig 07.09.26 – 22.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_08_ab_2026_09_07_Umleitung_20a9333744.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 8 0.22 MB Aschaffenburg ROB - Damm Gültig ab 23.10.26 Bus Linie 8 0.22 MB PDF Aschaffenburg ROB - Damm Gültig ab 23.10.26",
         "valid_from": "2026-10-23",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_08_ab_2026_10_23_Umleitung_a00008ef9a.pdf"
@@ -163,12 +133,6 @@
       }
     ],
     "9": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 9 0.25 MB Aschaffenburg ROB - Damm - Glattbach Gültig 07.09.26 – 22.10.26 Bus Linie 9 0.25 MB PDF Aschaffenburg ROB - Damm - Glattbach Gültig 07.09.26 – 22.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_09_ab_2026_09_07_Umleitung_4c8fb7465e.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 9 0.24 MB Aschaffenburg ROB - Damm - Glattbach Gültig ab 23.10.26 Bus Linie 9 0.24 MB PDF Aschaffenburg ROB - Damm - Glattbach Gültig ab 23.10.26",
@@ -205,18 +169,6 @@
       }
     ],
     "12": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 12 / 16 0.36 MB Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig 31.08.26 – 11.10.26 Bus Linie 12 / 16 0.36 MB PDF Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig 31.08.26 – 11.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_16_ab_2026_08_31_Umleitung_daf8cc0cfb.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 12 0.22 MB Aschaffenburg ROB - Klinikum Gültig 31.08.26 – 11.10.26 Bus Linie 12 0.22 MB PDF Aschaffenburg ROB - Klinikum Gültig 31.08.26 – 11.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_ab_2026_08_31_Umleitung_33e3223772.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 12 / 16 0.36 MB Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig ab 12.10.26 Bus Linie 12 / 16 0.36 MB PDF Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig ab 12.10.26",
@@ -793,6 +745,12 @@
       }
     ],
     "95": [
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 95 0.19 MB Amorbach-Kirchzell-Watterbach-Breitenbuch-Ottorfszell Gültig 26.10.26 – 20.11.26 Bus Linie 95 0.19 MB PDF Amorbach-Kirchzell-Watterbach-Breitenbuch-Ottorfszell Gültig 26.10.26 – 20.11.26",
+        "valid_from": "",
+        "url": "https://vab-cms-prod.japi.dev/uploads/95_261026_Baustelle_cfa6e03df8.pdf"
+      },
       {
         "type": "Regulärer Fahrplan",
         "title": "Linie 95 0.06 MB Amorbach - Kirchzell - Watterbach - Breitenbuch/Ottorfszel Stand 14.12.25 Bus Linie 95 0.06 MB PDF Amorbach - Kirchzell - Watterbach - Breitenbuch/Ottorfszel Stand 14.12.25",
