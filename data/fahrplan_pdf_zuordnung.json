@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T08:33:51+00:00",
+  "generated_at": "2026-10-29T08:29:49+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -403,8 +403,8 @@
     "40": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 40 0.06 MB Aschaffenburg - Haibach - Mespelbrunn - Heimbuchenthal - Dammbach Gültig ab 03.08.26 Bus Linie 40 0.06 MB PDF Aschaffenburg - Haibach - Mespelbrunn - Heimbuchenthal - Dammbach Gültig ab 03.08.26",
-        "valid_from": "2026-08-03",
+        "title": "Umleitungsfahrplan Linie 40 0.06 MB Aschaffenburg - Haibach - Mespelbrunn - Heimbuchenthal - Dammbach Gültig 03.08.26 – 30.10.26 Bus Linie 40 0.06 MB PDF Aschaffenburg - Haibach - Mespelbrunn - Heimbuchenthal - Dammbach Gültig 03.08.26 – 30.10.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/0040_2026_Bau13_1a_7521b01544.pdf"
       },
       {
