@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T09:16:29+00:00",
+  "generated_at": "2026-11-02T09:30:52+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -121,23 +121,29 @@
     "8": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 8 0.22 MB Aschaffenburg ROB - Damm Gültig ab 23.10.26 Bus Linie 8 0.22 MB PDF Aschaffenburg ROB - Damm Gültig ab 23.10.26",
-        "valid_from": "2026-10-23",
+        "title": "Umleitungsfahrplan Linie 8 0.22 MB Aschaffenburg ROB - Damm Gültig 23.10.26 – 02.11.26 Bus Linie 8 0.22 MB PDF Aschaffenburg ROB - Damm Gültig 23.10.26 – 02.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_08_ab_2026_10_23_Umleitung_a00008ef9a.pdf"
       },
       {
-        "type": "Regulärer Fahrplan",
-        "title": "Linie 8 0.23 MB Aschaffenburg ROB - Damm Stand 11.05.26 Bus Linie 8 0.23 MB PDF Aschaffenburg ROB - Damm Stand 11.05.26",
-        "valid_from": "2026-05-11",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_08_ab_2026_05_11_f4c3334443.pdf"
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 8 0.22 MB Aschaffenburg ROB - Damm Gültig ab 03.11.26 Bus Linie 8 0.22 MB PDF Aschaffenburg ROB - Damm Gültig ab 03.11.26",
+        "valid_from": "2026-11-03",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_08_ab_2026_11_03_Umleitung_5c56407a64.pdf"
       }
     ],
     "9": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 9 0.24 MB Aschaffenburg ROB - Damm - Glattbach Gültig ab 23.10.26 Bus Linie 9 0.24 MB PDF Aschaffenburg ROB - Damm - Glattbach Gültig ab 23.10.26",
-        "valid_from": "2026-10-23",
+        "title": "Umleitungsfahrplan Linie 9 0.24 MB Aschaffenburg ROB - Damm - Glattbach Gültig 23.10.26 – 02.11.26 Bus Linie 9 0.24 MB PDF Aschaffenburg ROB - Damm - Glattbach Gültig 23.10.26 – 02.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_09_ab_2026_10_23_Umleitung_a8b199325b.pdf"
+      },
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 9 0.24 MB Aschaffenburg ROB - Damm - Glattbach Gültig ab 03.11.26 Bus Linie 9 0.24 MB PDF Aschaffenburg ROB - Damm - Glattbach Gültig ab 03.11.26",
+        "valid_from": "2026-11-03",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_09_ab_2026_11_03_Umleitung_4454f32c9b.pdf"
       }
     ],
     "10": [
