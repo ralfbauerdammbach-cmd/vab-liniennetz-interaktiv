@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T09:25:22+00:00",
+  "generated_at": "2026-11-07T08:47:52+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -51,12 +51,6 @@
     "3": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 3 0.36 MB Aschaffenburg ROB - Leider - Stockstadt Gültig 12.10.26 – 06.11.26 Bus Linie 3 0.36 MB PDF Aschaffenburg ROB - Leider - Stockstadt Gültig 12.10.26 – 06.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_03_ab_2026_10_12_Umleitung_b6a244adef.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 3 0.36 MB Aschaffenburg ROB - Leider - Stockstadt Gültig ab 07.11.26 Bus Linie 3 0.36 MB PDF Aschaffenburg ROB - Leider - Stockstadt Gültig ab 07.11.26",
         "valid_from": "2026-11-07",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_03_ab_2026_11_07_Umleitung_1390212565.pdf"
@@ -69,12 +63,6 @@
       }
     ],
     "4": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 4 0.28 MB Aschaffenburg ROB - Schweinheim Gültig 12.10.26 – 06.11.26 Bus Linie 4 0.28 MB PDF Aschaffenburg ROB - Schweinheim Gültig 12.10.26 – 06.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_10_12_Umleitung_f1a17bcd42.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 4 0.28 MB Aschaffenburg ROB - Schweinheim Gültig ab 07.11.26 Bus Linie 4 0.28 MB PDF Aschaffenburg ROB - Schweinheim Gültig ab 07.11.26",
@@ -103,12 +91,6 @@
       }
     ],
     "6": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 6 0.31 MB Aschaffenburg ROB - Nilkheim Gültig 12.10.26 – 06.11.26 Bus Linie 6 0.31 MB PDF Aschaffenburg ROB - Nilkheim Gültig 12.10.26 – 06.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_06_ab_2026_10_12_Umleitung_09adc12363.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 6 0.31 MB Aschaffenburg ROB - Nilkheim Gültig ab 07.11.26 Bus Linie 6 0.31 MB PDF Aschaffenburg ROB - Nilkheim Gültig ab 07.11.26",
@@ -193,18 +175,6 @@
       }
     ],
     "12": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 12 / 16 0.36 MB Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig 12.10.26 – 06.11.26 Bus Linie 12 / 16 0.36 MB PDF Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig 12.10.26 – 06.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_16_ab_2026_10_12_Umleitung_4c4e1f7ee4.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 12 0.22 MB Aschaffenburg ROB - Klinikum Gültig 12.10.26 – 06.11.26 Bus Linie 12 0.22 MB PDF Aschaffenburg ROB - Klinikum Gültig 12.10.26 – 06.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_ab_2026_10_12_Umleitung_738e6b0256.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 12 / 16 0.37 MB Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig ab 07.11.26 Bus Linie 12 / 16 0.37 MB PDF Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig ab 07.11.26",
