@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T08:59:56+00:00",
+  "generated_at": "2026-11-09T09:48:45+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -23,12 +23,6 @@
       }
     ],
     "2": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 2 0.25 MB Aschaffenburg ROB - Strietwald Gültig 14.09.26 – 08.11.26 Bus Linie 2 0.25 MB PDF Aschaffenburg ROB - Strietwald Gültig 14.09.26 – 08.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_02_ab_2026_09_14_Umleitung_6be9b06aed.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 2 0.25 MB Aschaffenburg ROB - Strietwald Gültig ab 09.11.26 Bus Linie 2 0.25 MB PDF Aschaffenburg ROB - Strietwald Gültig ab 09.11.26",
@@ -121,24 +115,12 @@
     "8": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 8 0.22 MB Aschaffenburg ROB - Damm Gültig 03.11.26 – 08.11.26 Bus Linie 8 0.22 MB PDF Aschaffenburg ROB - Damm Gültig 03.11.26 – 08.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_08_ab_2026_11_03_Umleitung_5c56407a64.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 8 0.22 MB Aschaffenburg ROB - Damm Gültig ab 09.11.26 Bus Linie 8 0.22 MB PDF Aschaffenburg ROB - Damm Gültig ab 09.11.26",
         "valid_from": "2026-11-09",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_08_ab_2026_11_09_Umleitung_06f67fb8dc.pdf"
       }
     ],
     "9": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 9 0.24 MB Aschaffenburg ROB - Damm - Glattbach Gültig 03.11.26 – 08.11.26 Bus Linie 9 0.24 MB PDF Aschaffenburg ROB - Damm - Glattbach Gültig 03.11.26 – 08.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_09_ab_2026_11_03_Umleitung_4454f32c9b.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 9 0.25 MB Aschaffenburg ROB - Damm - Glattbach Gültig ab 09.11.26 Bus Linie 9 0.25 MB PDF Aschaffenburg ROB - Damm - Glattbach Gültig ab 09.11.26",
@@ -155,12 +137,6 @@
       }
     ],
     "11": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 11 0.24 MB Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Gültig 07.09.26 – 08.11.26 Bus Linie 11 0.24 MB PDF Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Gültig 07.09.26 – 08.11.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_11_ab_2026_09_07_Umleitung_7bfb53e32b.pdf"
-      },
       {
         "type": "Umleitungsfahrplan",
         "title": "Umleitungsfahrplan Linie 11 0.27 MB Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Gültig ab 09.11.26 Bus Linie 11 0.27 MB PDF Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Gültig ab 09.11.26",
