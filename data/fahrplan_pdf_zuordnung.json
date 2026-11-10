@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-09T09:48:45+00:00",
+  "generated_at": "2026-11-10T09:51:28+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 1 0.29 MB Aschaffenburg ROB - Obernau - Sulzbach Gültig ab 12.10.26 Bus Linie 1 0.29 MB PDF Aschaffenburg ROB - Obernau - Sulzbach Gültig ab 12.10.26",
-        "valid_from": "2026-10-12",
+        "title": "Umleitungsfahrplan Linie 1 0.29 MB Aschaffenburg ROB - Obernau - Sulzbach Gültig 12.10.26 – 10.11.26 Bus Linie 1 0.29 MB PDF Aschaffenburg ROB - Obernau - Sulzbach Gültig 12.10.26 – 10.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_01_ab_2026_10_12_Umleitung_ffc120627b.pdf"
       },
       {
@@ -34,19 +34,13 @@
         "title": "Linie 2 0.20 MB AST Aschaffenburg ROB - Strietwald Nordfriedhof Stand 11.05.26 Bedarfsverkehr Linie 2 0.20 MB PDF AST Aschaffenburg ROB - Strietwald Nordfriedhof Stand 11.05.26",
         "valid_from": "2026-05-11",
         "url": "https://vab-cms-prod.japi.dev/uploads/AST_Linie_02_ab_2026_05_11_bd76ebcef2.pdf"
-      },
-      {
-        "type": "Regulärer Fahrplan",
-        "title": "Linie 2 0.26 MB Aschaffenburg ROB - Strietwald Stand 11.05.26 Bus Linie 2 0.26 MB PDF Aschaffenburg ROB - Strietwald Stand 11.05.26",
-        "valid_from": "2026-05-11",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_02_ab_2026_05_11_61ac6796ab.pdf"
       }
     ],
     "3": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 3 0.36 MB Aschaffenburg ROB - Leider - Stockstadt Gültig ab 07.11.26 Bus Linie 3 0.36 MB PDF Aschaffenburg ROB - Leider - Stockstadt Gültig ab 07.11.26",
-        "valid_from": "2026-11-07",
+        "title": "Umleitungsfahrplan Linie 3 0.36 MB Aschaffenburg ROB - Leider - Stockstadt Gültig 07.11.26 – 10.11.26 Bus Linie 3 0.36 MB PDF Aschaffenburg ROB - Leider - Stockstadt Gültig 07.11.26 – 10.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_03_ab_2026_11_07_Umleitung_1390212565.pdf"
       },
       {
@@ -59,15 +53,15 @@
     "4": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 4 0.28 MB Aschaffenburg ROB - Schweinheim Gültig ab 07.11.26 Bus Linie 4 0.28 MB PDF Aschaffenburg ROB - Schweinheim Gültig ab 07.11.26",
-        "valid_from": "2026-11-07",
+        "title": "Umleitungsfahrplan Linie 4 0.28 MB Aschaffenburg ROB - Schweinheim Gültig 07.11.26 – 10.11.26 Bus Linie 4 0.28 MB PDF Aschaffenburg ROB - Schweinheim Gültig 07.11.26 – 10.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_11_07_Umleitung_62e3e56f0d.pdf"
       },
       {
-        "type": "Regulärer Fahrplan",
-        "title": "Linie 4 0.29 MB Aschaffenburg ROB - Schweinheim Stand 11.05.26 Bus Linie 4 0.29 MB PDF Aschaffenburg ROB - Schweinheim Stand 11.05.26",
-        "valid_from": "2026-05-11",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_05_11_7698248316.pdf"
+        "type": "Umleitungsfahrplan",
+        "title": "Linie 4 0.29 MB Aschaffenburg ROB - Schweinheim Stand 11.11.26 Bus Linie 4 0.29 MB PDF Aschaffenburg ROB - Schweinheim Stand 11.11.26",
+        "valid_from": "2026-11-11",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_04_ab_2026_11_11_Umleitung_50ff00d6f7.pdf"
       }
     ],
     "5": [
@@ -87,8 +81,8 @@
     "6": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 6 0.31 MB Aschaffenburg ROB - Nilkheim Gültig ab 07.11.26 Bus Linie 6 0.31 MB PDF Aschaffenburg ROB - Nilkheim Gültig ab 07.11.26",
-        "valid_from": "2026-11-07",
+        "title": "Umleitungsfahrplan Linie 6 0.31 MB Aschaffenburg ROB - Nilkheim Gültig 07.11.26 – 10.11.26 Bus Linie 6 0.31 MB PDF Aschaffenburg ROB - Nilkheim Gültig 07.11.26 – 10.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_06_ab_2026_11_07_Umleitung_c722c227f6.pdf"
       },
       {
@@ -131,9 +125,15 @@
     "10": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 10 0.30 MB Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig ab 12.10.26 Bus Linie 10 0.30 MB PDF Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig ab 12.10.26",
-        "valid_from": "2026-10-12",
+        "title": "Umleitungsfahrplan Linie 10 0.30 MB Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig 12.10.26 – 10.11.26 Bus Linie 10 0.30 MB PDF Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig 12.10.26 – 10.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_10_ab_2026_10_12_Umleitung_0323e387e5.pdf"
+      },
+      {
+        "type": "Umleitungsfahrplan",
+        "title": "Umleitungsfahrplan Linie 10 0.30 MB Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig ab 11.05.26 Bus Linie 10 0.30 MB PDF Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig ab 11.05.26",
+        "valid_from": "2026-05-11",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_10_ab_2026_05_11_Umleitung_363bd163b3.pdf"
       }
     ],
     "11": [
@@ -142,25 +142,19 @@
         "title": "Umleitungsfahrplan Linie 11 0.27 MB Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Gültig ab 09.11.26 Bus Linie 11 0.27 MB PDF Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Gültig ab 09.11.26",
         "valid_from": "2026-11-09",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_11_ab_2026_11_09_Umleitung_8498397512.pdf"
-      },
-      {
-        "type": "Regulärer Fahrplan",
-        "title": "Linie 11 0.25 MB Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Stand 11.05.26 Bus Linie 11 0.25 MB PDF Aschaffenburg ROB - Strietwald Industrie Handwerkskammer Stand 11.05.26",
-        "valid_from": "2026-05-11",
-        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_11_ab_2026_05_11_366a36b4ec.pdf"
       }
     ],
     "12": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 12 / 16 0.37 MB Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig ab 07.11.26 Bus Linie 12 / 16 0.37 MB PDF Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig ab 07.11.26",
-        "valid_from": "2026-11-07",
+        "title": "Umleitungsfahrplan Linie 12 / 16 0.37 MB Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig 07.11.26 – 10.11.26 Bus Linie 12 / 16 0.37 MB PDF Aschaffenburg ROB – Klinikum – Haibach – Grünmorsbach Gültig 07.11.26 – 10.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_16_ab_2026_11_07_Umleitung_686cb1017c.pdf"
       },
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 12 0.23 MB Aschaffenburg ROB - Klinikum Gültig ab 07.11.26 Bus Linie 12 0.23 MB PDF Aschaffenburg ROB - Klinikum Gültig ab 07.11.26",
-        "valid_from": "2026-11-07",
+        "title": "Umleitungsfahrplan Linie 12 0.23 MB Aschaffenburg ROB - Klinikum Gültig 07.11.26 – 10.11.26 Bus Linie 12 0.23 MB PDF Aschaffenburg ROB - Klinikum Gültig 07.11.26 – 10.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_12_ab_2026_11_07_Umleitung_f9673e62e3.pdf"
       },
       {
