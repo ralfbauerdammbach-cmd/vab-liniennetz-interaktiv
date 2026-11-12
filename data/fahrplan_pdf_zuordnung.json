@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T09:27:01+00:00",
+  "generated_at": "2026-11-12T09:51:01+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -205,9 +205,9 @@
     "24": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 24 0.04 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 23.10.26 Bus Linie 24 0.04 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 23.10.26",
-        "valid_from": "2026-10-23",
-        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_Bau_Aschaffbruecke_df917224c1.pdf"
+        "title": "Umleitungsfahrplan Linie 24 0.04 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 09.11.26 Bus Linie 24 0.04 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 09.11.26",
+        "valid_from": "2026-11-09",
+        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_Bau_Aschaffbruecke_1dca16396f.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
@@ -219,9 +219,9 @@
     "25": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 12.10.26 – 20.11.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 12.10.26 – 20.11.26",
+        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 09.11.26 – 06.12.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 09.11.26 – 06.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_N_stb_Dyroff_db89a6401b.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_Niedersteinbach_e693edf2fd.pdf"
       }
     ],
     "26": [
@@ -323,12 +323,6 @@
       }
     ],
     "40": [
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 40 0.06 MB Aschaffenburg - Haibach - Mespelbrunn - Heimbuchenthal - Dammbach Gültig 03.08.26 – 30.10.26 Bus Linie 40 0.06 MB PDF Aschaffenburg - Haibach - Mespelbrunn - Heimbuchenthal - Dammbach Gültig 03.08.26 – 30.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/0040_2026_Bau13_1a_7521b01544.pdf"
-      },
       {
         "type": "Regulärer Fahrplan",
         "title": "Linie 40 0.05 MB Aschaffenburg - Haibach - Mespelbrunn - Heimbuchenthal - Dammbach Stand 14.12.25 Bus Linie 40 0.05 MB PDF Aschaffenburg - Haibach - Mespelbrunn - Heimbuchenthal - Dammbach Stand 14.12.25",
@@ -474,16 +468,10 @@
     ],
     "64": [
       {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 64 0.23 MB Hessenthal-Krausenbach-Neuhammer-Eschau-Elsenfeld Gültig 15.09.26 – 16.10.26 Bus Linie 64 0.23 MB PDF Hessenthal-Krausenbach-Neuhammer-Eschau-Elsenfeld Gültig 15.09.26 – 16.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/64_Baustelle_Dammbach_ab_15_09_2026_cfb40dca78.pdf"
-      },
-      {
         "type": "Regulärer Fahrplan",
-        "title": "Linie 64 0.23 MB Hessenthal-Krausenbach-Neuhammer-Eschau-Elsenfeld Stand 14.12.25 Bus Linie 64 0.23 MB PDF Hessenthal-Krausenbach-Neuhammer-Eschau-Elsenfeld Stand 14.12.25",
-        "valid_from": "2025-12-14",
-        "url": "https://vab-cms-prod.japi.dev/uploads/64_364d07a5e5.pdf"
+        "title": "Linie 64 0.23 MB Hessenthal-Krausenbach-Neuhammer-Eschau-Elsenfeld Stand 31.10.26 Bus Linie 64 0.23 MB PDF Hessenthal-Krausenbach-Neuhammer-Eschau-Elsenfeld Stand 31.10.26",
+        "valid_from": "2026-10-31",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_64_ab_31_10_2026_697d4bb9b1.pdf"
       }
     ],
     "65": [
