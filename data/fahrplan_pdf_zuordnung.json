@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T09:51:01+00:00",
+  "generated_at": "2026-11-13T09:31:29+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -205,9 +205,9 @@
     "24": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 24 0.04 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 09.11.26 Bus Linie 24 0.04 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 09.11.26",
-        "valid_from": "2026-11-09",
-        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_Bau_Aschaffbruecke_1dca16396f.pdf"
+        "title": "Umleitungsfahrplan Linie 24 0.04 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 11.12.26 Bus Linie 24 0.04 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 11.12.26",
+        "valid_from": "2026-12-11",
+        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_Bau_Aschaffbruecke_12_11_e675f26c70.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
