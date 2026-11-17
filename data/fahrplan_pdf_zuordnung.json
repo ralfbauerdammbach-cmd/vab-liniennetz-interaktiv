@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T09:45:16+00:00",
+  "generated_at": "2026-11-17T10:44:41+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -803,25 +803,25 @@
     "BG1": [
       {
         "type": "Regulärer Fahrplan",
-        "title": "Linie BG 1 0.50 MB Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25 Bus Linie BG 1 0.50 MB PDF Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25",
+        "title": "Linie BG 1 0.52 MB Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25 Bus Linie BG 1 0.52 MB PDF Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25",
         "valid_from": "2025-12-14",
-        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_65910f67ca.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_38a6ab65c7.pdf"
       }
     ],
     "BG2": [
       {
         "type": "Regulärer Fahrplan",
-        "title": "Linie BG 1 0.50 MB Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25 Bus Linie BG 1 0.50 MB PDF Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25",
+        "title": "Linie BG 1 0.52 MB Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25 Bus Linie BG 1 0.52 MB PDF Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25",
         "valid_from": "2025-12-14",
-        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_65910f67ca.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_38a6ab65c7.pdf"
       }
     ],
     "BG3": [
       {
         "type": "Regulärer Fahrplan",
-        "title": "Linie BG 1 0.50 MB Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25 Bus Linie BG 1 0.50 MB PDF Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25",
+        "title": "Linie BG 1 0.52 MB Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25 Bus Linie BG 1 0.52 MB PDF Kleinwallstadt-Niedernberg-Großostheim-Schaafheim-Babenhausen-Rodgau-Dudenhofen Stand 14.12.25",
         "valid_from": "2025-12-14",
-        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_65910f67ca.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/BG_1_130726_38a6ab65c7.pdf"
       }
     ]
   }
