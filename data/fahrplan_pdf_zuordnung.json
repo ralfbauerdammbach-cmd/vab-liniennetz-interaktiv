@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T10:10:39+00:00",
+  "generated_at": "2026-11-19T10:21:39+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -219,7 +219,7 @@
     "25": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 09.11.26 – 06.12.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 09.11.26 – 06.12.26",
+        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 09.11.26 – 18.12.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 09.11.26 – 18.12.26",
         "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_Niedersteinbach_e693edf2fd.pdf"
       }
@@ -257,7 +257,7 @@
     "29": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 29 0.03 MB Linie 29 Krombach-Schöllkrippen Gültig 05.10.26 – 06.12.26 Bus Linie 29 0.03 MB PDF Linie 29 Krombach-Schöllkrippen Gültig 05.10.26 – 06.12.26",
+        "title": "Umleitungsfahrplan Linie 29 0.03 MB Linie 29 Krombach-Schöllkrippen Gültig 05.10.26 – 18.12.26 Bus Linie 29 0.03 MB PDF Linie 29 Krombach-Schöllkrippen Gültig 05.10.26 – 18.12.26",
         "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/29_beide_2026_Bau_Niedersteinbach_9d2b495f5e.pdf"
       }
@@ -265,7 +265,7 @@
     "29 S": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 29S 0.04 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 06.12.26 Bus Linie 29S 0.04 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 06.12.26",
+        "title": "Umleitungsfahrplan Linie 29S 0.04 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 18.12.26 Bus Linie 29S 0.04 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 18.12.26",
         "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_Niedersteinbach_d86779dc68.pdf"
       }
@@ -273,7 +273,7 @@
     "29S": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 29S 0.04 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 06.12.26 Bus Linie 29S 0.04 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 06.12.26",
+        "title": "Umleitungsfahrplan Linie 29S 0.04 MB Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 18.12.26 Bus Linie 29S 0.04 MB PDF Schöllkrippen - Geiselbach - Krombach - Blankenbach Gültig 05.10.26 – 18.12.26",
         "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/29_S_beide_2026_Bau_Niedersteinbach_d86779dc68.pdf"
       }
@@ -281,15 +281,9 @@
     "30": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 30 0.04 MB Schöllkrippen - Westerngrund - Gelnhausen - Bernbach - Somborn Gültig 05.10.26 – 06.12.26 Bus Linie 30 0.04 MB PDF Schöllkrippen - Westerngrund - Gelnhausen - Bernbach - Somborn Gültig 05.10.26 – 06.12.26",
+        "title": "Umleitungsfahrplan Linie 30 0.04 MB Schöllkrippen - Westerngrund - Gelnhausen - Bernbach - Somborn Gültig 05.10.26 – 18.12.26 Bus Linie 30 0.04 MB PDF Schöllkrippen - Westerngrund - Gelnhausen - Bernbach - Somborn Gültig 05.10.26 – 18.12.26",
         "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/30_beide_2026_Bau_Niedersteinbach_42050557da.pdf"
-      },
-      {
-        "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 30 0.04 MB Schöllkrippen-Westerngrund-Gelnhausen-Somborn Gültig 08.09.26 – 04.10.26 Bus Linie 30 0.04 MB PDF Schöllkrippen-Westerngrund-Gelnhausen-Somborn Gültig 08.09.26 – 04.10.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/30_beide_2026_Bau_Luetzelhausen_d2b84503b3.pdf"
       }
     ],
     "31": [
@@ -657,9 +651,9 @@
     "95": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 95 0.19 MB Amorbach-Kirchzell-Watterbach-Breitenbuch-Ottorfszell Gültig 26.10.26 – 20.11.26 Bus Linie 95 0.19 MB PDF Amorbach-Kirchzell-Watterbach-Breitenbuch-Ottorfszell Gültig 26.10.26 – 20.11.26",
+        "title": "Umleitungsfahrplan Linie 95 0.12 MB Amorbach-Kirchzell-Watterbach-Breitenbuch-Ottorfszell Gültig 26.10.26 – 04.12.26 Bus Linie 95 0.12 MB PDF Amorbach-Kirchzell-Watterbach-Breitenbuch-Ottorfszell Gültig 26.10.26 – 04.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/95_261026_Baustelle_cfa6e03df8.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/95_261026_Baustelle_12e89bedd8.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
