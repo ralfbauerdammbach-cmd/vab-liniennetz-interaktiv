@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T10:46:33+00:00",
+  "generated_at": "2026-11-24T12:29:41+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -155,29 +155,29 @@
     "20": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 07.09.26 – 20.11.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 07.09.26 – 20.11.26",
+        "title": "Umleitungsfahrplan Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 24.11.26 – 16.12.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 24.11.26 – 16.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_Bau_Ludwigstrasse_2ac8ec0671.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_Bau_Ludwigstrasse_e330773765.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
-        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 27.06.26 – 07.09.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 27.06.26 – 07.09.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_ab_260627_8a0c3a01ad.pdf"
+        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 14.12.25 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 14.12.25",
+        "valid_from": "2025-12-14",
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_3375e5ce1d.pdf"
       }
     ],
     "20RMV": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 07.09.26 – 20.11.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 07.09.26 – 20.11.26",
+        "title": "Umleitungsfahrplan Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 24.11.26 – 16.12.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 24.11.26 – 16.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_Bau_Ludwigstrasse_2ac8ec0671.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_Bau_Ludwigstrasse_e330773765.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
-        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 27.06.26 – 07.09.26 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Gültig 27.06.26 – 07.09.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_ab_260627_8a0c3a01ad.pdf"
+        "title": "Linie 20 0.05 MB Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 14.12.25 Bus Linie 20 0.05 MB PDF Aschaffenburg - Goldbach - Hösbach - Feldkahl -Sommerkahl - Schöllkrippen Stand 14.12.25",
+        "valid_from": "2025-12-14",
+        "url": "https://vab-cms-prod.japi.dev/uploads/20_beide_2026_3375e5ce1d.pdf"
       }
     ],
     "21": [
@@ -191,9 +191,9 @@
     "23": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 23 0.04 MB Brücken-Mömbris-Feldkahl-Hösbach-Aschaffenburg Gültig 07.09.26 – 20.11.26 Bus Linie 23 0.04 MB PDF Brücken-Mömbris-Feldkahl-Hösbach-Aschaffenburg Gültig 07.09.26 – 20.11.26",
+        "title": "Umleitungsfahrplan Linie 23 0.04 MB Brücken-Mömbris-Feldkahl-Hösbach-Aschaffenburg Gültig 24.11.26 – 16.12.26 Bus Linie 23 0.04 MB PDF Brücken-Mömbris-Feldkahl-Hösbach-Aschaffenburg Gültig 24.11.26 – 16.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/23_beide_2026_Bau_Ludwigstrasse_a3ba474a14.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/23_beide_2026_Bau_Ludwigstrasse_e6a44db034.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
@@ -205,9 +205,9 @@
     "24": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 24 0.04 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 11.12.26 Bus Linie 24 0.04 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 11.12.26",
-        "valid_from": "2026-12-11",
-        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_Bau_Aschaffbruecke_12_11_e675f26c70.pdf"
+        "title": "Umleitungsfahrplan Linie 24 0.04 MB Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 24.11.26 Bus Linie 24 0.04 MB PDF Aschaffenburg - Steinbach - Oberafferbach - Breunsberg - Daxberg Gültig ab 24.11.26",
+        "valid_from": "2026-11-24",
+        "url": "https://vab-cms-prod.japi.dev/uploads/24_beide_2026_Daxberg_offen_63da2bdbd5.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
@@ -219,17 +219,17 @@
     "25": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 09.11.26 – 18.12.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 09.11.26 – 18.12.26",
+        "title": "Umleitungsfahrplan Linie 25 0.05 MB Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 24.11.26 – 18.12.26 Bus Linie 25 0.05 MB PDF Aschaffenburg - Johannesberg - Mömbris - Geiselbach - Schöllkrippen Gültig 24.11.26 – 18.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_Niedersteinbach_e693edf2fd.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/25_beide_2026_Bau_Niedersteinbach_4856d49f07.pdf"
       }
     ],
     "26": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 26 0.04 MB Hemsbach - Mömbris - Rappach/Klinger - Hohl - Gunzenbach - Oberafferbach Gültig 05.10.26 – 06.12.26 Bus Linie 26 0.04 MB PDF Hemsbach - Mömbris - Rappach/Klinger - Hohl - Gunzenbach - Oberafferbach Gültig 05.10.26 – 06.12.26",
-        "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/26_beide_2026_Bau_Niedersteinbach_443a15dd56.pdf"
+        "title": "Umleitungsfahrplan Linie 26 0.04 MB Hemsbach - Mömbris - Rappach/Klinger - Hohl - Gunzenbach - Oberafferbach Gültig ab 24.11.26 Bus Linie 26 0.04 MB PDF Hemsbach - Mömbris - Rappach/Klinger - Hohl - Gunzenbach - Oberafferbach Gültig ab 24.11.26",
+        "valid_from": "2026-11-24",
+        "url": "https://vab-cms-prod.japi.dev/uploads/26_beide_24_11_2026_Bau_Niedersteinbach_ab_261124_7be351f36d.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
@@ -305,9 +305,9 @@
     "33": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 33 0.03 MB Kahlgrundexpress Schöllkrippen-Aschaffenburg Gültig 07.09.26 – 20.11.26 Bus Linie 33 0.03 MB PDF Kahlgrundexpress Schöllkrippen-Aschaffenburg Gültig 07.09.26 – 20.11.26",
+        "title": "Umleitungsfahrplan Linie 33 0.03 MB Kahlgrundexpress Schöllkrippen-Aschaffenburg Gültig 24.11.26 – 16.12.26 Bus Linie 33 0.03 MB PDF Kahlgrundexpress Schöllkrippen-Aschaffenburg Gültig 24.11.26 – 16.12.26",
         "valid_from": "",
-        "url": "https://vab-cms-prod.japi.dev/uploads/33_beide_Bau_Ludwigstrasse_0cdf9ffba3.pdf"
+        "url": "https://vab-cms-prod.japi.dev/uploads/33_beide_Bau_Ludwigstrasse_261b9cf655.pdf"
       },
       {
         "type": "Regulärer Fahrplan",
