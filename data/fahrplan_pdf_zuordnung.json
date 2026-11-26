@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T11:18:41+00:00",
+  "generated_at": "2026-11-26T10:54:37+00:00",
   "source": "https://www.vab-info.de/downloads",
   "lines": {
     "1": [
@@ -101,9 +101,15 @@
     "10": [
       {
         "type": "Umleitungsfahrplan",
-        "title": "Umleitungsfahrplan Linie 10 0.30 MB Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig ab 11.05.26 Bus Linie 10 0.30 MB PDF Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig ab 11.05.26",
-        "valid_from": "2026-05-11",
+        "title": "Umleitungsfahrplan Linie 10 0.30 MB Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig 11.05.26 – 27.11.26 Bus Linie 10 0.30 MB PDF Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Gültig 11.05.26 – 27.11.26",
+        "valid_from": "",
         "url": "https://vab-cms-prod.japi.dev/uploads/Linie_10_ab_2026_05_11_Umleitung_363bd163b3.pdf"
+      },
+      {
+        "type": "Regulärer Fahrplan",
+        "title": "Linie 10 0.30 MB Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Stand 28.11.26 Bus Linie 10 0.30 MB PDF Aschaffenburg ROB - Schweinheim Gäßpfad / Schweinheimer Höhe - Schweinheim Steubenstr. Stand 28.11.26",
+        "valid_from": "2026-11-28",
+        "url": "https://vab-cms-prod.japi.dev/uploads/Linie_10_ab_2026_11_28_81b20515bb.pdf"
       }
     ],
     "11": [
